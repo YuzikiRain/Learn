@@ -26,3 +26,10 @@ D:\WorkProject\LeetCode\LeetCode_Qinyu\obj\Debug\LeetCode_Qinyu.csprojAssemblyRe
 D:\WorkProject\LeetCode\LeetCode_Qinyu\obj\Debug\LeetCode_Qinyu.csproj.CoreCompileInputs.cache
 D:\WorkProject\LeetCode\LeetCode_Qinyu\obj\Debug\LeetCode_Qinyu.exe
 D:\WorkProject\LeetCode\LeetCode_Qinyu\obj\Debug\LeetCode_Qinyu.pdb
+D:\Learn\Code\LeetCode\LeetCode_Qinyu\bin\Debug\LeetCode_Qinyu.exe.config
+D:\Learn\Code\LeetCode\LeetCode_Qinyu\bin\Debug\LeetCode_Qinyu.exe
+D:\Learn\Code\LeetCode\LeetCode_Qinyu\bin\Debug\LeetCode_Qinyu.pdb
+D:\Learn\Code\LeetCode\LeetCode_Qinyu\obj\Debug\LeetCode_Qinyu.csprojAssemblyReference.cache
+D:\Learn\Code\LeetCode\LeetCode_Qinyu\obj\Debug\LeetCode_Qinyu.csproj.CoreCompileInputs.cache
+D:\Learn\Code\LeetCode\LeetCode_Qinyu\obj\Debug\LeetCode_Qinyu.exe
+D:\Learn\Code\LeetCode\LeetCode_Qinyu\obj\Debug\LeetCode_Qinyu.pdb

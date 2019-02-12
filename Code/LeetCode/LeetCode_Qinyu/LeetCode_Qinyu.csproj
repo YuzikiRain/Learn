@@ -48,6 +48,7 @@
     <Compile Include="CountingBits338\CountingBits338.cs" />
     <Compile Include="DeleteNode\DeleteNode.cs" />
     <Compile Include="ImplementQueueUsingStacks_232\ImplementQueueUsingStacks.cs" />
+    <Compile Include="MaximumDepthOfBinaryTree_104\MaximumDepthOfBinaryTree.cs" />
     <Compile Include="NaryTreePreoderTraversal\NaryTreePreoderTraversal.cs" />
     <Compile Include="HasAlternatingBits\HasAlternatingBits.cs" />
     <Compile Include="Permutations46\Permutations.cs" />
