@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="CountingBits338\CountingBits338.cs" />
     <Compile Include="DeleteNode\DeleteNode.cs" />
+    <Compile Include="Fizz Buzz_412\FizzBuzz.cs" />
     <Compile Include="ImplementQueueUsingStacks_232\ImplementQueueUsingStacks.cs" />
     <Compile Include="MaximumDepthOfBinaryTree_104\MaximumDepthOfBinaryTree.cs" />
     <Compile Include="NaryTreePreoderTraversal\NaryTreePreoderTraversal.cs" />

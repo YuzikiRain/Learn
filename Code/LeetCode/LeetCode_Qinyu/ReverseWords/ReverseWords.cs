@@ -11,10 +11,7 @@ namespace LeetCode_Qinyu.ReverseWords
         public void Test()
         {
             string test = "Let's take LeetCode contest";
-
             Console.Write($"{ReverseWords(test)}");
-
-            //Console.ReadLine();
         }
 
         public string ReverseWords(string s)

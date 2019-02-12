@@ -1,8 +1,8 @@
 ﻿namespace LeetCode_Qinyu.ReverseString_344
 {
-    class Test
+    class ReverseString_344
     {
-        public Test()
+        public void Test()
         {
             ReverseString("hello".ToCharArray());
         }
