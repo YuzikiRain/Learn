@@ -1,4 +1,6 @@
-﻿namespace LeetCode_Qinyu.ReverseString_344
+﻿using System;
+
+namespace LeetCode_Qinyu.ReverseString_344
 {
     class ReverseString_344
     {

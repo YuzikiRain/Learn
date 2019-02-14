@@ -56,6 +56,7 @@
     <Compile Include="ReverseLinkedList_206\ReverseLinkedList_206.cs" />
     <Compile Include="ReverseLinkedList_92\ReverseLinkedList_92.cs" />
     <Compile Include="ReverseString_344\ReverseString.cs" />
+    <Compile Include="RotateArray_189\RotateArray_189.cs" />
     <Compile Include="ShortestToChar\ShortestToChar.cs" />
     <Compile Include="TitleToNumber\TitleToNumber.cs" />
     <Compile Include="MaxDepthOfNAryTree\MaxDepthOfNAryTree.cs" />

@@ -5,7 +5,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        var test = new LeetCode_Qinyu.ReverseLinkedList_92.ReverseLinkedList_92();
+        var test = new LeetCode_Qinyu.RotateArray_189.RotateArray_189();
         test.Test();
 
         Console.ReadLine();
