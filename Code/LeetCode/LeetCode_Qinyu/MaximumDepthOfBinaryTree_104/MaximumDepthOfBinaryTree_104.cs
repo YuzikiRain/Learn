@@ -1,6 +1,6 @@
 ﻿namespace LeetCode_Qinyu.MaximumDepthOfBinaryTree_104
 {
-    class MaximumDepthOfBinaryTree
+    class MaximumDepthOfBinaryTree_104
     {
         public void Test()
         {

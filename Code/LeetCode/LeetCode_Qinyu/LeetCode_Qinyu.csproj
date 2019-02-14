@@ -49,11 +49,12 @@
     <Compile Include="DeleteNode\DeleteNode.cs" />
     <Compile Include="Fizz Buzz_412\FizzBuzz.cs" />
     <Compile Include="ImplementQueueUsingStacks_232\ImplementQueueUsingStacks.cs" />
-    <Compile Include="MaximumDepthOfBinaryTree_104\MaximumDepthOfBinaryTree.cs" />
+    <Compile Include="MaximumDepthOfBinaryTree_104\MaximumDepthOfBinaryTree_104.cs" />
     <Compile Include="NaryTreePreoderTraversal\NaryTreePreoderTraversal.cs" />
     <Compile Include="HasAlternatingBits\HasAlternatingBits.cs" />
     <Compile Include="Permutations46\Permutations.cs" />
-    <Compile Include="ReverseLinkedList_206\ReverseLinkedList.cs" />
+    <Compile Include="ReverseLinkedList_206\ReverseLinkedList_206.cs" />
+    <Compile Include="ReverseLinkedList_92\ReverseLinkedList_92.cs" />
     <Compile Include="ReverseString_344\ReverseString.cs" />
     <Compile Include="ShortestToChar\ShortestToChar.cs" />
     <Compile Include="TitleToNumber\TitleToNumber.cs" />

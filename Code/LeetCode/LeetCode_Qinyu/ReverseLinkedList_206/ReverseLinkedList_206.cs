@@ -9,22 +9,23 @@ namespace LeetCode_Qinyu.ReverseLinkedList_206
         public ListNode(int x) { val = x; }
     }
 
-    class ReverseLinkedList
+    class ReverseLinkedList_206
     {
         public void Test()
         {
-            ListNode current = new ListNode(1);
-            current.next = new ListNode(2);
-            current.next.next = new ListNode(3);
-            current.next.next.next = new ListNode(4);
-            current.next.next.next.next = new ListNode(5);
+            ListNode head = new ListNode(1);
+            head.next = new ListNode(2);
+            head.next.next = new ListNode(3);
+            head.next.next.next = new ListNode(4);
+            head.next.next.next.next = new ListNode(5);
 
-            var head = ReverseList(current);
+            head = ReverseList(head);
             while (head != null)
             {
                 Console.WriteLine(head.val);
                 head = head.next;
             }
+
         }
 
         #region by iteration
