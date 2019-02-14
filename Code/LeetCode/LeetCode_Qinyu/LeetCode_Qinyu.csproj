@@ -53,6 +53,7 @@
     <Compile Include="NaryTreePreoderTraversal\NaryTreePreoderTraversal.cs" />
     <Compile Include="HasAlternatingBits\HasAlternatingBits.cs" />
     <Compile Include="Permutations46\Permutations.cs" />
+    <Compile Include="ReverseLinkedList_206\ReverseLinkedList.cs" />
     <Compile Include="ReverseString_344\ReverseString.cs" />
     <Compile Include="ShortestToChar\ShortestToChar.cs" />
     <Compile Include="TitleToNumber\TitleToNumber.cs" />

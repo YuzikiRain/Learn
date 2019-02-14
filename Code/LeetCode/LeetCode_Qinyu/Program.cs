@@ -5,7 +5,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        var test = new LeetCode_Qinyu.Fizz_Buzz_412.FizzBuzz_412();
+        var test = new LeetCode_Qinyu.ReverseLinkedList_206.ReverseLinkedList();
         test.Test();
 
         Console.ReadLine();
