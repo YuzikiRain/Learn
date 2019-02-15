@@ -56,6 +56,7 @@
     <Compile Include="ReverseLinkedList_206\ReverseLinkedList_206.cs" />
     <Compile Include="ReverseLinkedList_92\ReverseLinkedList_92.cs" />
     <Compile Include="ReverseString_344\ReverseString.cs" />
+    <Compile Include="ReverseWordsInAString_151\ReverseWordsInAString_151.cs" />
     <Compile Include="RotateArray_189\RotateArray_189.cs" />
     <Compile Include="ShortestToChar\ShortestToChar.cs" />
     <Compile Include="TitleToNumber\TitleToNumber.cs" />
@@ -63,7 +64,7 @@
     <Compile Include="Transpose\Transpose.cs" />
     <Compile Include="SelfDividingNumbers\SelfDividingNumbers.cs" />
     <Compile Include="KeyboardRow\KeyboardRow.cs" />
-    <Compile Include="ReverseWordsInAString_557\ReverseWords.cs" />
+    <Compile Include="ReverseWordsInAString_557\ReverseWords_557.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
