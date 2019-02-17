@@ -15,10 +15,12 @@
 ### 委托，事件，接口
 ### Unity基本函数
 ### fixedupdate用处，什么情况下用
+
 ### awake函数功能
 调用顺序比start更早一些,且start需要在脚本enable=true时才会被调用，awake则是总会调用。  
 用例：在Awake中进行角色的武器设置，在Start中根据脚本是否enable设置角色是否可以开火。
 ### 协程
+已总结
 ### 资源优化
 ### 3d数学
 ### GC
