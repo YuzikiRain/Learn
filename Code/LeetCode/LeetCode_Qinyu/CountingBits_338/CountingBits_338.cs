@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeetCode_Qinyu.CountingBits338
+namespace LeetCode_Qinyu.CountingBits_338
 {
-    class CountingBits338
+    class CountingBits_338
     {
         public void Test()
         {
