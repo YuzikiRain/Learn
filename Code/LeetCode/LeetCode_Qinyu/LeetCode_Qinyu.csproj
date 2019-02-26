@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CountingBits338\CountingBits338.cs" />
+    <Compile Include="CountingBits_338\CountingBits_338.cs" />
     <Compile Include="DeleteNode\DeleteNode.cs" />
     <Compile Include="Fizz Buzz_412\FizzBuzz.cs" />
     <Compile Include="ImplementQueueUsingStacks_232\ImplementQueueUsingStacks.cs" />
@@ -53,6 +53,7 @@
     <Compile Include="NaryTreePreoderTraversal\NaryTreePreoderTraversal.cs" />
     <Compile Include="HasAlternatingBits\HasAlternatingBits.cs" />
     <Compile Include="Permutations46\Permutations.cs" />
+    <Compile Include="RemoveNthFromEnd_19\RemoveNthFromEnd_19.cs" />
     <Compile Include="ReverseLinkedList_206\ReverseLinkedList_206.cs" />
     <Compile Include="ReverseLinkedList_92\ReverseLinkedList_92.cs" />
     <Compile Include="ReverseString_344\ReverseString.cs" />
