@@ -5,7 +5,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        var test = new LeetCode_Qinyu.RemoveNthFromEnd_19.RemoveNthFromEnd_19();
+        var test = new LeetCode_Qinyu.LinkedListCycle_141.LinkedListCycle_141();
         test.Test();
 
         Console.ReadLine();
