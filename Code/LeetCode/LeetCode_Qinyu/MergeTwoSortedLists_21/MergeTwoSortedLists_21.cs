@@ -41,33 +41,57 @@ namespace LeetCode_Qinyu.MergeTwoSortedLists_21
 
         }
 
-        // looks like MergeSort
+        // by recursion
         public ListNode MergeTwoLists(ListNode l1, ListNode l2)
         {
-            // we suppose that there is a node in front of head
-            ListNode head = new ListNode(0);
-            ListNode current = head;
-            while (l1 != null || l2 != null)
+            if (l1 == null)
+                return l2;
+            else if (l2 == null)
+                return l1;
+            else
             {
-                int value1 = l1 == null ? int.MaxValue : l1.val;
-                int value2 = l2 == null ? int.MaxValue : l2.val;
-                if (value1 < value2)
+                ListNode node = null;
+                if (l1.val < l2.val)
                 {
-                    current.next = new ListNode(value1);
+                    node = l1;
                     l1 = l1.next;
                 }
                 else
                 {
-                    current.next = new ListNode(value2);
+                    node = l2;
                     l2 = l2.next;
-
                 }
-                current = current.next;
+                node.next = MergeTwoLists(l1, l2);
+                return node;
             }
-
-            head = head.next;
-            return head;
         }
+
+        //// by iteration
+        //public ListNode MergeTwoLists(ListNode l1, ListNode l2)
+        //{
+        //    // we suppose that there is a node in front of head
+        //    ListNode head = new ListNode(0);
+        //    ListNode current = head;
+        //    while (l1 != null || l2 != null)
+        //    {
+        //        int value1 = l1 == null ? int.MaxValue : l1.val;
+        //        int value2 = l2 == null ? int.MaxValue : l2.val;
+        //        if (value1 < value2)
+        //        {
+        //            current.next = new ListNode(value1);
+        //            l1 = l1.next;
+        //        }
+        //        else
+        //        {
+        //            current.next = new ListNode(value2);
+        //            l2 = l2.next;
+        //        }
+        //        current = current.next;
+        //    }
+
+        //    head = head.next;
+        //    return head;
+        //}
 
         public class ListNode
         {
