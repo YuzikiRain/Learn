@@ -52,6 +52,7 @@
     <Compile Include="LinkedListCycle_141\LinkedListCycle_141.cs" />
     <Compile Include="MaximumDepthOfBinaryTree_104\MaximumDepthOfBinaryTree_104.cs" />
     <Compile Include="MergeTwoSortedLists_21\MergeTwoSortedLists_21.cs" />
+    <Compile Include="MinStack_155\MinStack_155.cs" />
     <Compile Include="NaryTreePreoderTraversal\NaryTreePreoderTraversal.cs" />
     <Compile Include="HasAlternatingBits\HasAlternatingBits.cs" />
     <Compile Include="Permutations46\Permutations.cs" />

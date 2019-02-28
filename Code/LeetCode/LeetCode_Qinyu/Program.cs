@@ -5,7 +5,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        var test = new LeetCode_Qinyu.SpiralMatrix_54.SpiralMatrix_54();
+        var test = new LeetCode_Qinyu.MinStack_155.MinStack_155();
         test.Test();
 
         Console.ReadLine();
