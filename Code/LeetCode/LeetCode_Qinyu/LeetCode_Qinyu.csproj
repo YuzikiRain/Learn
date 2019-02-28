@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinaryTreeLevelOrderTraversal_102\BinaryTreeLevelOrderTraversal_102.cs" />
     <Compile Include="CountingBits_338\CountingBits_338.cs" />
     <Compile Include="DeleteNode\DeleteNode.cs" />
     <Compile Include="Fizz Buzz_412\FizzBuzz.cs" />
