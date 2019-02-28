@@ -5,7 +5,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        var test = new LeetCode_Qinyu.MergeTwoSortedLists_21.MergeTwoSortedLists_21();
+        var test = new LeetCode_Qinyu.SpiralMatrix_54.SpiralMatrix_54();
         test.Test();
 
         Console.ReadLine();

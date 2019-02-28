@@ -62,6 +62,7 @@
     <Compile Include="ReverseWordsInAString_151\ReverseWordsInAString_151.cs" />
     <Compile Include="RotateArray_189\RotateArray_189.cs" />
     <Compile Include="ShortestToChar\ShortestToChar.cs" />
+    <Compile Include="SpiralMatrix_54\SpiralMatrix_54.cs" />
     <Compile Include="SymmetricTree_101\SymmetricTree_101.cs" />
     <Compile Include="TitleToNumber\TitleToNumber.cs" />
     <Compile Include="MaxDepthOfNAryTree\MaxDepthOfNAryTree.cs" />

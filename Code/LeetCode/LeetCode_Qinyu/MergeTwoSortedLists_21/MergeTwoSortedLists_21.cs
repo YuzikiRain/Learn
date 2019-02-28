@@ -41,7 +41,8 @@ namespace LeetCode_Qinyu.MergeTwoSortedLists_21
 
         }
 
-        // by recursion
+        #region by recursion
+
         public ListNode MergeTwoLists(ListNode l1, ListNode l2)
         {
             if (l1 == null)
@@ -66,7 +67,10 @@ namespace LeetCode_Qinyu.MergeTwoSortedLists_21
             }
         }
 
-        //// by iteration
+        #endregion
+
+        #region by iteration
+
         //public ListNode MergeTwoLists(ListNode l1, ListNode l2)
         //{
         //    // we suppose that there is a node in front of head
@@ -93,6 +97,7 @@ namespace LeetCode_Qinyu.MergeTwoSortedLists_21
         //    return head;
         //}
 
+        #endregion
         public class ListNode
         {
             public int val;
