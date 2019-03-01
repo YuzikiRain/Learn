@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinaryTreeLevelOrderTraversal_102\BinaryTreeLevelOrderTraversal_102.cs" />
+    <Compile Include="BinaryTreePreorderTraversal_144\BinaryTreePreorderTraversal_144.cs" />
     <Compile Include="CountingBits_338\CountingBits_338.cs" />
     <Compile Include="DeleteNode\DeleteNode.cs" />
     <Compile Include="Fizz Buzz_412\FizzBuzz.cs" />
@@ -78,8 +79,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BinaryTreeInorderTraversal\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
