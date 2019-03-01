@@ -5,7 +5,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        var test = new LeetCode_Qinyu.BinaryTreePreorderTraversal_144.BinaryTreePreorderTraversal_144();
+        var test = new LeetCode_Qinyu.LinkedListCycle_II_142.LinkedListCycle_II_142();
         test.Test();
 
         Console.ReadLine();

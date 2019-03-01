@@ -7,7 +7,7 @@ namespace LeetCode_Qinyu.MaximumDepthOfBinaryTree_104
         public void Test()
         {
             //TreeNode root = null;
-            TreeNode root = new TreeNode(3);
+            TreeNode root = new TreeNode(3); 
             root.left = new TreeNode(9);
             root.right = new TreeNode(20);
             root.right.left = new TreeNode(15);
