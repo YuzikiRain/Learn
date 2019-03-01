@@ -5,7 +5,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        var test = new LeetCode_Qinyu.LinkedListCycle_II_142.LinkedListCycle_II_142();
+        var test = new LeetCode_Qinyu.ImplementStrStr_28.ImplementStrStr_28();
         test.Test();
 
         Console.ReadLine();
