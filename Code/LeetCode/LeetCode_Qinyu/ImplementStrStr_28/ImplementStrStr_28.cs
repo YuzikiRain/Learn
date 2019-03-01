@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LeetCode_Qinyu.ImplementStrStr_28
 {
@@ -25,24 +21,24 @@ namespace LeetCode_Qinyu.ImplementStrStr_28
             {
                 return 0;
             }
-            else if (haystack.Length < needle.Length)
+            int m = haystack.Length;
+            int n = needle.Length;
+            if (m < n)
             {
                 return -1;
             }
 
             int i = 0;
             int j = 0;
-            bool isMatched = true;
-            while ( i < haystack.Length - needle.Length + 1)
+            while ( i < m - n + 1)
             {
-                isMatched = true;
-                while( j < needle.Length)
+                while( j < n)
                 {
+                    // not matched, reset j, move i to next position
                     if (haystack[i+j] != needle[j])
                     {
                         i++;
                         j = 0;
-                        isMatched = false;
                         break;
                     }
                     else
@@ -50,7 +46,8 @@ namespace LeetCode_Qinyu.ImplementStrStr_28
                         j++;
                     }
                 }
-                if (isMatched)
+                // j >= needle.Length means all characters match
+                if (j >= n)
                 {
                     return i;
                 }
