@@ -1,4 +1,4 @@
-<img alt="Editor Setting.png" src="assets/Editor Setting.png" width="500" height="" >
+<img alt="EditorSetting.png" src="assets/EditorSetting.png" width="500" height="" >
 
 Menu -> Edit -> Project Settings -> Editor -> Default Behavior Mode
 
