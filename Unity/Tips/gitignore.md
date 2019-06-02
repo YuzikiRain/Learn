@@ -1,4 +1,4 @@
-###Unity project .gitignore file
+### Unity project .gitignore file
 ```
 ===============
 Unity generated
@@ -33,4 +33,5 @@ ehthumbs.db
 Thumbs.db
 ```
 
+### 参考：
 [Project Architecture: Unity Project Folder Structure](https://learn.unity.com/tutorial/project-architecture-unity-project-folder-structure#)
