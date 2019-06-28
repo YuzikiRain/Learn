@@ -2,23 +2,23 @@
 在继承MonoBehaviour的脚本的OnEnable或Awake函数中使用button.Select()函数，且附加该脚本的UI物体是被动态Instantiate出来的，当UI物体被创建出来时，被选定的按钮不会高亮，而使用方向键移动后才会显示按钮的高亮
 ```csharp
 using UnityEngine;
- using UnityEngine.UI;
+using UnityEngine.UI;
 
- public class ButtonSelector : MonoBehaviour {
+public class ButtonSelector : MonoBehaviour {
 
-     public Button selectButton;
+   public Button selectButton;
 
-     void OnEnable()
-     {
-         if(selectButton != null)
-         {
-             selectButton.Select();    
-             print("selected button");
-         }
-         else
-             Debug.Log ("SelectButton was null");
-     }
- }
+   void OnEnable()
+   {
+       if(selectButton != null)
+       {
+           selectButton.Select();    
+           print("selected button");
+       }
+       else
+           Debug.Log ("SelectButton was null");
+   }
+}
 ```
 
 ## 解决方法
