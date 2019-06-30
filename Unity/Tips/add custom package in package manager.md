@@ -4,10 +4,10 @@
 - 在GitHub创建远程仓库，创建子文件夹package并命名（保证文件夹是空的），使用仓库地址和本地相对路径创建子模块
   <img alt="Sprite.png" src="assets/add submodule.png" width="500" height="" >
 - 提交.gitmodules和submodule的commit
-- 将实际的package与刚才创建的文件夹合并，在子模块目录下创建package.json并按如下格式修改
+- 将实际的package与刚才创建的文件夹合并，在子模块目录下创建package.json并按如下格式修改 **（name一定要全小写）**
 ``` json
 {
-	"name": "com.modesttree.AsyncAwaitUtil",
+	"name": "com.modesttree.asyncawaitutil",
 	"displayName": "AsyncAwaitUtil",
 	"description": "unity package AsyncAwaitUtil from github",
 	"version": "0.1.2",
