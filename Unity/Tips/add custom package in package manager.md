@@ -2,6 +2,7 @@
 
 - 确保要做成package的目录代码没问题之后，在Editor的Project视图中在该目录下右键Create->Assembly Definition
 - 在GitHub创建远程仓库，创建子文件夹package并命名（保证文件夹是空的），使用仓库地址和本地相对路径创建子模块
+
   <img alt="Sprite.png" src="assets/add submodule.png" width="500" height="" >
 - 提交.gitmodules和submodule的commit（完成子模块的创建）
 - 将实际的package与刚才创建的文件夹合并，在子模块目录下创建package.json并按如下格式修改 **（name一定要全小写）**
