@@ -10,7 +10,7 @@ Unity2018.4.1f, Spine runtime for unity 3.7
 
 - select the skeletonData(which is auto generate when asset import), click the gear icon and choose "Skeleton Baking"
 
-  <img alt="Sprite.png" src="assets/skeleton bake icon.png" width="500" height="" >
+  <img alt="Sprite.png" src="assets/skeleton bake icon.png" width="1900" height="" >
 
 - in the bake window, check "Bake Animations", and click "Bake Skeleton" button
 
@@ -20,29 +20,29 @@ Unity2018.4.1f, Spine runtime for unity 3.7
 
 - open animation window, then select animation named "Attack" in animator controller **in baked folder**, use your mouse to select all frames in bone "root", then copy by ctrl + c
 
-<img alt="Sprite.png" src="assets/copy all frames in baked animaton.png" width="500" height="" >
+<img alt="Sprite.png" src="assets/copy all frames in baked animaton.png" width="1900" height="" >
 
 - back to parent folder named "Dog2", double click animator controller to open animator window, drag animation "Attack" to any layer
 
-<img alt="Sprite.png" src="assets/drag to add animation in animator.png" width="500" height="" >
+<img alt="Sprite.png" src="assets/drag to add animation in animator.png" width="1900" height="" >
 
 - select gameObject named "Spine Mecanim GameObject (dog)" in Hierarchy, in animation window you will see animation "Attack" is list(if you finish previous step successfully)
 
-<img alt="Sprite.png" src="assets/choose animation Attack.png" width="500" height="" >
+<img alt="Sprite.png" src="assets/choose animation Attack.png" width="1900" height="" >
 
 - click "Add Property" button and choose Transform Position
 
-<img alt="Sprite.png" src="assets/add property transform position.png" width="500" height="" >
+<img alt="Sprite.png" src="assets/add property transform position.png" width="1900" height="" >
 
 -  use your mouse to select all frames in Position, then paste by ctrl + v
 
-<img alt="Sprite.png" src="assets/paste all bone root frames.png" width="500" height="" >
+<img alt="Sprite.png" src="assets/paste all bone root frames.png" width="1900" height="" >
 
 - don't forget to save this animation by ctrl + s !
 
 - to enable root motion, you should check apply root motion in gameObject "Spine Mecanim GameObject (dog)"
 
-<img alt="Sprite.png" src="assets/check apply root motion.png" width="500" height="" >
+<img alt="Sprite.png" src="assets/check apply root motion.png" width="1900" height="" >
 
 - enjoy it!
 
