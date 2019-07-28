@@ -28,7 +28,7 @@ Unity2018.4.1f, Spine runtime for unity 3.7
 
 <img alt="Sprite.png" src="assets/drag to add animation in animator.png" width="1900" height="" >
 
-- select gameObject named "Spine Mecanim GameObject (dog)" in Hierarchy, in animation window you will see animation "Attack" is list(if you finish previous step successfully)
+- select gameObject named "Spine Mecanim GameObject (dog)" in Hierarchy, in animation window you will see animation "Attack" is list(if you finish previous step successfully), and select it.
 
 <img alt="Sprite.png" src="assets/choose animation Attack.png" width="1900" height="" >
 
