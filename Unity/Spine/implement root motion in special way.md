@@ -4,6 +4,35 @@ Unity2018.4.1f, Spine runtime for unity 3.7
 
 ### Steps
 
+- open Spine/Runtime/spine-csharp/Bone.cs, and modify like below
+```csharp
+/// <summary>Computes the world transform using the parent bone and the specified local transform.</summary>
+public void UpdateWorldTransform (float x, float y, float rotation, float scaleX, float scaleY, float shearX, float shearY) {
+  ax = x;
+  ay = y;
+  arotation = rotation;
+  ascaleX = scaleX;
+  ascaleY = scaleY;
+  ashearX = shearX;
+  ashearY = shearY;
+  appliedValid = true;
+  Skeleton skeleton = this.skeleton;
+
+  Bone parent = this.parent;
+  if (parent == null) { // Root bone.
+    float rotationY = rotation + 90 + shearY, sx = skeleton.scaleX, sy = skeleton.scaleY;
+    a = MathUtils.CosDeg(rotation + shearX) * scaleX * sx;
+    b = MathUtils.CosDeg(rotationY) * scaleY * sy;
+    c = MathUtils.SinDeg(rotation + shearX) * scaleX * sx;
+    d = MathUtils.SinDeg(rotationY) * scaleY * sy;
+    worldX = 0f;
+    worldY = 0f;
+    //worldX = x * sx + skeleton.x;
+    //worldY = y * sy + skeleton.y;
+    return;
+  }
+```
+
 - be sure skeletonData is auto generate with .atlas.txt, .png and **.json**(not .skel.bytes)
 
 - drag the skeletonData to Hierarchy and choose "SkeletonMecanim", then a "Unity Animator Controller" will be created where skeletonData is in, and a gameObject named "Spine Mecanim GameObject (dog)" is created in Hierarchy
