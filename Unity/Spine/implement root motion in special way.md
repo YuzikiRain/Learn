@@ -40,7 +40,7 @@ Unity2018.4.1f, Spine runtime for unity 3.7
 
 - don't forget to save this animation by ctrl + s !
 
-- to enable root motion, you should check apply root motion in gameObject "Spine Mecanim GameObject (dog)"
+- to enable root motion, you should check apply root motion in component Animator of gameObject "Spine Mecanim GameObject (dog)"(if unchecked, hint "Root position or rotation are controlled by curves" will appear below Apply Root Motion in component Animator, and you can't modify position or rotation of this gameObject)
 
 <img alt="Sprite.png" src="assets/check apply root motion.png" width="1900" height="" >
 
