@@ -18,7 +18,7 @@ Unity2018.4.1f, Spine runtime for unity 3.7
 
 <img alt="Sprite.png" src="assets/skeleton bake panel.png" width="500" height="" >
 
-- a new folder named "Baked" will be created, which contains a prefab and a "Unity Animator Controller" **(if your skeletonData is generate by .skel.bytes but .json, the animation baked will lose the event info and Position info, and you can continue the steps later)**
+- a new folder named "Baked" will be created, which contains a prefab and a "Unity Animator Controller" **(if your skeletonData is generate by .skel.bytes but .json, the animation baked will lose the event info and Position info, and you can't continue the steps later)**
 
 - open animation window, then select animation named "Attack" in animator controller **in baked folder**, use your mouse to select all frames in bone "root", then copy by ctrl + c
 
