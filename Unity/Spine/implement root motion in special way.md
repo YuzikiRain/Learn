@@ -4,11 +4,13 @@ Unity2018.4.1f, Spine runtime for unity 3.7
 
 ### Steps
 
+- be sure skeletonData is auto generate with .atlas.txt, .png and **.json**(not .skel.bytes)
+
 - drag the skeletonData to Hierarchy and choose "SkeletonMecanim", then a "Unity Animator Controller" will be created where skeletonData is in, and a gameObject named "Spine Mecanim GameObject (dog)" is created in Hierarchy
 
 <img alt="Sprite.png" src="assets/drag to create animator controller.png" width="500" height="" >
 
-- select the skeletonData(which is auto generate when asset import), click the gear icon and choose "Skeleton Baking"
+- select the skeletonData, click the gear icon and choose "Skeleton Baking"
 
   <img alt="Sprite.png" src="assets/skeleton bake icon.png" width="1900" height="" >
 
@@ -16,7 +18,7 @@ Unity2018.4.1f, Spine runtime for unity 3.7
 
 <img alt="Sprite.png" src="assets/skeleton bake panel.png" width="500" height="" >
 
-- a new folder named "Baked" will be created, which contains a prefab and a "Unity Animator Controller"
+- a new folder named "Baked" will be created, which contains a prefab and a "Unity Animator Controller" **(if your skeletonData is generate by .skel.bytes but .json, the animation baked will lose the event info and Position info, and you can continue the steps later)**
 
 - open animation window, then select animation named "Attack" in animator controller **in baked folder**, use your mouse to select all frames in bone "root", then copy by ctrl + c
 
