@@ -1,0 +1,53 @@
+
+### Environment
+Unity2018.4.1f, Spine runtime for unity 3.7
+
+### Steps
+
+- drag the skeletonData to Hierarchy and choose "SkeletonMecanim", then a "Unity Animator Controller" will be created where skeletonData is in, and a gameObject named "Spine Mecanim GameObject (dog)" is created in Hierarchy
+
+<img alt="Sprite.png" src="assets/drag to create animator controller.png" width="500" height="" >
+
+- select the skeletonData(which is auto generate when asset import), click the gear icon and choose "Skeleton Baking"
+
+  <img alt="Sprite.png" src="assets/skeleton bake icon.png" width="500" height="" >
+
+- in the bake window, check "Bake Animations", and click "Bake Skeleton" button
+
+<img alt="Sprite.png" src="assets/skeleton bake panel.png" width="500" height="" >
+
+- a new folder named "Baked" will be created, which contains a prefab and a "Unity Animator Controller"
+
+- open animation window, then select animation named "Attack" in animator controller **in baked folder**, use your mouse to select all frames in bone "root", then copy by ctrl + c
+
+<img alt="Sprite.png" src="assets/copy all frames in baked animaton.png" width="500" height="" >
+
+- back to parent folder named "Dog2", double click animator controller to open animator window, drag animation "Attack" to any layer
+
+<img alt="Sprite.png" src="assets/drag to add animation in animator.png" width="500" height="" >
+
+- select gameObject named "Spine Mecanim GameObject (dog)" in Hierarchy, in animation window you will see animation "Attack" is list(if you finish previous step successfully)
+
+<img alt="Sprite.png" src="assets/choose animation Attack.png" width="500" height="" >
+
+- click "Add Property" button and choose Transform Position
+
+<img alt="Sprite.png" src="assets/add property transform position.png" width="500" height="" >
+
+-  use your mouse to select all frames in Position, then paste by ctrl + v
+
+<img alt="Sprite.png" src="assets/paste all bone root frames.png" width="500" height="" >
+
+- don't forget to save this animation by ctrl + s !
+
+- to enable root motion, you should check apply root motion in gameObject "Spine Mecanim GameObject (dog)"
+
+<img alt="Sprite.png" src="assets/check apply root motion.png" width="500" height="" >
+
+- enjoy it!
+
+### By the way
+- if you translate an animation which move bone root every frame(and move 5 units in x axis totally in these frames) with another animation which stay in zero by 0.2 second, the 5 units root movement in transition(0.2 second) will blend to 0 units, so a 5 units root movement animation translate to 0 unit root movement animation result less than 5 units root movement.
+**由于Unity Mecanim的动画过渡机制，本应共计在x轴上位移5单位的动画转移到原地不动的动画后，最终造成的位移会小于5**
+- if you want to avoid this situation, you can set Transition Duration to 0, or make the animation with root movement not move in last a few frames to fit any other animation.
+**为避免这种情况，可以将所有Transition Duration设为0，即不采用自动过渡而是自己提供动画间的过渡动画，另一种方案是每个带有根骨骼运动的动画都在最后几帧不移动，用于与其他任何动画过渡**
