@@ -78,8 +78,8 @@ public void UpdateWorldTransform (float x, float y, float rotation, float scaleX
 - enjoy it!
 
 ### By the way
-- if you translate an animation which move bone root every frame(and move 5 units in x axis totally in these frames) with another animation which stay in zero by 0.2 second, the 5 units root movement in transition(0.2 second) will blend to 0 units, so a 5 units root movement animation translate to 0 unit root movement animation result less than 5 units root movement.
 - to flip, you should use Transform.scale instead of Skeleton.ScaleX, or root motion will always move towards same direction.
+- if you translate an animation which move bone root every frame(and move 5 units in x axis totally in these frames) with another animation which stay in zero by 0.2 second, the 5 units root movement in transition(0.2 second) will blend to 0 units, so a 5 units root movement animation translate to 0 unit root movement animation result less than 5 units root movement.
 **由于Unity Mecanim的动画过渡机制，本应共计在x轴上位移5单位的动画转移到原地不动的动画后，最终造成的位移会小于5**
 - if you want to avoid this situation, you can set Transition Duration to 0, or make the animation with root movement not move in last a few frames to fit any other animation.
 **为避免这种情况，可以将所有Transition Duration设为0，即不采用自动过渡而是自己提供动画间的过渡动画，另一种方案是每个带有根骨骼运动的动画都在最后几帧不移动，用于与其他任何动画过渡**
