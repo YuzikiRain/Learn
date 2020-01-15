@@ -1,0 +1,1 @@
+在Spine编辑器中的播放（Playback）中设置FPS即可，该fps设置会记录到导出的文件中，导入Unity中时会使用这个FPS来换算动画时长。
