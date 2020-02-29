@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class Offer_RegularExpression_19
+public class Offer19RegularExpression
 {
     public void Test()
     {

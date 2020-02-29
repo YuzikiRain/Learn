@@ -5,7 +5,7 @@ class Program
 
     static void Main(string[] args)
     {
-        var test = new Offer_RegularExpression_19();
+        var test = new Offer19RegularExpression();
         test.Test();
 
         Console.ReadLine();
