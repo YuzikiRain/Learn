@@ -80,6 +80,9 @@
     <Compile Include="剑指offer\面试题19. 正则表达式匹配\Offer19RegularExpression.cs" />
     <Compile Include="剑指offer\面试题20. 表示数值的字符串\Offer20ValidNumber.cs" />
     <Compile Include="剑指offer\面试题21. 调整数组顺序使奇数位于偶数前面\Offer21.cs" />
+    <Compile Include="剑指offer\面试题22. 链表中倒数第k个节点\Offer22.cs" />
+    <Compile Include="剑指offer\面试题26. 树的子结构\Offer26.cs" />
+    <Compile Include="剑指offer\面试题29. 顺时针打印矩阵\Offer29.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
