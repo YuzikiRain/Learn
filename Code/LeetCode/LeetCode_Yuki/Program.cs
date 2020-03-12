@@ -5,7 +5,7 @@ class Program
 
     static void Main(string[] args)
     {
-        var test = new Offer36();
+        var test = new Offer37();
         test.Test();
 
         Console.ReadLine();

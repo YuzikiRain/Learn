@@ -90,6 +90,7 @@
     <Compile Include="剑指offer\面试题34. 二叉树中和为某一值的路径\Offer34.cs" />
     <Compile Include="剑指offer\面试题35. 复杂链表的复制\Offer35.cs" />
     <Compile Include="剑指offer\面试题36. 二叉搜索树与双向链表\Offer36.cs" />
+    <Compile Include="剑指offer\面试题37. 序列化二叉树\Offer37.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
