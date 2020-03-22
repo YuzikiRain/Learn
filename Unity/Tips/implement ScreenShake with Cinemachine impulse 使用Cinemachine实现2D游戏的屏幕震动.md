@@ -4,7 +4,7 @@
   <img alt="EditorSetting.png" src="assets/new noise settings.png" width="500" height="" >
 - 设置Noise Raw Signal
 
-  注意，这里只需要设置Position Y的Amplitude为1（另外建议勾选non-random，使得震动是非随机的），而Position X 和 Positoin Z的 Amplitude 设置为0，否则方向是不对的
+  注意，这里只需要设置Position Y的Amplitude为1（另外建议勾选non-random，使得震动是非随机的），而Position X的 Amplitude 设置为0，否则方向是不对的
 
   <img alt="EditorSetting.png" src="assets/set amplitude and direction.png" width="500" height="" >
 - 用以下代码产生震动信号
