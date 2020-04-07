@@ -97,10 +97,8 @@ var texture = handle.Result;
     - Pack Together：每个Group中，除了场景之外的资源，打成一个包，场景另外打一个包
     - Pack Separately：每个Group中的Entry分别打一个包，Entry即Group下的各个目录
     - Pack Together By Label：相同Label打一个包
-- 主菜单File -> Build Settings -> Build，这一步会自动进行打包，并构建Player
-
-#### 手动打包
-Addressables Group界面下，Build -> New Build -> Default Build Script 
+- 手动打包：Addressables Group界面下，Build -> New Build -> Default Build Script 
+- 主菜单File -> Build Settings -> Build
 
 ### AssetReference filter 过滤器
 如果在Addressables Group界面里以文件夹为单位创建Entry，那么Inspector下的AssetReference打开的过滤器中会看到很多可选的
