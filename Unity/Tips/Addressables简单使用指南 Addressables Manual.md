@@ -85,11 +85,8 @@ public IEnumerator Start() {
 ```
 
 ### 同步加载
-```csharp
-var handle = Addressables.LoadAsset<Texture2D>("mytexture");
-var texture = handle.Result;
-```
-
+[Unity Github Addressables](https://github.com/Unity-Technologies/Addressables-Sample/tree/master/Advanced/Sync%20Addressables)
+if can not find, go to Unity github repository and find the repository named addresables-sample
 
 ### 本地打包流程
 - 在AddressableAssetsData/AssetGroups下找到对应Group的配置，这里可以查看到Build Path的本地路径。

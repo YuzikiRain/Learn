@@ -1,0 +1,67 @@
+
+```
+public static bool ScreenPointToLocalPointInRectangle(RectTransform rect, Vector2 screenPoint, Camera cam, out Vector2 localPoint);
+```
+
+ - rect: 对应的 RectTransform 的引用
+ - screenPoint: 位置，基于屏幕坐标系
+ - cam: 相机的引用，如果Canvas的Render Mode 为 Screen Space - Camera 模式，则需要填入 Render Camera 对应的引用
+ - localPoint: **rect 本地坐标系下的坐标（原点(0,0)位置受Anchor的影响）**
+
+参考：
+https://docs.unity3d.com/ScriptReference/RectTransformUtility.ScreenPointToLocalPointInRectangle.html
+```
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.EventSystems;
+ 
+public class GlobalTest : MonoBehaviour
+{
+    public Canvas canvas;
+    Text uiText;
+    RectTransform canvasRect;
+    RectTransform textRect;
+    void Start()
+    {
+        uiText = canvas.GetComponentInChildren<Text>();
+        canvasRect = canvas.GetComponent<RectTransform>();
+        textRect = uiText.GetComponent<RectTransform>();
+ 
+        Debug.Log(textRect.anchoredPosition);
+ 
+    }
+ 
+    void Update()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Vector2 outVec;
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect,Input.mousePosition,null,out outVec))
+            {
+                Debug.Log("Setting anchored positiont to: " + outVec);
+                textRect.anchoredPosition = outVec;
+            }
+        }
+ 
+    }
+}
+```
+参考：
+https://forum.unity.com/threads/issues-with-recttransformutility-screenpointtolocalpointinrectangle.437246/
+
+## 再说一句
+
+也可以从UGUI的EventSystem中获得鼠标基于屏幕坐标系的点击位置
+
+```
+    public void OnPointerDown(PointerEventData pointerEventData)
+    {
+        //Output the name of the GameObject that is being clicked
+        Debug.Log(name + "Game Object Click in Progress");
+    }
+```
+参考：
+https://docs.unity3d.com/ScriptReference/EventSystems.IPointerDownHandler.html
+
+
