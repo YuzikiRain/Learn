@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<svg width="277" height="171.00000000000003" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+ <defs>
+  <marker id="se_marker_end_svg_1" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" viewBox="0 0 100 100">
+   <path d="m100,50l-100,40l30,-40l-30,-40l100,40z" fill="#000000" id="svg_2" stroke="#000000" stroke-width="10"/>
+  </marker>
+  <marker id="se_marker_end_svg_16" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" se_type="rightarrow" viewBox="0 0 100 100">
+   <path d="m100,50l-100,40l30,-40l-30,-40z" fill="#56aaff" stroke="#56aaff" stroke-width="10"/>
+  </marker>
+  <marker id="se_marker_end_svg_3" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" se_type="rightarrow" viewBox="0 0 100 100">
+   <path d="m100,50l-100,40l30,-40l-30,-40z" fill="#000000" stroke="#000000" stroke-width="10"/>
+  </marker>
+ </defs>
+ <g class="layer">
+  <title>background</title>
+  <rect fill="#ffffff" height="169.273738" id="svg_23" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-opacity="0" stroke-width="2" width="274.860327" x="1" y="1"/>
+ </g>
+ <g class="layer">
+  <title>Layer 1</title>
+  <line fill="none" id="svg_1" marker-end="url(#se_marker_end_svg_1)" stroke="#000000" stroke-width="2" x1="31.776195" x2="189.280695" y1="143.805396" y2="31.734886"/>
+  <line fill="none" id="svg_3" marker-end="url(#se_marker_end_svg_3)" stroke="#000000" stroke-width="2" x1="31.725215" x2="256.865565" y1="143.851496" y2="143.851496"/>
+  <line fill="none" id="svg_5" stroke="#000000" stroke-dasharray="8" stroke-linecap="null" stroke-linejoin="null" stroke-width="2" x1="192.979755" x2="192.979755" y1="29.274676" y2="143.095516"/>
+  <line fill="none" id="svg_6" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="2" x1="192.491895" x2="179.521185" y1="129.310296" y2="129.310296"/>
+  <line fill="none" id="svg_7" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="2" x1="178.684365" x2="178.684365" y1="143.954656" y2="128.321786"/>
+  <path d="m60.225805,123.878816c7.88892,-0.45318 13.16576,13.15082 7.20062,19.6803" fill="none" id="svg_10" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="2"/>
+  <text fill="#000000" font-family="serif" font-size="24" id="svg_9" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" text-anchor="middle" x="163.009217" xml:space="preserve" y="43.256807">u</text>
+  <text fill="#000000" font-family="serif" font-size="24" id="svg_13" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" text-anchor="middle" x="243.52565" xml:space="preserve" y="161.331926">v</text>
+  <text fill="#56aaff" font-family="serif" font-size="24" id="svg_15" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" text-anchor="middle" x="175.685274" xml:space="preserve" y="163.679344">u&#x27;</text>
+  <line fill="none" id="svg_16" marker-end="url(#se_marker_end_svg_16)" stroke="#56aaff" stroke-width="2" x1="33.185531" x2="188.419921" y1="143.922393" y2="143.922393"/>
+  <text fill="#000000" font-family="serif" font-size="24" id="svg_17" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" text-anchor="middle" x="23.092456" xml:space="preserve" y="161.888596">P</text>
+  <text fill="#000000" font-family="serif" font-size="24" id="svg_18" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" text-anchor="middle" x="200.835408" xml:space="preserve" y="23.330598">C</text>
+  <text fill="#000000" font-family="serif" font-size="24" id="svg_20" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" text-anchor="middle" x="205.537603" xml:space="preserve" y="137.437184">A</text>
+  <ellipse cx="32.183366" cy="143.706779" fill="#000000" id="svg_21" rx="2.194357" ry="2.194357" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="2"/>
+  <text fill="#000000" font-family="serif" font-size="24" id="svg_24" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" text-anchor="middle" x="80.888267" xml:space="preserve" y="132.843571">α</text>
+ </g>
+</svg>
