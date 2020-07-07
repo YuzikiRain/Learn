@@ -25,8 +25,12 @@ public class ExampleClass : MonoBehaviour
     }
 }
 ```
-
 将角色绕Vector3.up顺时针旋转angle度即可面朝target
+
+- float angle = Vector3.SignedAngle(from, to, axis)
+- 向量forward与targetDir的叉积（左手/右手坐标系）得到向量up
+- 向量up与axis点积的结果>0，那么绕向量up（左手/右手坐标系）旋转angle度即可；点积的结果 < 0，那么绕向量up（左手/右手坐标系）旋转-angle度即可
+
 
 ### 参考
 https://docs.unity3d.com/ScriptReference/Vector3.SignedAngle.html
