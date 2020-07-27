@@ -38,5 +38,6 @@ Flexible默认是不开启的
 
 ### Content Size Filter
 光是有布局属性并没有什么用，这个组件会使用某些布局属性来设置RectTransform的宽高
+
 reference：
 [UIFitContentSize from Unity Offical Manual](https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/HOWTO-UIFitContentSize.html)
