@@ -7,4 +7,8 @@
     {
         Debug.Log("Children changed! note: child of children changed won't call this function");
     }
+	// 请求刷新布局
+	LayoutRebuilder.MarkLayoutForRebuild(GetComponent<RectTransform>());
+	// 强制刷新布局
+	LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
 ```
