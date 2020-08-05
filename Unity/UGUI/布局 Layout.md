@@ -18,6 +18,7 @@ Vertical Layout Group的Min和Preferred
 |-|-|-|
 |未勾选|子LayoutElement的 width 的最大值|子LayoutElement的 height 总和|
 |勾选|子LayoutElement的 Min和Preferred 的最大值|子LayoutElement的 Min和Preferred 总和|
+
 如果Padding不为0，那么Width要加上Left+Right，Height要加上Top+Bottom
 
 ##### 自动设置布局属性
@@ -36,6 +37,7 @@ Flexible默认是不开启的
 - Layout Priority：如果同一层级上有多个子UI都使用了Layout Element组件，那么这个优先级决定了哪个子UI的Layout Element最先被计算
 
 ### Content Size Filter
+光是有布局属性并没有什么用，这个组件会使用某些布局属性来设置RectTransform的宽高
 
 reference：
 [UIFitContentSize from Unity Offical Manual](https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/HOWTO-UIFitContentSize.html)
