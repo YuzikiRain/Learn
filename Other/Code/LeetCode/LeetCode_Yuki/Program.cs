@@ -5,8 +5,7 @@ class Program
 
     static void Main(string[] args)
     {
-        var test = new Offer39();
-        test.Test();
+        UniquePaths_62.Test();
 
         Console.ReadLine();
     }

@@ -75,6 +75,7 @@
     <Compile Include="LeetcodeEnglish\SelfDividingNumbers\SelfDividingNumbers.cs" />
     <Compile Include="LeetcodeEnglish\KeyboardRow\KeyboardRow.cs" />
     <Compile Include="LeetcodeEnglish\ReverseWordsInAString_557\ReverseWords_557.cs" />
+    <Compile Include="LeetcodeEnglish\UniquePaths_62\UniquePaths_62.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="剑指offer\面试题19. 正则表达式匹配\Offer19RegularExpression.cs" />

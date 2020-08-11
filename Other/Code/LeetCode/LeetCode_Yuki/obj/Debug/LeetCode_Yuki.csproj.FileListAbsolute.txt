@@ -4,3 +4,9 @@ D:\Learn\Code\LeetCode\LeetCode_Yuki\bin\Debug\LeetCode_Qinyu.pdb
 D:\Learn\Code\LeetCode\LeetCode_Yuki\obj\Debug\LeetCode_Yuki.csprojAssemblyReference.cache
 D:\Learn\Code\LeetCode\LeetCode_Yuki\obj\Debug\LeetCode_Qinyu.exe
 D:\Learn\Code\LeetCode\LeetCode_Yuki\obj\Debug\LeetCode_Qinyu.pdb
+F:\Learn\Other\Code\LeetCode\LeetCode_Yuki\bin\Debug\LeetCode_Qinyu.exe.config
+F:\Learn\Other\Code\LeetCode\LeetCode_Yuki\bin\Debug\LeetCode_Qinyu.exe
+F:\Learn\Other\Code\LeetCode\LeetCode_Yuki\bin\Debug\LeetCode_Qinyu.pdb
+F:\Learn\Other\Code\LeetCode\LeetCode_Yuki\obj\Debug\LeetCode_Yuki.csprojAssemblyReference.cache
+F:\Learn\Other\Code\LeetCode\LeetCode_Yuki\obj\Debug\LeetCode_Qinyu.exe
+F:\Learn\Other\Code\LeetCode\LeetCode_Yuki\obj\Debug\LeetCode_Qinyu.pdb
