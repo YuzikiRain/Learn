@@ -1,3 +1,10 @@
+### Environment
+Unity2019.4.0f, Spine runtime for unity 3.8
+import latest unitypackage, add SkeletonMacenim component, check apply root motion in Animator component.
+
+
+
+
 
 ### Environment
 Unity2018.4.1f, Spine runtime for unity 3.7
