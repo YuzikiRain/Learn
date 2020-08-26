@@ -1,3 +1,11 @@
+## 更新
+Spine3.8版本中增加了新的API可以更方便地切换Attachment
+``` csharp
+var slotName = "weapon";
+var attachmentName = "sword2";
+GetComponent<SkeletonAnimation>().Skeleton.SetAttachment(slotName, attachmentName);
+```
+
 环境：Spine3.7
 
 ### 结构
@@ -52,11 +60,3 @@ public static RegionAttachment ReplaceAttachmentFromSprite(this Skeleton skeleto
 
 ## 参考
 [简书 PA_ Spine使用图片换装 - Unity](https://www.jianshu.com/p/893cc1dd2838)
-
-## 更新
-Spine3.8版本中增加了新的API可以更方便地切换Attachment
-``` csharp
-var slotName = "weapon";
-var attachmentName = "sword2";
-GetComponent<SkeletonAnimation>().Skeleton.SetAttachment(slotName, attachmentName);
-```
