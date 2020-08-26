@@ -26,8 +26,16 @@ ublic static Quaternion FromToRotation(Vector3 fromDirection, Vector3 toDirectio
 ### 编辑器
 
 ``` csharp
+// 获得选中的gameobject
+Selection.gameObjects
+Selection.activeGameObject
+// 从Object获得prefab
+PrefabUtility.GetCorrespondingObjectFromSource
 UnityEditor.AssetDatabase.Refresh
 UnityEditor.FileUtil.ReplaceFile
 UnityEditor.FileUtil.ReplaceDirectory
+// 使用实例创建prefab并连接
+PrefabUtility.SaveAsPrefabAssetAndConnect
+PrefabUtility.SaveAsPrefabAsset
 ```
 
