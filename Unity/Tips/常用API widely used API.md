@@ -31,11 +31,15 @@ Selection.gameObjects
 Selection.activeGameObject
 // 从Object获得prefab
 PrefabUtility.GetCorrespondingObjectFromSource
+// 刷新Project视窗
 UnityEditor.AssetDatabase.Refresh
+// 替换文件或文件夹
 UnityEditor.FileUtil.ReplaceFile
 UnityEditor.FileUtil.ReplaceDirectory
 // 使用实例创建prefab并连接
 PrefabUtility.SaveAsPrefabAssetAndConnect
 PrefabUtility.SaveAsPrefabAsset
+// 选中
+EditorGUIUtility.PingObject(prefab);
 ```
 
