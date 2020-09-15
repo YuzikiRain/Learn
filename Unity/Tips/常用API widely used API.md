@@ -19,7 +19,7 @@ public static Quaternion LookRotation(Vector3 forward, Vector3 upwards = Vector3
 #### （同一空间下）将fromDirection旋转到toDirection所需要的旋转矩阵
 
 ```csharp
-ublic static Quaternion FromToRotation(Vector3 fromDirection, Vector3 toDirection);
+public static Quaternion FromToRotation(Vector3 fromDirection, Vector3 toDirection);
 ```
 
 
