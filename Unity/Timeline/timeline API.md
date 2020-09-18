@@ -5,9 +5,8 @@ foreach (var playable in playableAsset.outputs)
     // track实例的名称，可以在timeline面板上看到并修改
     var trackName = playable.streamName;
     // instanceOfTrackBindingType就是Track的标签中的类型的实例，一般是Unity Component
-	playableDirector.SetGenericBinding(trackName, instanceOfTrackBindingType);
+	playableDirector.SetGenericBinding(playable.sourceObject, instanceOfTrackBindingType);
 }
-
 
 [TrackBindingType(typeof(instanceOfTrackBindingType))]
 public class CustomTrack : TrackAsset
