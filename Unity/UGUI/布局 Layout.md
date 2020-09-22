@@ -17,7 +17,7 @@ Vertical Layout Group的Min和Preferred
 |Control Child Size|宽度|高度|
 |-|-|-|
 |未勾选|子LayoutElement的 width 的最大值|子LayoutElement的 height 总和|
-|勾选|子LayoutElement的 Min和Preferred 的最大值|子LayoutElement的 Min和Preferred 总和|
+|勾选|所有子LayoutElement的 Min或Preferred 的最大值|所有子LayoutElement的 Min或Preferred 总和|
 
 如果Padding不为0，那么Width要加上Left+Right，Height要加上Top+Bottom
 
