@@ -22,24 +22,3 @@ public static Quaternion LookRotation(Vector3 forward, Vector3 upwards = Vector3
 public static Quaternion FromToRotation(Vector3 fromDirection, Vector3 toDirection);
 ```
 
-
-### 编辑器
-
-``` csharp
-// 获得选中的gameobject
-Selection.gameObjects
-Selection.activeGameObject
-// 从Object获得prefab
-PrefabUtility.GetCorrespondingObjectFromSource
-// 刷新Project视窗
-UnityEditor.AssetDatabase.Refresh
-// 替换文件或文件夹
-UnityEditor.FileUtil.ReplaceFile
-UnityEditor.FileUtil.ReplaceDirectory
-// 使用实例创建prefab并连接
-PrefabUtility.SaveAsPrefabAssetAndConnect
-PrefabUtility.SaveAsPrefabAsset
-// 选中
-EditorGUIUtility.PingObject(prefab);
-```
-
