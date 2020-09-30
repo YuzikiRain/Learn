@@ -1,6 +1,7 @@
 ### BFS
 ```
 将起点加入到NodeQueue
+CameFromDictionary[起点] = null;
 while NodeQueue is not empty
 	从NodeQueue中出队列下一个节点Current
 	if (Current == 终点) return
