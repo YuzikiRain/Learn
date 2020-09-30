@@ -3,6 +3,7 @@
 
 Match为Width，表示**保持Rect Transform的Width为Reference Solution.width，缩放Scale使得实际width等于屏幕width**
 ##### Width Height
+
 由于Match为Width，那么
 - Width = Reference Solution.width
 - Height = Reference Solution.height / Scale
@@ -40,7 +41,9 @@ Match为Width，表示**保持Rect Transform的Width为Reference Solution.width�
 默认值100，即每100像素占据1单位
 
 ### Canvas
+
 ##### Render Mode
+
 - Screen Space - Overlay：
 默认将所有UI元素绘制在屏幕之前，不论其他相机如何设置。
 因此只有将部分UI设置成透明的，才能够在屏幕上显示出其他相机所渲染的非UI对象。（从shader的角度来看，不透明UI会和其他非UI对象或者说颜色缓冲区中的颜色进行透明度混合）
@@ -49,3 +52,13 @@ Match为Width，表示**保持Rect Transform的Width为Reference Solution.width�
 只要设置好Render Camera，就跟多个相机之间的渲染类似了。如果未设置那么效果跟Overlay一样
 - World Space：
 完全把Canvas当作世界坐标中的一个物体来渲染，此时将Canvas视作一个矩形的Mesh即可。
+
+##### Override Sorting
+
+有时候会遇到想要将一些非UGUI元素如Particle、Sprite、3D模型等显示在两个UI之间，而非Screen Space - Overlay和Screen Space - Camera模式下的UI由于用额外的相机来渲染，要么全部在非UGUI元素之前要么在之后
+
+-   给指定UGUI元素和非UGUI元素附加Canvas组件，勾选Override Sorting
+-   设置合适的Sorting Layer，使得非UGUI元素显示正确
+
+勾选了Override Sorting的UGUI元素使用SortingLayer来排序，而不再由在Canvas中的层次顺序决定，因此与其他默认UGUI元素之前渲染顺序无法得到保证。
+但其**子物体中的UGUI元素之间**的渲染顺序仍由层次顺序决定
