@@ -62,3 +62,7 @@ Match为Width，表示**保持Rect Transform的Width为Reference Solution.width�
 
 勾选了Override Sorting的UGUI元素使用SortingLayer来排序，而不再由在Canvas中的层次顺序决定，因此与其他默认UGUI元素之前渲染顺序无法得到保证。
 但其**子物体中的UGUI元素之间**的渲染顺序仍由层次顺序决定
+
+### GraphicsRayCaster
+
+每个Canvas组件下的子物体都需要对应的GraphicsRayCaster组件才能收到对应UI事件
