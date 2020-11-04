@@ -15,7 +15,7 @@ UnityEditor.FileUtil.ReplaceDirectory
 PrefabUtility.SaveAsPrefabAssetAndConnect
 PrefabUtility.SaveAsPrefabAsset
 // 选中
-EditorGUIUtility.PingObject(prefab);
+EditorGUIUtility.PingObject(obj);
 
 // 预制体，且不在场景中 is a prefab in asset
 var IsPartOfPrefabAsset = PrefabUtility.IsPartOfPrefabAsset(gameObject);
