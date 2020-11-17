@@ -1,3 +1,4 @@
-## 环境
-- Unity: 2018.4.1f1
-- Unity Spine Runtime: 3.7.0
+### Spine运行时下载地址
+
+http://esotericsoftware.com/spine-unity-download
+
