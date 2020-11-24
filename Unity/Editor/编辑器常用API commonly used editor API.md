@@ -27,7 +27,7 @@ private void OnTransformChildrenChanged()
 }
 // 请求刷新布局
 LayoutRebuilder.MarkLayoutForRebuild(GetComponent<RectTransform>());
-// 强制刷新布局
+// 强制刷新布局（比如在这一帧添加了影响布局的子物体，需要马上刷新布局，以在这一帧取得某些子物体在新布局中的正确位置，否则布局下一帧才刷新，那得到的值就错误）
 LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
 // 通过InstanceID获得Object，主要用于序列化
 EditorUtility.InstanceIDToObject
