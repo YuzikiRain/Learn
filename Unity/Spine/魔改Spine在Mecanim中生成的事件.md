@@ -1,0 +1,1 @@
+SkeletonBaker.cs文件中的ParseEventTimeline函数中修改
