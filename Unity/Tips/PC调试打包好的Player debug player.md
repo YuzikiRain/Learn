@@ -1,0 +1,4 @@
+-   File->Build Settings: 勾选 Development Build, Script Debugging, Wait For Managed Debugger，并打包
+-   启动打包的Player，会弹出确认框，提示：你现在可以附加调试器了
+-   点击 Visual Studio->调试->附加Unity调试程序，选择对应的Player进程
+-   在之前的Player弹出的提示框点击确认按钮
