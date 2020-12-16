@@ -31,4 +31,11 @@ LayoutRebuilder.MarkLayoutForRebuild(GetComponent<RectTransform>());
 LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
 // 通过InstanceID获得Object，主要用于序列化
 EditorUtility.InstanceIDToObject
+// 检查编辑器上的属性是否被修改
+EditorGUI.BeginChangeCheck();
+some code may change editor
+if (EditorGUI.EndChangeCheck())
+{
+    SetKeyword("_METALLIC_MAP", map.textureValue);
+}
 ```
