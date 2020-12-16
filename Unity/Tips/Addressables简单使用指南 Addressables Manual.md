@@ -8,6 +8,7 @@ Addressables.InstantiateAsync("address of prefab");
 Addressables.LoadAssetAsync("address of asset");
 ```
 #### 使用直接资源引用AssetReference加载
+
 ```csharp
 AssetReference asset;
 // 参数为资源地址，包含后缀.prefab
@@ -195,6 +196,7 @@ Addressables.LoadAssetAsync("folder/sprite.png");
 但当你的sprite的地址为```sprite.png```，不带任何父目录时，则不会出现以上问题。
 
 #### 正确的使用方法
+
 - 使用版本1.3.8（或者更低版本，目前1.3.8 < 版本 <= 1.7.4的均存在该BUG）
 -   ```csharp
     Addressables.LoadAssetAsync("folder/sprite.png[sprite]");
@@ -204,5 +206,12 @@ Addressables.LoadAssetAsync("folder/sprite.png");
     Addressables.LoadAssetAsync("folder/sprite.png[sprite_0]");
     ```
 
+### 初始场景载入之前就使用异步加载，一直加载不完成
+
+比如使用了标签```[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]```的游戏启动函数中，在游戏加载初始场景之前使用Addressables进行异步加载，则一直不会加载完成
+
+解决方法就是在初始空场景中用一个Mono脚本的Start来作为游戏启动函数
+
 ## 参考
+
 [addressables sample unity official github](https://github.com/Unity-Technologies/Addressables-Sample)
