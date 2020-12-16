@@ -24,9 +24,34 @@ public class LookAtPointEditor : Editor
 }
 ```
 
--   GUILayout.Button
--   EditorGUILayout.Popup
--   EditorGUILayout.TextField
+-   API
+    ```csharp
+    EditorGUI.showMixedValue
+    GUILayout.Button
+    EditorGUILayout.Popup
+    EditorGUILayout.TextField
+    // 多选时，如果Property有不同的值，是否显示mixValue符号
+    EditorGUI.showMixedValue
+    ```
+
+### CustomShaderGUI
+
+```csharp
+public class CustomLitGUI : ShaderGUI
+{
+    public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
+    {
+        var property = FindProperty(propertyName, properties);
+        // 如果选中了多个材质，材质上的对应属性可能有不同的值
+        // editor.ShaderProperty会自动处理这些，但是如果用EditorGUI等绘制则需要手动处理
+        EditorGUI.showMixedValue = property.hasMixedValue;
+        // EditorGUILayout 或 EditorGUI 来绘制属性
+        // 绘制完毕后记得重置
+        EditorGUI.showMixedValue = false;
+    }
+```
+
+
 
 ### Rect
 
