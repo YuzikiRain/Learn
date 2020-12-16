@@ -1,5 +1,6 @@
 ### Environment
 Unity2019.4.0f, Spine runtime for unity 3.8
+目前最新的3.8版本运行时的SkeletonAnimation和SkeletonMeccanim组件下都有apply root motion的选项，勾选后就会自动附加对应组件
 import latest unitypackage, add SkeletonMacenim component, check apply root motion in Animator component.
 
 
