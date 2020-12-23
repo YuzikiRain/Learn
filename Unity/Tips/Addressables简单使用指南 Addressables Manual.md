@@ -223,8 +223,9 @@ Addressables.LoadAssetAsync("folder/sprite.png");
 -   修改某个资源为错误的Address，在加载时会报错InvalidKeyException
 -   将资源的Address修正，再次加载，仍会报错InvalidKeyException
 -   将Project Settings -> Editor -> Enter Play Mode Options 不勾选（或者勾选Reload Domain），则加载正常
+-   不执行上一步，而是改为重启Unity编辑器，也会加载正常
 
-猜测是游戏启动后会先执行重建资源对应key的动作，再开始游戏。可能是某个静态构造函数内执行的，因为 Enter Play Mode Options 勾选 会导致静态类创建后即使下一次启动游戏也不会被销毁，静态构造函数就不会再次执行，但也可能是其他机制实现的
+猜测是游戏启动后会先执行重建资源对应key的动作，再开始游戏。可能是某个静态构造函数内执行的，因为 Enter Play Mode Options 勾选 会导致静态类创建后即使下一次启动游戏也不会被销毁（静态类生命周期和Unity编辑器一致），静态构造函数就不会再次执行，但也可能是其他机制实现的
 
 ##### Addressables 1.16.10或更高版本
 
