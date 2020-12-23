@@ -1,4 +1,4 @@
-
+### 自定义Inspector   修饰CustomEditor(typeof(目标类))
 ``` csharp
 //c# 示例 (LookAtPointEditor.cs)
 using UnityEngine;
@@ -24,15 +24,17 @@ public class LookAtPointEditor : Editor
 }
 ```
 
--   API
-    ```csharp
-    EditorGUI.showMixedValue
-    GUILayout.Button
-    EditorGUILayout.Popup
-    EditorGUILayout.TextField
-    // 多选时，如果Property有不同的值，是否显示mixValue符号
-    EditorGUI.showMixedValue
-    ```
+### API
+```csharp
+// 空行，高度为一行的高度
+GUILayout.Space(EditorGUIUtility.singleLineHeight)
+EditorGUI.showMixedValue
+GUILayout.Button
+EditorGUILayout.Popup
+EditorGUILayout.TextField
+// 多选时，如果Property有不同的值，是否显示mixValue符号
+EditorGUI.showMixedValue
+```
 
 ### CustomShaderGUI
 
