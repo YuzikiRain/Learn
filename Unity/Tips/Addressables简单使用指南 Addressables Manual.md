@@ -214,6 +214,35 @@ Addressables.LoadAssetAsync("folder/sprite.png");
 
 解决方法就是在初始空场景中用一个Mono脚本的Start来作为游戏启动函数
 
+### Address中使用文件夹，文件夹名称和内部的资源名称有重复的部分，引发InvalidKeyException
+
+``` csharp
+string GetInternalIdFromFolderEntry(string keyStr, AddressableAssetEntry entry)
+{
+    var entryPath = entry.AssetPath;
+    if (keyStr.StartsWith(entry.address + "/"))
+        return keyStr.Replace(entry.address, entryPath);
+    foreach (var l in entry.labels)
+        if (keyStr.StartsWith(l + "/"))
+            return keyStr.Replace(l, entryPath);
+    return string.Empty;
+}
+```
+
+``` csharp
+keyStr = "Config/DebugConfigData.asset";
+entry.address = "Config";
+entryPath = "Assets/AddressablesResources/Config";
+Debug.Log(keyStr.Replace(entry.address, entryPath) == "Assets/AddressablesResources/Config/DebugAssets/AddressablesResources/ConfigData.asset");
+```
+
+-   文件夹名称为aaa，路径为"Assets/aaa"
+-   资源名称为aaabbb.asset
+-   勾选aaa文件夹的Addressable选项，那么资源的地址就是"aaa/aaabbb.asset"
+-   仅当有文件夹时才会进入到这个函数，而Replace会将aaa替换为全路径，即"aaa" -> "Assets/aaa"，所以最终结果是"Assets/aaa/Assets/aaabbb.asset"。绝了！~~你特么不会用IndexOf和SubString来分割字符串吗？~~
+
+https://forum.unity.com/threads/addressable-entry-contains-two-more-same-word-leads-error.1032619/
+
 #### 重命名资产的Address后，报错InvalidKeyException
 
 ##### Addressables 1.8.4版本
