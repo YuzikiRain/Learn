@@ -2,6 +2,8 @@
 // 获得选中的gameobject
 Selection.gameObjects
 Selection.activeGameObject
+// 从prefabInstance的子物体中取得prefab的root
+var prefabInstanceRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(prefabInstance)
 // 从Object获得prefab
 PrefabUtility.GetCorrespondingObjectFromSource
 // 从prefab获得根物体

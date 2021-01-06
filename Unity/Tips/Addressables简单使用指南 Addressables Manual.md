@@ -214,7 +214,7 @@ Addressables.LoadAssetAsync("folder/sprite.png");
 
 解决方法就是在初始空场景中用一个Mono脚本的Start来作为游戏启动函数
 
-### Address中使用文件夹，文件夹名称和内部的资源名称有重复的部分，引发InvalidKeyException
+### 让文件夹Addressable，文件夹名称和内部的资源名称有重复的部分，引发InvalidKeyException
 
 ``` csharp
 string GetInternalIdFromFolderEntry(string keyStr, AddressableAssetEntry entry)
