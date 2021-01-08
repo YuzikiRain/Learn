@@ -28,8 +28,11 @@ public class LookAtPointEditor : Editor
 ```csharp
 // 空行，高度为一行的高度
 GUILayout.Space(EditorGUIUtility.singleLineHeight)
-EditorGUI.showMixedValue
+// 设置label宽度，对之后的所有物体都生效，所以一般在对的下一行的物体应用后再设置回之前的宽度
+EditorGUIUtility.labelWidth = 300f;
 GUILayout.Button
+EditorGUILayout.Toggle
+EditorGUILayout.ToggleLeft
 EditorGUILayout.Popup
 EditorGUILayout.TextField
 // 多选时，如果Property有不同的值，是否显示mixValue符号

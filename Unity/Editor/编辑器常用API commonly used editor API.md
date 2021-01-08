@@ -40,4 +40,6 @@ if (EditorGUI.EndChangeCheck())
 {
     SetKeyword("_METALLIC_MAP", map.textureValue);
 }
+// 是否开启了PlayMode选项，影响ReloaDomain
+EditorSettings.enterPlayModeOptionsEnabled
 ```
