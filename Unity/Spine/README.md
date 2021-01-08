@@ -2,3 +2,6 @@
 
 http://esotericsoftware.com/spine-unity-download
 
+### Spine手册
+
+http://esotericsoftware.com/spine-unity
