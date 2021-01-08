@@ -25,6 +25,7 @@ public class LookAtPointEditor : Editor
 ```
 
 ### API
+
 ```csharp
 // 空行，高度为一行的高度
 GUILayout.Space(EditorGUIUtility.singleLineHeight)
@@ -37,6 +38,8 @@ EditorGUILayout.Popup
 EditorGUILayout.TextField
 // 多选时，如果Property有不同的值，是否显示mixValue符号
 EditorGUI.showMixedValue
+// 默认label的gui样式
+GUIStyle style = GUI.skin.label;
 ```
 
 ### CustomShaderGUI
@@ -56,7 +59,24 @@ public class CustomLitGUI : ShaderGUI
     }
 ```
 
+### 自定义ProjectSettings或Preferences选项SettingsProvider
 
+``` csharp
+class CustomSettingProvider : SettingsProvider
+{
+    public BordlessFrameworkSettingProvider(string path, SettingsScope scopes = SettingsScope.Project) : base(path, scopes) { }
+
+    [SettingsProvider]
+    private static SettingsProvider ShowSettingsProvider()
+    {
+        return new CustomSettingProvider($"CustomSetting/Log Switch");
+    }
+}
+```
+
+
+
+https://docs.unity3d.com/2019.4/Documentation/ScriptReference/SettingsProvider.html
 
 ### Rect
 
