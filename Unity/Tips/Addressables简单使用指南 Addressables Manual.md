@@ -243,6 +243,8 @@ Debug.Log(keyStr.Replace(entry.address, entryPath) == "Assets/AddressablesResour
 
 https://forum.unity.com/threads/addressable-entry-contains-two-more-same-word-leads-error.1032619/
 
+Addressables1.16.15以及之前的版本有这个bug，**已经在 Addressables 1.17.2-preview 修复了**
+
 #### 重命名资产的Address后，报错InvalidKeyException
 
 ##### Addressables 1.8.4版本

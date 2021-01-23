@@ -9,14 +9,24 @@
 
 ### 各种初始化函数的调用时机
 
-OnBeforeSerialize 和 OnAfterSerialize 的调用时机不明
+#### OnBeforeSerialize 和 OnAfterSerialize 的调用时机不确定
 
 ```[InitializeOnLoad]```：Allows you to initialize an Editor class when Unity loads, and when your scripts are recompiled.
 
 [DidReloadScripts]：代码被reload之后的回调
 
--   [**InitializeOnEnterPlayMode**]标签标识的函数
--   [**InitializeOnLoad**]标签标识的函数
+#### 能明确调用顺序的部分
+
+-   [**InitializeOnEnterPlayMode**]标签标识的函数：进入Play Mode时调用
+-   [**InitializeOnLoadMethod**]标签标识的函数：编辑器下，启动编辑器后或编译代码后都会被调用，关闭Enter Play Mode Option，或启用ReloadDomain时，每次进入Play Mode都会被调用，猜测是ReloadDomain时调用了。
+-   RuntimeInitializeOnLoadMethod SubsystemRegistration
+-   RuntimeInitializeOnLoadMethod AfterAssembliesLoaded
+-   RuntimeInitializeOnLoadMethod BeforeSplashScreen
+-   RuntimeInitializeOnLoadMethod BeforeSceneLoaded
+-   Awake
+-   OnEnable
+-   RuntimeInitializeOnLoadMethod AfterSceneLoaded，也是RuntimeInitializeOnLoadMethod的默认值
+-   Update
 
 
 
@@ -88,6 +98,9 @@ public class InitTest : MonoBehaviour, ISerializationCallbackReceiver
 
 ```
 
+### 参考
 
-
-参考 https://caitsithware.com/wordpress/archives/2263
+-   https://docs.unity3d.com/ScriptReference/InitializeOnLoadAttribute.html
+-   https://docs.unity3d.com/Manual/RunningEditorCodeOnLaunch.html
+-   https://docs.unity3d.com/ScriptReference/RuntimeInitializeOnLoadMethodAttribute.html
+-    https://caitsithware.com/wordpress/archives/2263

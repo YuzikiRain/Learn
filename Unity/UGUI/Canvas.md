@@ -65,4 +65,4 @@ Match为Width，表示**保持Rect Transform的Width为Reference Solution.width�
 
 ### GraphicsRayCaster
 
-每个Canvas组件下的子物体都需要对应的GraphicsRayCaster组件才能收到对应UI事件
+Canvas组件所在物体或子物体拥有GraphicsRayCaster组件，GraphicsRayCaster组件的子物体才能收到对应UI事件
