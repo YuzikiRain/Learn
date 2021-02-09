@@ -102,7 +102,7 @@ using UnityEngine;
         }
     }
     ```
--   Direction：将本地空间下的某个向量变换到世界空间下。仅受旋转影响**以及所有父级的 scale 影响（因为scale也间接影响了旋转，这是一个坑）**，因为方向没有大小和位置（**注意！得到的Vector3并不是归一化后的**）
+-   Direction：将本地空间下的某个向量变换到世界空间下。仅受旋转以及**缩放的正负**影响（因为scale也间接影响了旋转，这是一个坑），因为方向没有大小和位置（**注意！得到的Vector3并不是归一化后的**）
 
     ``` csharp
     using UnityEngine;
@@ -126,11 +126,16 @@ using UnityEngine;
             // caculate manually, iterate every parent Transform until we reach root
             while (currentTransform)
             {
-                worldDirectionByCaculate = currentTransform.localRotation * worldDirectionByCaculate;
+                worldDirectionByCaculate = currentTransform.localRotation * MultiSign(worldDirectionByCaculate, currentTransform.localScale);
                 currentTransform = currentTransform.parent;
             }
     
             Debug.Log($"{nameof(worldDirection)} = {worldDirection} {nameof(worldDirectionByCaculate)} = {worldDirectionByCaculate}");
+        }
+    
+        private Vector3 MultiSign(Vector3 vector3, Vector3 scaleFactor)
+        {
+            return new Vector3(vector3.x * Mathf.Sign(scaleFactor.x), vector3.y * Mathf.Sign(scaleFactor.y), vector3.z * Mathf.Sign(scaleFactor.z));
         }
     }
     ```
