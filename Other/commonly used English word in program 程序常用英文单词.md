@@ -33,6 +33,7 @@
 
 ### M
 - minimal 最小的
+- migrate 移植
 - maximal 最大的
 
 ### P

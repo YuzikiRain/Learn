@@ -45,7 +45,7 @@ Match为Width，表示**保持Rect Transform的Width为Reference Solution.width�
 ##### Render Mode
 
 - Screen Space - Overlay：
-默认将所有UI元素绘制在屏幕之前，不论其他相机如何设置。
+默认将所有UI元素绘制在屏幕之前，不论其他相机如何设置。看起来像是有一个隐藏的相机且范围刚好覆盖整个Canvas
 因此只有将部分UI设置成透明的，才能够在屏幕上显示出其他相机所渲染的非UI对象。（从shader的角度来看，不透明UI会和其他非UI对象或者说颜色缓冲区中的颜色进行透明度混合）
 如果有多个Canvas，其Sort Order越大，显示在越前边（从shader的角度来看，Sort Order越大则渲染顺序越靠后，会将之前的颜色缓冲区覆盖或混合）
 - Screen Space - Camera：

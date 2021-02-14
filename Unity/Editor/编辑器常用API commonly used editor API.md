@@ -2,27 +2,34 @@
 // 获得选中的gameobject
 Selection.gameObjects
 Selection.activeGameObject
+    
+// 预制体，且不在场景中（在Asset中，是资源） is a prefab in asset
+var IsPartOfPrefabAsset = PrefabUtility.IsPartOfPrefabAsset(gameObject);
+// 预制体，且在场景中   is a prefab in hierarchy(scene) as instance
+var IsPartOfPrefabInstance = PrefabUtility.IsPartOfPrefabInstance(gameObject);
 // 从prefabInstance的子物体中取得prefab的root
 var prefabInstanceRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(prefabInstance)
-// 从Object获得prefab
-PrefabUtility.GetCorrespondingObjectFromSource
-// 从prefab获得根物体
-PrefabUtility.FindPrefabRoot(prefab)
+// 从Object获得prefab，应配合 PrefabUtility.GetOutermostPrefabInstanceRoot 使用，因为如果参数不是 prefabInstanceRoot 会返回 null
+var prefabInstance = PrefabUtility.GetCorrespondingObjectFromSource(prefabInstanceRoot);
+// 如果参数 prefabInstanceRoot 确实是prefab的根物体，返回 null 表示在预制体模式下，否则在一般场景下
+bool isInPrefabStage = prefabInstance != null;
+// 在预制体模式下，获得预制体场景
+PrefabStage prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+// 获得预制体场景下的根物体，即预制体根物体本身
+root = prefabStage.prefabContentsRoot;
+// 使用实例创建prefab并连接
+PrefabUtility.SaveAsPrefabAssetAndConnect
+PrefabUtility.SaveAsPrefabAsset
+    
 // 刷新Project视窗
 UnityEditor.AssetDatabase.Refresh
 // 替换文件或文件夹
 UnityEditor.FileUtil.ReplaceFile
 UnityEditor.FileUtil.ReplaceDirectory
-// 使用实例创建prefab并连接
-PrefabUtility.SaveAsPrefabAssetAndConnect
-PrefabUtility.SaveAsPrefabAsset
-// 选中
+// 选中并在Project视图中高亮
 EditorGUIUtility.PingObject(obj);
 
-// 预制体，且不在场景中 is a prefab in asset
-var IsPartOfPrefabAsset = PrefabUtility.IsPartOfPrefabAsset(gameObject);
-// 预制体，且在场景中   is a prefab in hierarchy(scene) as instance
-var IsPartOfPrefabInstance = PrefabUtility.IsPartOfPrefabInstance(gameObject);
+// 子物体的transform发生变化
 private void OnTransformChildrenChanged()
 {
     Debug.Log("Children changed! note: child of children changed won't call this function");

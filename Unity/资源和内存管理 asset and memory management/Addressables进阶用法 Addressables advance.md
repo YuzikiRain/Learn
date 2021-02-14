@@ -141,9 +141,10 @@ void CustomExceptionHandler(AsyncOperationHandle handle, Exception exception)
 }
 ```
 
+参考
 
+-   https://docs.unity3d.com/Packages/com.unity.addressables@1.15/manual/ExceptionHandler.html
 
-参考：https://docs.unity3d.com/Packages/com.unity.addressables@1.15/manual/ExceptionHandler.html
+### 将event viewer连接到独立播放器
 
-### 内存管理
-
+要将事件查看器连接到独立播放器，请进入构建菜单，选择要使用的平台，并确保同时启用了**Development Build**和**Autoconnect Profiler**。接下来，通过选择“**窗口”** >“**分析”** >“**探查**器”来打开Unity Profiler，然后在顶部工具栏上选择要构建的平台。最后，在“构建设置”窗口中选择“**构建并运行**”，事件查看器将自动连接并显示所选独立播放器的事件。

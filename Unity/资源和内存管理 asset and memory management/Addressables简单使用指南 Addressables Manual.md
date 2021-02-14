@@ -186,6 +186,13 @@ public class ComponentReferenceYourComponent : ComponentReference<YourComponent>
 }
 ```
 YourComponent为你的继承自Component的脚本组件
+
+### Event Viewer
+
+-   ```AddressableAssetsData/AddressableAssetSettings```配置下勾选```Send Profler Events```
+-   ```Play Mode Script```选择 ```Simulate Group(advanced)``` **必须使用该模式，其他模式无效**
+-   Window -> Asset Management -> Addressables -> Event Profiler
+
 ### BUG
 
 #### 找不到Sprite资源

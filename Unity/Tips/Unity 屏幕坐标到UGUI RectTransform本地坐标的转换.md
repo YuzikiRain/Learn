@@ -5,11 +5,12 @@ public static bool ScreenPointToLocalPointInRectangle(RectTransform rect, Vector
 
  - rect: 对应的 RectTransform 的引用
  - screenPoint: 位置，基于屏幕坐标系
- - cam: 相机的引用，如果Canvas的Render Mode 为 Screen Space - Camera 模式，则需要填入 Render Camera 对应的引用
- - localPoint: **rect 本地坐标系下的坐标（原点(0,0)位置受Anchor的影响）**
+ - cam: 相机的引用，如果Canvas的Render Mode 为 ```Screen Space - Overlay``` 模式，则可以只传入null，如果是 ```Screen Space - Camera``` 则需要填入 Render Camera 对应的引用
+ - localPoint: **rect 本地坐标系下的坐标（原点(0,0)位置受pivot的影响）**
 
 参考：
 https://docs.unity3d.com/ScriptReference/RectTransformUtility.ScreenPointToLocalPointInRectangle.html
+
 ```
 using UnityEngine;
 using UnityEngine.UI;

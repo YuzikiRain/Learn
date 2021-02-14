@@ -59,7 +59,7 @@ Flexible默认是不开启的
 -   localPosition：pivot到父RectTransform的pivot的相对位置
 -   anchoredPosition：**计算很复杂，还未完全弄明白，不要使用这个** anchoredPosition = offsetMin + Vector2.Scale(sizeDelta, rect.pivot)
 -   offsetMax：矩形右上角相对于锚框右上角的偏移
--   offsetMax：矩形左下角相对于锚框左下角的偏移
+-   offsetMin：矩形左下角相对于锚框左下角的偏移
 -   sizeDelta：The size of this RectTransform relative to the distances between the anchors. 另一种表示RectTransform的大小的方式。sizeDelta = offsetMax - offsetMin，几何意义是**rect本身大小**减去**锚框**大小，**不要使用这个**
 
 ``` csharp
@@ -86,5 +86,16 @@ rectTransform.offsetMax = new Vector2(-padding.right, -padding.top);
 -   size： x、y分别表示 width 和 height，width = max.x - min.x，height = max.y - min.y，size = max - min
     rect.size 直接表示了实际的rect大小，而 preferred 则是根据实现了 ILayoutElement 的类型如 Text、Image等自动设置（或者用LayoutElement自定义）
 
+### API
+
+``` csharp
+// 取得RectTransform的preferred width（RectTransform没有 preferredWidth 字段）
+float preferredWidth = LayoutUtility.GetPreferredWidth(rectTransform);
+```
+
+
+
 参考：
-[UI FitContentSize from Unity Offical Manual](https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/HOWTO-UIFitContentSize.html)
+
+-   [UI FitContentSize from Unity Offical Manual](https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/HOWTO-UIFitContentSize.html)
+-   https://zhuanlan.zhihu.com/p/119442308
