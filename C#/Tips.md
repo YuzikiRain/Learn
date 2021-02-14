@@ -25,3 +25,10 @@ byte b = 0b00000111;
 byte c = a ^ b;    // 0b00000010
 ```
 
+### 隐式转换
+
+``` csharp
+public static implicit operator bool(Panel self) { return self != null; }
+```
+
+### 运算符重载
