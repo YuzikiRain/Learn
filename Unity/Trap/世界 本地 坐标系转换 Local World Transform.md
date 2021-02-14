@@ -1,33 +1,6 @@
-### transform.localPosition
+### TransformPoint TransformVector TransformDirection
 
-``` csharp
-// 将表示方向的向量从世界坐标系转换到本地坐标系，忽略缩放影响
-Vector3 localPosition = target.parent.InverseTransformDirection(offset);
-localPosition == target.localPosition;
-// 然而target的世界坐标并不等同于父物体的世界坐标加上自身的本地坐标
-// 因为target的父物体很可能被旋转过，使得父物体的本地坐标系不等于世界坐标系
-target.position != target.parent.position + target.localPosition;
-// 实际上，localPosition表示的是在父物体的本地坐标系下的偏移量
-target.position == target.parent.position + target.parent.rotation * target.localPosition;
-```
-
-### Vector3从World到Local
-
-```csharp
-Transform target;
-// 世界坐标系下的(1, 0, 0)
-Vector3 offset = Vector3.right;
-
-// 以下变量都表示（在世界坐标系下初始化表示的）offset在target的本地坐标系下的值
-var b = target.parent.InverseTransformDirection(offset);
-var d = Quaternion.Inverse(target.parent.rotation) * offset;
-var e = b.normalized * offset.magnitude;
-b === d === e
-```
-
-### TransformPoint TransformDirection TransformVector
-
--   Point：将本地空间下的某个点变换到世界空间下，受Transform的位置、旋转、缩放影响
+-   TransformPoint：将本地空间下的某个点变换到世界空间下，受Transform的位置、旋转、缩放影响
 
     ``` csharp
 using UnityEngine;
@@ -64,8 +37,7 @@ using UnityEngine;
     }
     ```
     
-
--   Vector：将本地空间下的某个向量变换到世界空间下。仅受 Transform 的旋转和缩放影响，因为向量指具有大小（magnitude）和方向的量，没有位置这个说法。
+-   TransformVector：将本地空间下的某个向量变换到世界空间下。仅受 Transform 的旋转和缩放影响，因为向量指具有大小（magnitude）和方向的量，没有位置这个说法。
 
     ``` csharp
     using UnityEngine;
@@ -102,7 +74,8 @@ using UnityEngine;
         }
     }
     ```
--   Direction：将本地空间下的某个向量变换到世界空间下。仅受旋转以及**缩放的正负**影响（因为scale也间接影响了旋转，这是一个坑），因为方向没有大小和位置（**注意！得到的Vector3并不是归一化后的**）
+    
+-   TransformDirection：将本地空间下的某个向量变换到世界空间下。仅受旋转以及**缩放的正负**影响（因为scale也间接影响了旋转，这是一个坑），因为方向没有大小和位置（**注意！得到的Vector3并不是归一化后的**）
 
     ``` csharp
     using UnityEngine;
@@ -140,6 +113,43 @@ using UnityEngine;
     }
     ```
     
+
+假设父子关系为 root -> parent -> local，root为根物体，变换仅包含缩放变换。从root坐标系到到parent坐标系的变换矩阵为M1，从parent坐标系到到local坐标系的变换矩阵为M2，在root坐标系下表示的一个矢量$V_a$，变换到local坐标系下为矢量$V_b$，已知$V_b$，求$V_a$
+
+显然有等式 $M_2 (M_1 V_a) = V_b$ 和 $V_a = M_1^{-1} M_2^{-1} V_b$
+
+而这里的 $M_2^{-1}$其实就是 local相对于parent的localScale，$M_1^{-1}$则是parent相对于root的localScale
+
+比如：有某个子空间和父空间，子空间.localScale = (0.5, 0.5, 0.5)，表示子空间的每1单位都只有父空间的0.5单位，反过来说就是，父空间的1单位就代表子空间的2单位，即坐标轴单位缩放了0.5倍，向量从父空间变换到子空间则是缩放了2倍。在父空间下的矢量(1,1,1)，变换到子空间下则是(2,2,2)而不是(0.5,0.5,0.5)
+
+localScale 的含义就是**相比于父空间坐标单位，本地坐标单位被缩放了scale倍，从父空间到子空间的向量缩放了 1/scale 倍**
+
+### transform.localPosition
+
+``` csharp
+// 将表示方向的向量从世界坐标系转换到本地坐标系，忽略缩放影响
+Vector3 localPosition = target.parent.InverseTransformDirection(offset);
+localPosition == target.localPosition;
+// 然而target的世界坐标并不等同于父物体的世界坐标加上自身的本地坐标
+// 因为target的父物体很可能被旋转过，使得父物体的本地坐标系不等于世界坐标系
+target.position != target.parent.position + target.localPosition;
+// 实际上，localPosition表示的是在父物体的本地坐标系下的偏移量
+target.position == target.parent.position + target.parent.rotation * target.localPosition;
+```
+
+### Vector3从World到Local
+
+```csharp
+Transform target;
+// 世界坐标系下的(1, 0, 0)
+Vector3 offset = Vector3.right;
+
+// 以下变量都表示（在世界坐标系下初始化表示的）offset在target的本地坐标系下的值
+var b = target.parent.InverseTransformDirection(offset);
+var d = Quaternion.Inverse(target.parent.rotation) * offset;
+var e = b.normalized * offset.magnitude;
+b === d === e
+```
 
 ### 参考
 
