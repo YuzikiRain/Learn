@@ -39,6 +39,21 @@ AssetBundleProvider调用的释放方法里会执行 ```bundleInstance.Unload(tr
 -   仅释放部分资源，然后**将这些资源的引用都置为null**（必要操作，否则这些部分资源仍有来自这些引用的引用计数），再调用 **```Resources.UnloadUnusedAssets```** ，AB包会被卸载且释放资源所占内存，但Addressable无法识别这些事件。且**这个操作很慢，最好只在Loading等性能无关紧要的时机执行**。
 -   每个资源都是单独的AB包，当资源释放时，AB包当然不再有任何计数，自然就被卸载了。但AB包太多也可能影响性能，详见 https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressablesFAQ.html#Is-it-better-to-have-many-small-bundles-or-a-few-bigger-ones
 
+#### 隐式依赖
+
+如果资源A引用了B资源，A资源显式地指定了所在的包，而B没有，那么B也会被打到A所在的包中。如果还有另一个资源C也引用了B资源，那么B还会再被打包到C所在的包里，A和C资源被加载时会分别去自动加载所依赖的在各自包中的资源B，这两个B资源互相之间没有任何关系。这样可以避免包之间的依赖。
+
+#### 显式依赖
+
+如果ABC都分别各自显式地指定了一个包，那么此时A或B资源加载时就会自动加载C资源所在的C包，从而产生包之间的依赖。
+如果C包因为有部分资源没有释放而无法卸载，即使释放了A资源和A中的其他所有资源，A包也无法释放，因为它所依赖的C包还未被释放
+
+### 隐式加载
+
+一个资源可能在加载时又引用了其他资源，比如timeline资源（在A包中）中使用了AudioClip（在B包中），**这种情况不会在打包时产生隐式依赖而打包到同一个包里**，但是一旦timeline资源被加载并使用，它又会去加载所需要的AudioClip，如果AudioClip所在的B包里有任何资源没有被释放，B包就不可能被卸载（调用Resources.UnloadUnusedAssets只会释放无引用资源），那么依赖了AudioClip的timeline也一直无法释放。
+
+隐式依赖打包策略原本是为了解决这种问题，但是这种情况却无效
+
 #### 预制体资源
 
 实例化加载的预制体资源，然后立即释放预制体资源。如果预制体资源引用了其他资源，释放预制体资源会释放其引用的其他资源，导致实例化的物体也丢失资源引用
