@@ -16,6 +16,30 @@
 - 如果某个静态构造函数被调用过了，那么直到退出编辑器之前，这个静态构造函数不会再被调用
 - 如果某个静态成员被初始化了，那么直到退出编辑器之前，这个静态成员不会再被初始化
 
+#### 如何避免
+
+``` csharp
+#if UNITY_EDITOR
+    private static bool isInited = true;
+    [RuntimeInitializeOnLoadMethod]
+    private static void AutoInitIfDisableDomainReload()
+    {
+        // 没有启用EnterPlayMode，或没有禁用重载Domain，则和Player一样仍使用静态构造函数来初始化
+        if (!UnityEditor.EditorSettings.enterPlayModeOptionsEnabled || (UnityEditor.EditorSettings.enterPlayModeOptions & UnityEditor.EnterPlayModeOptions.DisableDomainReload) == 0) return;
+        // 虽然禁用了重载Domain，但因为是刚打开编辑器，这个静态类还未创建，因此静态构造函数仍会执行，静态字段isInited仍被初始化为初始值true，因此不必再初始化
+        // 下一次再进入这个函数时，isInited为false，说明静态构造函数之前已经执行一次初始化了但这次没法再执行初始化，则必须由本函数进行初始化
+        if (isInited) { isInited = false; return; }
+
+        Debuger.LogWarning($"you attempt to use {nameof(GameAudioManager)} but static constructor may not be called, because you disable DomainReload option of playmode in editor. to avoid this, this class has been inited after first scene loaded automatically.");
+        Init();
+    }
+#endif
+
+    static GameAudioManager() { Init(); }
+```
+
+初始化方法为Init
+
 ### 各种初始化函数的调用时机
 
 #### OnBeforeSerialize 和 OnAfterSerialize 的调用时机不确定
