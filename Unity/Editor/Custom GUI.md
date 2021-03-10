@@ -16,14 +16,21 @@ GUILayout.Space(position.height - EditorGUIUtility.singleLineHeight * (1f + 1f +
 GUILayout.Width(80);
 // 设置label宽度，对之后的所有物体都生效，所以一般在对的下一行的物体应用后再设置回之前的宽度
 EditorGUIUtility.labelWidth = 300f;
+// 返回一个足够容纳 GUIContent 的指定 GUIStyle 类型的Rect
+GUIStyle guiStyle = EditorStyles.toolbarDropDown;
+Rect rect = GUILayoutUtility.GetRect(new GUIContent("Content"), guiStyle);
 
-// 常见控件
+// 绘制常见控件
 GUILayout.Button
 EditorGUILayout.Toggle
 EditorGUILayout.ToggleLeft
 EditorGUILayout.Popup
 EditorGUILayout.TextField
 EditorGUILayout.BeginHorizontal
+EditorGUI.DropdownButton
+
+// 常见控件的GUIStyle
+EditorStyles.toolbarDropDown
     
 // 多选时，如果Property有不同的值，是否显示mixValue符号
 EditorGUI.showMixedValue
@@ -106,6 +113,31 @@ public class CustomLitGUI : ShaderGUI
         EditorGUI.showMixedValue = false;
     }
 ```
+
+### 控件
+
+#### DropdownButton
+
+``` csharp
+var guiMode = new GUIContent("Create");
+Rect rMode = GUILayoutUtility.GetRect(guiMode, EditorStyles.toolbarDropDown);
+if (EditorGUI.DropdownButton(rMode, guiMode, FocusType.Passive, EditorStyles.toolbarDropDown))
+{
+    // 创建Menu
+    var menu = new GenericMenu();
+    foreach (var templateObject in settings.GroupTemplateObjects)
+    {
+        // 为menu添加选项
+        menu.AddItem(new GUIContent("Group/" + templateObject.name), false, m_EntryTree.CreateNewGroup, templateObject);
+    }
+    // 添加分隔符
+    menu.AddSeparator(string.Empty);
+    // 显示menu所有选项
+    menu.DropDown(rMode);
+}
+```
+
+
 
 ### 自定义ProjectSettings或Preferences选项SettingsProvider
 

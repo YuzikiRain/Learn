@@ -41,17 +41,17 @@
 初始化方法为Init
 
 ### 各种初始化函数的调用时机
-
+**这些被Attribute修饰的函数必须是static的**
 #### OnBeforeSerialize 和 OnAfterSerialize 的调用时机不确定
 
 ```[InitializeOnLoad]```：Allows you to initialize an Editor class when Unity loads, and when your scripts are recompiled.
 
-[DidReloadScripts]：代码被reload之后的回调
+[DidReloadScripts]：代码被reload之后的回调，必须要关闭Enter Play Mode Option，或启用ReloadDomain
 
 #### 能明确调用顺序的部分
 
 -   [**InitializeOnEnterPlayMode**]标签标识的函数：进入Play Mode时调用
--   [**InitializeOnLoadMethod**]标签标识的函数：编辑器下，启动编辑器后或编译代码后都会被调用，关闭Enter Play Mode Option，或启用ReloadDomain时，每次进入Play Mode都会被调用，猜测是ReloadDomain时调用了。
+-   [**InitializeOnLoadMethod**]标签标识的函数：编辑器下，启动编辑器后或编译代码后都会被调用。关闭Enter Play Mode Option，或启用ReloadDomain时，每次进入Play Mode都会被调用，猜测是ReloadDomain时调用了。
 -   RuntimeInitializeOnLoadMethod SubsystemRegistration
 -   RuntimeInitializeOnLoadMethod AfterAssembliesLoaded
 -   RuntimeInitializeOnLoadMethod BeforeSplashScreen

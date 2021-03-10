@@ -1,3 +1,5 @@
+### Editor
+
 ```csharp
 // 获得选中的gameobject
 Selection.gameObjects
@@ -20,6 +22,10 @@ root = prefabStage.prefabContentsRoot;
 // 使用实例创建prefab并连接
 PrefabUtility.SaveAsPrefabAssetAndConnect
 PrefabUtility.SaveAsPrefabAsset
+// 将Object保存成资源
+AssetDatabase.AddObjectToAsset
+// 将资源改动写入磁盘
+AssetDatabase.SaveAssets();
     
 // 刷新Project视窗
 UnityEditor.AssetDatabase.Refresh
@@ -46,3 +52,11 @@ if (EditorGUI.EndChangeCheck())
 // 是否开启了PlayMode选项，影响ReloaDomain
 EditorSettings.enterPlayModeOptionsEnabled
 ```
+
+### FileUtil
+
+``` csharp
+// 将路径转换为Assets相对路径
+string relativePath = FileUtil.GetProjectRelativePath(fullPath);
+```
+

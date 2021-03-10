@@ -35,8 +35,8 @@ AssetBundleProvider调用的释放方法里会执行 ```bundleInstance.Unload(tr
 
 要卸载AB包，可通过以下方法：
 
--   释放所有从该AB包加载的资源（以减少资源和AB包的引用计数），当AB包引用计数为0，表示AB包内没有任何资源被使用，AB包会被自动卸载，并释放之前加载的资源所占用的内存
--   仅释放部分资源，然后**将这些资源的引用都置为null**（必要操作，否则这些部分资源仍有来自这些引用的引用计数），再调用 **```Resources.UnloadUnusedAssets```** ，AB包会被卸载且释放资源所占内存，但Addressable无法识别这些事件。且**这个操作很慢，最好只在Loading等性能无关紧要的时机执行**。
+-   释放所有从该AB包加载的资源（以减少资源和AB包的引用计数），然后**将这些资源的引用都置为null**（否则这些部分资源仍有来自这些引用的引用计数），当AB包引用计数为0，表示AB包内没有任何资源被使用，AB包会被自动卸载，并释放之前加载的资源所占用的内存
+-   仅释放部分资源，然后**将这些资源的引用都置为null**（否则这些部分资源仍有来自这些引用的引用计数），再调用 **```Resources.UnloadUnusedAssets```** ，AB包会被卸载且释放资源所占内存，但Addressable无法识别这些事件。且**这个操作很慢，最好只在Loading等性能无关紧要的时机执行**。
 -   每个资源都是单独的AB包，当资源释放时，AB包当然不再有任何计数，自然就被卸载了。但AB包太多也可能影响性能，详见 https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressablesFAQ.html#Is-it-better-to-have-many-small-bundles-or-a-few-bigger-ones
 
 #### 隐式依赖

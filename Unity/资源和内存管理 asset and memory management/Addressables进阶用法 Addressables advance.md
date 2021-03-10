@@ -4,8 +4,8 @@
 
 -   Build and Play Mode Scripts
     -   Use Asset Database：直接使用AssetDatabase读取，速度最快，仅编辑器模式下可用
-    -   Simulate Groups：创建虚拟的AB包进行测试，仅编辑器模式下可用
-    -   Use Existing Build：读取Build好的包，仅编辑器模式下可用
+    -   Simulate Groups：创建虚拟的AB包进行测试，**可使用Event Viewer测试加载情况**。仅编辑器模式下可用
+    -   Use Existing Build：读取Build好的包，**可使用Event Viewer测试加载情况**。仅编辑器模式下可用
     -   Default Build Script：仅用于Build，显示在Build -> New Build -> Default Build Script，不会显示在Play Mode Script选项中
 -   Asset Group Templates：Group的模板，Default Local Group就是用它生成的
 
