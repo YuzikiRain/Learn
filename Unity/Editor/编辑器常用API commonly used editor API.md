@@ -4,7 +4,10 @@
 // 获得选中的gameobject
 Selection.gameObjects
 Selection.activeGameObject
-    
+// 返回位于path的主资产，不需要类型，主资产是位于层次结构根目录的资产（例如Maya文件，其中可能包含多个Mesh和GameObjects）
+AssetDatabase.LoadMainAssetAtPath(path)
+// 返回位于path的资产，因为一个资产可能包含其他多个子资产，因此需要执行类型
+AssetDatabase.LoadAssetAtPath(path)
 // 预制体，且不在场景中（在Asset中，是资源） is a prefab in asset
 var IsPartOfPrefabAsset = PrefabUtility.IsPartOfPrefabAsset(gameObject);
 // 预制体，且在场景中   is a prefab in hierarchy(scene) as instance
