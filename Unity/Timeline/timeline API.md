@@ -8,6 +8,11 @@ foreach (var playable in playableAsset.outputs)
 	playableDirector.SetGenericBinding(playable.sourceObject, instanceOfTrackBindingType);
 }
 
+// 获得索引为index的Track的信息
+var track = (playableAsset as UnityEngine.Timeline.TimelineAsset).GetOutputTrack(index);
+// track是否有clip
+var hasCilps = track.hasClips;
+
 [TrackBindingType(typeof(instanceOfTrackBindingType))]
 public class CustomTrack : TrackAsset
 {
