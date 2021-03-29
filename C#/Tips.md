@@ -31,4 +31,29 @@ byte c = a ^ b;    // 0b00000010
 public static implicit operator bool(Panel self) { return self != null; }
 ```
 
+### 从当前应用程序域获得所有程序集
+
+``` csharp
+var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
+System.Type profileWindowType = null;
+foreach (var assembly in assemblies)
+{
+    if (assembly.GetName().Name.Contains("Unity.Addressables.Editor"))
+    {
+        var types = assembly.GetTypes();
+        foreach (var type in types)
+        {
+            if (type.Name.Contains("ProfileWindow"))
+            {
+                profileWindowType = type;
+                break;
+            }
+        }
+        break;
+    }
+}
+```
+
+
+
 ### 运算符重载
