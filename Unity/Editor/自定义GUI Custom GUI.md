@@ -8,9 +8,9 @@ property.FindPropertyRelative(fieldName)
 // 如果在编辑器上修改了serializedObject的一些字段，必须调用该函数才能保存
 serializedObject.ApplyModifiedProperties();
 
-// 空行，高度为一行的高度
+// 在GUILayout.BeginVertical之后使用，空行，高度为一行的高度
 EditorGUILayout.Space(EditorGUIUtility.singleLineHeight)
-// 添加空格，之后的GUILayout就是被排列到最后一行
+// 在GUILayout.BeginVertical之后使用，使得之后的GUILayout绘制的GUI被排列到最后一行
 GUILayout.Space(position.height - EditorGUIUtility.singleLineHeight * (1f + 1f + 0.5f));
 // 返回 GUILayoutOption 对象，可用于GUILayout和EditorGUILayout的GUILayoutOption参数数组
 GUILayout.Width(80);
@@ -43,11 +43,26 @@ EditorGUI.showMixedValue
 GUIStyle style = GUI.skin.label;
 // 是否使用Dark主题
 UnityEditor.EditorGUIUtility.isProSkin
+    
+// 使得父Rect的宽度变化时，A GUI 和B GUI 大小仍保持不变，因为多出的宽度被FlexibleSpace使用了
+GUILayout.BeginHorizontal();
+// 绘制A GUI
+GUILayout.FlexibleSpace();
+// 绘制一些间隔
+GUILayout.Space(2f);
+// 绘制B GUI
+GUILayout.EndHorizontal();
 ```
+
+### Layout
 
 GUI和GUILayout可用于编辑器和Player，EditorGUI和EditorGUILayout仅能用于编辑器
 
 Layout有自动布局效果，容易实现自适应的界面。
+
+**务必使用```GUILayout.BeginArea```和```GUILayout.EndArea```来嵌套布局语句，否则自动布局系统无法作用在正确区域上**
+
+https://docs.unity3d.com/ScriptReference/GUILayout.BeginArea.html
 
 ### CustomEditor
 
