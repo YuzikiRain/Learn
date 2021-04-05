@@ -178,6 +178,10 @@ private void OnGUI()
     assetsTreeView.searchString = searchField.OnGUI(searchRect, assetsTreeView.searchString);
 }
 ```
+### 设置按钮
+
+```GUILayout.Button(EditorGUIUtility.FindTexture("d__Popup@2x"), (GUIStyle)"SettingsIconButton");```
+
 ### 自定义ProjectSettings或Preferences选项SettingsProvider
 
 ``` csharp
@@ -196,3 +200,7 @@ class CustomSettingProvider : SettingsProvider
 参考：
 
 https://docs.unity3d.com/2019.4/Documentation/ScriptReference/SettingsProvider.html
+
+### 内置GUI资源
+
+http://wiki.unity3d.com/index.php/Show_Built_In_Resources
