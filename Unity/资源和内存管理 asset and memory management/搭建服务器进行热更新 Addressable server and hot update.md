@@ -1,10 +1,15 @@
 ### 搭建服务器
 
--   买一台阿里云服务器，不需要域名，记下外网IP
+-   买一台阿里云服务器，**不需要域名**，记下外网IP
 -   安装JDK：https://www.oracle.com/java/technologies/javase-downloads.html，安装版（非zip）会自动设置环境变量
 -   安装apache Tomcat：https://tomcat.apache.org/download-80.cgi，**默认8080端口**（可以到```conf/server.xml```下改），```bin/startup.bat```启动服务
 -   配置入口规则：开放8080端口（其他端口也行，要跟上一步一致），阿里云服务器设置：控制台 -> 实例 -> 更多 -> 网络和安全组 -> 配置安全组规则 -> 手动添加（如方向） -> 端口范围
--   提交热更新数据：https://cloud.tencent.com/document/product/213/2761 将所需文件传输到云服务器的 ```tomcat安装目录/webapps/ServerData/StandaloneWindows``` 目录下
+-   提交热更新数据：将所需文件传输到云服务器的 ```tomcat安装目录/webapps/ServerData/StandaloneWindows``` 目录下，可使用以下方法
+    -   远程连接，映射本地磁盘驱动器：https://cloud.tencent.com/document/product/213/2761 
+    -   部署FTP服务器并上传：https://help.aliyun.com/document_detail/92046.html
+        部署FTP服务器：
+        -   
+        -   搭建好FTP站点后，您需要在实例安全组的入方向添加规则，放行FTP服务器21端口及**FTP服务器被动1024/65535端口**。
 
 ### 热更新
 
