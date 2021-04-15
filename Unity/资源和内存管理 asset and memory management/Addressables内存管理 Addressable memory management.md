@@ -69,3 +69,4 @@ AssetBundleProvider调用的释放方法里会执行 ```bundleInstance.Unload(tr
 -   https://docs.unity3d.com/Packages/com.unity.addressables@1.15/manual/LoadingAddressableAssets.html
 -   https://docs.unity3d.com/Packages/com.unity.addressables@1.15/manual/InstantiateAsync.html
 -   https://docs.unity3d.com/Packages/com.unity.addressables@1.15/manual/MemoryManagement.html
+-   https://unity.cn/projects/addressables
