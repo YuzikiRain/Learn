@@ -66,3 +66,9 @@ Match为Width，表示**保持Rect Transform的Width为Reference Solution.width�
 ### GraphicsRayCaster
 
 Canvas组件所在物体或子物体拥有GraphicsRayCaster组件，GraphicsRayCaster组件的子物体才能收到对应UI事件
+
+#### 添加了Canvas组件来自定义覆盖显示顺序后子物体Button无法接收UI事件
+
+子物体到Canvas物体之间没有任何物体添加GraphicsRayCaster组件，所以无法接收UI事件
+
+平时默认Canvas可以接收事件是因为默认就添加了GraphicsRayCaster组件，而自定义Canvas的物体则可能忘记添加该组件
