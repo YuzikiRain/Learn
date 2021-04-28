@@ -8,7 +8,7 @@
 
 ### 加载和引用计数
 
-使用 ```Addressables.LoadAssetAsync``` 或 ```Addressables.InstantiateAsync``` 加载资源时，会自动加载资源所在AB包，以及加载所有依赖的AB包，并保持它们一直加载，直到您调用```Addressables.Release```
+使用 ```Addressables.LoadAssetAsync``` 或 ```Addressables.InstantiateAsync``` 加载资源时，会自动加载资源所在AB包，以及加载所有依赖的AB包，并保持它们一直在内存中，直到您调用```Addressables.Release```
 
 相当于自动完成了加载AB包和从AB包中加载资源
 
