@@ -11,7 +11,7 @@
         -   
         -   搭建好FTP站点后，您需要在实例安全组的入方向添加规则，放行FTP服务器21端口及**FTP服务器被动模式1024/65535范围内的所有端口**。
 
-### 热更新
+### 更新资源
 
 -   ```AddressableAssetsData/AddressableAssetSettings```，勾选```Build Remote Catalog```（勾选后，会生成.hash 和 .json文件，得出哪些文件需要更新），将```Build Path``` 和 ```Load Path```分别设置为```RemoteBuildPath```和```RemoteLoadPath```
 -   对应Unity Addressable Profile里，RemoteBuildPath=```ServerData/[BuildTarget]```（Build包时会生成bundle在```工程目录/ServerData```下，而如果是单机游戏，选择LocalBuildPath，则会生成在```工程目录\Library\com.unity.addressables\aa\[BuildTarget]```），RemoteLoadPath=```外网IP:默认端口/ServerData/[BuildTarget]```，因为这里只是简单地搭建了一个网站，**"外网IP:默认端口"对应的就是"tomcat安装目录/webapps"**
@@ -20,13 +20,28 @@
 -   资源发生变动需要更新时（不论是在原group上增删修改entry，还是增删group，都算作资源变动），在Group界面 -> Build -> Update Previous Build，选择 ```AddressableAssetsData/[BuildTarget]/addressables_content_state.bin```文件
 -   此时会生成新的.json文件（文件名带有时间戳，也可以设置用版本号```Assets/AddressableAssetsData/AddressableAssetSettings -> Player Version Override```，用于判断资源是否过期，文件内容包含包文件名、远程加载路径、所有资源名称等关键信息）.hash文件，将生成的新AB包和```catalog_xxx.json```和 ```catalog_xxx.hash```文件上传到 RemoteLoadPath 上
 
+### 如何更新
+
+-   根据情况设置group如何打包：每个游戏版本包含本地包和远程包，可能会被更新的资源应该都放在远程包上（尽量不用本地包，即只用远程包，确保所有资源都是可更新的，除非这部分内容直到下一次Build Player之前都不需要更新）
+-   Build Addressable AssetBundle：每次不可热更的大版本更新后，进行一次该操作（主要是为了逻辑代码重新编译和一些不需要更新的资源）
+-   Build Player
+-   准备更新内容：``` group的配置文件 -> Content Update Restriction ```，注意，**在下一次Build Addressable AssetBundle之前，不要修改任何group的Content Update Restriction**
+    -   ```can not change post release```**静态内容**，仅创建包含修改的资源的更新包（增量更新）
+        点击按钮 ```Addressables groups -> Tools -> Check for Content Update Restrictions```，选择对应平台的```.bin```文件，在弹出的Content Update Preview窗口中确认修改产生的update包，然后点击Apply Changes，之后Addressables groups窗口中会出现新的update包，包含了被修改的资源
+    -   ```can change post release```**动态内容**，如果包内的资源被修改，将会创建完整的新包（完整替换）
+-   Update a Previous Build：```Addressables groups -> Tools -> Update a Previous Build```进行打包，Build 设置为
+
 ### 更新Catalog
 
 #### 手动更新
 
 ```AddressableAssetsData/AddressableAssetSettings``` 不勾选 ```disable catalog update on startup```，关闭自动更新
 
-```csharp
+-   更新Catalog
+
+    ```csharp
+    private List<object> updateKeys;
+    
     IEnumerator UpdateCatalogs()
     {
         List<string> catalogsToUpdate = new List<string>();
@@ -48,11 +63,42 @@
                 Debug.Log($"updating, progress = {percent}");
             }
             yield return updateHandle;
+            
         }
         else
             Debug.Log($"latest version");
     }
-```
+    ```
+
+-   根据更新后的Catalog来确定要下载哪些资源
+
+    ```csharp
+    public IEnumerator Download()
+    {
+        var downloadsize = Addressables.GetDownloadSizeAsync(updateKeys);
+        yield return downloadsize;
+        if (downloadsize.Result > 0)
+        {
+            Debug.Log("需要更新，大小为 " + downloadsize.Result);
+            var download = Addressables.DownloadDependenciesAsync(updateKeys, Addressables.MergeMode.Union);//, Addressables.MergeMode.Union
+            var deps = new List<AsyncOperationHandle>();
+            download.GetDependencies(deps); // deps is added to! (weird API...)
+            float percentCompleteSum = 0;
+            int count = 0;
+            while (!download.IsDone)
+            {
+                foreach (var asyncOperationHandle in deps)
+                {
+                    Debug.Log($"{asyncOperationHandle.DebugName} {asyncOperationHandle.GetDownloadStatus().Percent} {asyncOperationHandle.PercentComplete}，总进度 {count / deps.Count}");
+                    yield return null;
+                }
+            }
+            Addressables.Release(download);
+        }
+        else Debug.Log("已经是最新版本");
+        Addressables.Release(downloadsize);
+    }
+    ```
 
 #### 自动更新
 

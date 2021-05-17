@@ -21,6 +21,13 @@
 -   RemoteBuildPath：指示服务器Build时bundle的位置
 -   RemoteLoadPath：指示加载bundle的位置
 
+#### 常用API
+
+``` csharp
+```
+
+
+
 ### Catalog
 
 
