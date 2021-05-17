@@ -27,7 +27,10 @@ PrefabUtility.SaveAsPrefabAssetAndConnect
 PrefabUtility.SaveAsPrefabAsset
 // 将Object保存成资源
 AssetDatabase.AddObjectToAsset
-// 将资源改动写入磁盘
+// 通过默认的Inspector来修改Mono或ScriptableObject对象时，这些修改会被自动保存
+// 但是如果通过自定义Inspector或代码直接修改，则需要手动调用SetDirty告知对象修改需要保存到磁盘
+EditorUtility.SetDirty(obj);
+// 将改动写入磁盘
 AssetDatabase.SaveAssets();
     
 // 刷新Project视窗
@@ -37,6 +40,9 @@ UnityEditor.FileUtil.ReplaceFile
 UnityEditor.FileUtil.ReplaceDirectory
 // 选中并在Project视图中高亮
 EditorGUIUtility.PingObject(obj);
+// 打开目录
+EditorUtility.RevealInFinder(dierctoryPathRelativeToProject);
+EditorUtility.OpenWithDefaultApp(dierctoryPathRelativeToProject);
 
 // 子物体的transform发生变化
 private void OnTransformChildrenChanged()
