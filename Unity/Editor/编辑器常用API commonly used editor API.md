@@ -7,7 +7,7 @@ Selection.activeGameObject
 // 返回位于path的主资产，不需要类型，主资产是位于层次结构根目录的资产（例如Maya文件，其中可能包含多个Mesh和GameObjects）
 AssetDatabase.LoadMainAssetAtPath(path)
 // 返回位于path的资产，因为一个资产可能包含其他多个子资产，因此需要执行类型
-AssetDatabase.LoadAssetAtPath(path)
+AssetDatabase.LoadAssetAtPath<TObject>(path)
 // 预制体，且不在场景中（在Asset中，是资源） is a prefab in asset
 var IsPartOfPrefabAsset = PrefabUtility.IsPartOfPrefabAsset(gameObject);
 // 预制体，且在场景中   is a prefab in hierarchy(scene) as instance
@@ -67,5 +67,12 @@ EditorSettings.enterPlayModeOptionsEnabled
 ``` csharp
 // 将路径转换为Assets相对路径
 string relativePath = FileUtil.GetProjectRelativePath(fullPath);
+```
+
+### Attribute
+
+``` csharp
+// 打开资源时的回调，常用于打开ScriptableObject资源时打开对应编辑器窗口
+[OnOpenAsset]
 ```
 
