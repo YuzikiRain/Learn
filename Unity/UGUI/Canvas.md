@@ -23,6 +23,7 @@ Match为Width，表示**保持Rect Transform的Width为Reference Solution.width�
     ```
 
 ##### Position
+
 - Screen Space - Overlay：Position就是屏幕分辨率/2（这样使得**Canvas的左下角刚好在世界空间原点**），z永远为0
 - Screen Space - Camera：Position就是Canvas组件中**Render Camera对应的Camera的位置**，z = 相机.position.z + Canvas.Plane Distance
 

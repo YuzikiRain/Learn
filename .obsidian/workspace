@@ -4,13 +4,28 @@
     "type": "split",
     "children": [
       {
-        "id": "d309cadc6d3cf529",
+        "id": "4cf4c74cf2f73015",
         "type": "leaf",
-        "active": true,
         "state": {
-          "type": "empty",
-          "state": {}
-        }
+          "type": "markdown",
+          "state": {
+            "file": "Lua/函数.md",
+            "mode": "source"
+          }
+        },
+        "group": "aa5146809116fb23"
+      },
+      {
+        "id": "d3a9ffd9995e1d08",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Lua/函数.md",
+            "mode": "preview"
+          }
+        },
+        "group": "aa5146809116fb23"
       }
     ],
     "direction": "vertical"
@@ -37,7 +52,12 @@
             "state": {
               "type": "search",
               "state": {
-                "query": ""
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
               }
             }
           }
@@ -60,7 +80,16 @@
             "type": "leaf",
             "state": {
               "type": "backlink",
-              "state": {}
+              "state": {
+                "file": "Lua/函数.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
             }
           }
         ]
@@ -70,5 +99,12 @@
     "width": 300,
     "collapsed": true
   },
-  "lastOpenFiles": []
+  "active": "4cf4c74cf2f73015",
+  "lastOpenFiles": [
+    "Lua/函数.md",
+    "Lua/table.md",
+    "Lua/Tolua.md",
+    "Lua/Untitled.md",
+    "Lua/待学习的内容.md"
+  ]
 }
