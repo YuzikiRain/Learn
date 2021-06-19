@@ -41,17 +41,29 @@
 -   Include Resources Folders：是否将Resouces文件夹内的资源包含进这个bundle里
 -   Include Build Settings Scenes：是否将Build Setting界面下设置的Scenes包含进这个bundle里
 
-#### Default Local Group
+#### 自定义Group
 
 -   Include In Build：勾选后，Build的时候会将bundle文件复制到StreammingAssets下
+
 -   Bundle Mode
     -   Pack Together：每个Group中，除了场景之外的资源，打成一个包，场景另外打一个包
     -   Pack Separately：每个Group中的Entry分别打一个包，Entry即Group下的各个目录
     -   Pack Together By Label：相同Label打一个包
+    
 -   Internal Id Naming Mode：bundle内的asset的ID命名
+
 -   Bundle Naming：生成的bundle文件的命名
+
 -   Asset Provider：决定如何从bundle中读取asset，要自定义的话可以参考BundledAssetProvider脚本
+
 -   Asset Bundle Provider：决定如何加载bundle，要自定义的话可以参考AssetBundleProvider脚本
+
+-   Update Restriction：
+    -   Can Change Post Release：**动态包**，如果group内的资源发生变动（增删修改），在```Addressables Groups -> Build -> Update a Previous Build```后，会在group的BuildPath生成对应的新包（包含被修改的资源以及其他旧包的资源），更新的catalog内指示要使用的包从旧包变为新包（即完整替换）
+    -   Cannot Change Post Release：**静态包**，如果group内的资源发生变动（增删修改），在```Addressables Groups -> Tools -> Check for Content Update Restrictions```后，会为每个变动的group生成仅包含变动资源的新group，再执行Addressables Groups -> Build -> Update a Previous Build```，在group的BuildPath生成对应的**增量更新包**（仅包含被修改的资源），更新的catalog内指示除了要使用旧包之外，还要使用增量更新包
+    
+    **官方建议首包使用静态包（估计是因为包比较大，动态包的话需要更新较多内容），之后都是以首包静态包为基准的修改产生的动态包（增量更新） [链接](https://mp.weixin.qq.com/s?__biz=MzU5MjQ1NTEwOA==&mid=2247530414&idx=1&sn=45a33b269203e9cc3efa98c3f68d5875&chksm=fe1d4305c96aca136a339182bef3660535dd24802496a33cfa0c2e18b50c7e15e572d92686dc&mpshare=1&scene=1&srcid=0609zICZI0fwg3JoCYZuR6Bt&sharer_sharetime=1623218825567&sharer_shareid=2568a3ad8d7c905397d491e7d0a22372&version=3.1.7.3005&platform=win#rd)   [链接2](https://www.bilibili.com/read/cv11642315)  
+    但是我觉得如果首包比较零散（每个包都不大，仅包含少量资源），那么首包也应该用动态包**
 
 ### AddressablesBuildScriptHooks
 
