@@ -204,3 +204,8 @@ https://docs.unity3d.com/2019.4/Documentation/ScriptReference/SettingsProvider.h
 ### 内置GUI资源
 
 http://wiki.unity3d.com/index.php/Show_Built_In_Resources
+
+### 参考
+
+-   https://mp.weixin.qq.com/s/8ANiIlsjOEZQEvQtr96Xug##
+

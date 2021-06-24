@@ -48,6 +48,6 @@ GraphicRaycaster的父类BaseRaycaster在OnEnable里通过```RaycasterManager.Ad
 
 ### 参考
 
--   https://learn.unity.com/tutorial/optimizing-unity-ui#5c7f8528edbc2a002053b5a2
+-   https://learn.unity.com/tutorial/optimizing-unity-ui#5c7f8528edbc2a002053b5a0
 -   https://zhuanlan.zhihu.com/p/366779113
 
