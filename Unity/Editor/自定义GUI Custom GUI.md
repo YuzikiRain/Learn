@@ -33,6 +33,9 @@ EditorGUILayout.Popup
 EditorGUILayout.TextField
 EditorGUILayout.BeginHorizontal
 EditorGUI.DropdownButton
+    
+// GUILayoutOption
+GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight, GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
 
 // 常见控件的GUIStyle
 EditorStyles.toolbarDropDown

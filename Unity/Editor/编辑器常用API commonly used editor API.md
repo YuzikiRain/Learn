@@ -1,4 +1,30 @@
-### Editor
+ ### Editor
+
+#### Prefab
+
+#### Stage
+
+```csharp
+// （从PrefabStage或其他Stage）回到主场景
+StageUtility.GoToMainStage();
+```
+
+#### Scene
+
+```csharp
+// 编辑器模式下获得当前激活场景
+EditorSceneManager.GetActiveScene();
+// 编辑器模式下关闭场景
+EditorSceneManager.CloseScene
+// 返回上一个stage（比如prefab的stage）
+StageUtility.GoBackToPreviousStage();
+// 返回主stage
+StageUtility.GetMainStage();
+// 编辑器模式下关闭PreviewScene场景（不可用于PrefabStage场景）
+EditorSceneManager.ClosePreviewScene
+```
+
+
 
 ```csharp
 // 获得选中的gameobject
@@ -15,7 +41,8 @@ var IsPartOfPrefabInstance = PrefabUtility.IsPartOfPrefabInstance(gameObject);
 // 从prefabInstance的子物体中取得prefab的root
 var prefabInstanceRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(prefabInstance)
 // 从Object获得prefab，应配合 PrefabUtility.GetOutermostPrefabInstanceRoot 使用，因为如果参数不是 prefabInstanceRoot 会返回 null
-var prefabInstance = PrefabUtility.GetCorrespondingObjectFromSource(prefabInstanceRoot);
+var prefabAsset = PrefabUtility.GetCorrespondingObjectFromSource(prefabInstanceRoot);
+var prefabAssetPath = AssetDatabase.GetAssetPath(prefabAsset);
 // 如果参数 prefabInstanceRoot 确实是prefab的根物体，返回 null 表示在预制体模式下，否则在一般场景下
 bool isInPrefabStage = prefabInstance != null;
 // 在预制体模式下，获得预制体场景
@@ -32,6 +59,8 @@ AssetDatabase.AddObjectToAsset
 EditorUtility.SetDirty(obj);
 // 将改动写入磁盘
 AssetDatabase.SaveAssets();
+// 用预制体资源创建预制体实例，并保持与预制体资源连接
+PrefabUtility.InstantiatePrefab(prefab);
     
 // 刷新Project视窗
 UnityEditor.AssetDatabase.Refresh
