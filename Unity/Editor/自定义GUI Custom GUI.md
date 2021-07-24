@@ -14,11 +14,11 @@ EditorGUILayout.Space(EditorGUIUtility.singleLineHeight)
 GUILayout.Space(position.height - EditorGUIUtility.singleLineHeight * (1f + 1f + 0.5f));
 // 返回 GUILayoutOption 对象，可用于GUILayout和EditorGUILayout的GUILayoutOption参数数组
 GUILayout.Width(80);
-// 设置label宽度，对之后的所有物体都生效，所以一般在对的下一行的物体应用后再设置回之前的宽度
+// 设置label宽度，对之后的所有物体都生效，所以一般在对的下一行的物体应用后再设置回之前的宽度（设置为0f会用默认值）
 EditorGUIUtility.labelWidth = 300f;
 // 将包裹的绘制GUI变为只读的
 EditorGUI.BeginDisabledGroup(isDisabled);
-// 一些绘制函数
+// 绘制
 EditorGUI.EndDisabledGroup();
 // 返回默认类型的GUIStyle
 GUIStyle guiStyle = EditorStyles.toolbarDropDown;
@@ -33,6 +33,9 @@ EditorGUILayout.Popup
 EditorGUILayout.TextField
 EditorGUILayout.BeginHorizontal
 EditorGUI.DropdownButton
+    
+// GUILayoutOption
+GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight, GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
 
 // 常见控件的GUIStyle
 EditorStyles.toolbarDropDown
@@ -204,3 +207,8 @@ https://docs.unity3d.com/2019.4/Documentation/ScriptReference/SettingsProvider.h
 ### 内置GUI资源
 
 http://wiki.unity3d.com/index.php/Show_Built_In_Resources
+
+### 参考
+
+-   https://mp.weixin.qq.com/s/8ANiIlsjOEZQEvQtr96Xug##
+

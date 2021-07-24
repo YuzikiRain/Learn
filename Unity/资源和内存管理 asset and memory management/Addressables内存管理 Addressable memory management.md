@@ -41,22 +41,27 @@ AssetBundleProvider调用的释放方法里会执行 ```bundleInstance.Unload(tr
 
 #### 隐式依赖
 
-如果资源A引用了B资源，A资源显式地指定了所在的包，而B没有，那么B也会被打到A所在的包中。如果还有另一个资源C也引用了B资源，那么B还会再被打包到C所在的包里，A和C资源被加载时会分别去自动加载所依赖的在各自包中的资源B，这两个B资源互相之间没有任何关系。这样可以避免包之间的依赖。
+如果资源a引用了b资源，a资源显式地指定了所在的包，而b没有显式指定所在包，那么b也会被打到a所在的包中。如果还有另一个资源c也引用了b资源，那么b还会再被打包到c所在的包里，a和c资源被加载时会分别去自动加载所依赖的在各自包中的资源b，**这两个b资源互相之间没有任何联系**。这样可以避免包之间的依赖。
 
 #### 显式依赖
 
 如果ABC都分别各自显式地指定了一个包，那么此时A或B资源加载时就会自动加载C资源所在的C包，从而产生包之间的依赖。
-如果C包因为有部分资源没有释放而无法卸载，即使释放了A资源和A中的其他所有资源，A包也无法释放，因为它所依赖的C包还未被释放
 
-### 隐式加载
+##### 自动释放
+
+如果**A包仅a资源、C包仅c资源没有释放**，那么调用```Addressables.Release```释放a资源时，资源a、c都会被释放
+
+除此之外的情形，都不会自动释放依赖资源
+
+#### 隐式加载
 
 一个资源可能在加载时又引用了其他资源，比如timeline资源（在A包中）中使用了AudioClip（在B包中），**这种情况不会在打包时产生隐式依赖而打包到同一个包里**，但是一旦timeline资源被加载并使用，它又会去加载所需要的AudioClip，如果AudioClip所在的B包里有任何资源没有被释放，B包就不可能被卸载（调用Resources.UnloadUnusedAssets只会释放无引用资源），那么依赖了AudioClip的timeline也一直无法释放。
 
 隐式依赖打包策略原本是为了解决这种问题，但是这种情况却无效
 
-#### 预制体资源
+#### 预制体实例依赖资源丢失
 
-实例化加载的预制体资源，然后立即释放预制体资源。如果预制体资源引用了其他资源，释放预制体资源会释放其引用的其他资源，导致实例化的物体也丢失资源引用
+如果预制体资源引用了其他资源，预制体资源如果被真正地释放了，那么依赖资源也会被释放，此时所有预制体实例对依赖资源的引用也会丢失
 
 #### Resources.UnloadUnusedAssets
 
@@ -64,9 +69,22 @@ AssetBundleProvider调用的释放方法里会执行 ```bundleInstance.Unload(tr
 
 有的资源已经没有任何引用了但未被卸载，因为其引用或句柄引用丢失了（置为null或者引用它的实例被销毁了等情况），只能通过该函数进行释放。
 
+#### 资源引用或加载资源句柄引用丢失的情况下如何释放资源
+
+再次加载资源，并用此时能访问到的资源句柄或者资源引用来释放资源
+
+```csharp
+var handle = Addressables.LoadAssetAsync<GameObject>(address);
+var prefab = handle.WaitForCompletion();
+// 必须要调用这两句
+Addressables.Release(handle);
+Addressables.Release(prefab);
+```
+
 ### 参考
 
 -   https://docs.unity3d.com/Packages/com.unity.addressables@1.15/manual/LoadingAddressableAssets.html
 -   https://docs.unity3d.com/Packages/com.unity.addressables@1.15/manual/InstantiateAsync.html
 -   https://docs.unity3d.com/Packages/com.unity.addressables@1.15/manual/MemoryManagement.html
 -   https://unity.cn/projects/addressables
+-   https://blog.csdn.net/m0_46184795/article/details/108266234
