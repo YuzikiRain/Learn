@@ -12,13 +12,11 @@ serializedObject.ApplyModifiedProperties();
 EditorGUILayout.Space(EditorGUIUtility.singleLineHeight)
 // 在GUILayout.BeginVertical之后使用，使得之后的GUILayout绘制的GUI被排列到最后一行
 GUILayout.Space(position.height - EditorGUIUtility.singleLineHeight * (1f + 1f + 0.5f));
-// 返回 GUILayoutOption 对象，可用于GUILayout和EditorGUILayout的GUILayoutOption参数数组
-GUILayout.Width(80);
 // 设置label宽度，对之后的所有物体都生效，所以一般在对的下一行的物体应用后再设置回之前的宽度（设置为0f会用默认值）
 EditorGUIUtility.labelWidth = 300f;
 // 将包裹的绘制GUI变为只读的
 EditorGUI.BeginDisabledGroup(isDisabled);
-// 绘制
+// 绘制一些GUI
 EditorGUI.EndDisabledGroup();
 // 返回默认类型的GUIStyle
 GUIStyle guiStyle = EditorStyles.toolbarDropDown;
@@ -34,7 +32,7 @@ EditorGUILayout.TextField
 EditorGUILayout.BeginHorizontal
 EditorGUI.DropdownButton
     
-// GUILayoutOption
+// GUILayoutOption，可用于GUILayout和EditorGUILayout的GUILayoutOption参数数组
 GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight, GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
 
 // 常见控件的GUIStyle
@@ -55,7 +53,36 @@ GUILayout.FlexibleSpace();
 GUILayout.Space(2f);
 // 绘制B GUI
 GUILayout.EndHorizontal();
+
+// 检查编辑器上的属性是否被修改
+EditorGUI.BeginChangeCheck();
+some code may change editor
+if (EditorGUI.EndChangeCheck())
+{
+    SetKeyword("_METALLIC_MAP", map.textureValue);
+}
 ```
+
+### EditorWindow
+
+``` csharp
+[MenuItem("地图编辑器/编辑版块")]
+    private static void Open()
+    {
+        var editorWindow = EditorWindow.GetWindow<CustomEditorWindow>();
+        editorWindow.titleContent = new GUIContent("窗口标题");
+    }
+
+public class CustomEditorWindow : EditorWindow
+{
+	private OnGUI()
+    {
+        // 绘制一些GUI
+    }
+}
+```
+
+
 
 ### Layout
 
@@ -63,9 +90,121 @@ GUI和GUILayout可用于编辑器和Player，EditorGUI和EditorGUILayout仅能�
 
 Layout有自动布局效果，容易实现自适应的界面。
 
+#### Area
+
 **务必使用```GUILayout.BeginArea```和```GUILayout.EndArea```来嵌套布局语句，否则自动布局系统无法作用在正确区域上**
 
 https://docs.unity3d.com/ScriptReference/GUILayout.BeginArea.html
+
+#### ScrollView 滚动视图
+
+``` csharp
+scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Width(position.width));
+// 绘制一些内容
+EditorGUILayout.EndScrollView();
+```
+
+
+### 控件
+
+### 常用控件
+
+#### DropdownButton
+
+``` csharp
+var guiMode = new GUIContent("Create");
+Rect rMode = GUILayoutUtility.GetRect(guiMode, EditorStyles.toolbarDropDown);
+if (EditorGUI.DropdownButton(rMode, guiMode, FocusType.Passive, EditorStyles.toolbarDropDown))
+{
+    // 创建Menu
+    var menu = new GenericMenu();
+    foreach (var templateObject in settings.GroupTemplateObjects)
+    {
+        // 为menu添加选项
+        menu.AddItem(new GUIContent("Group/" + templateObject.name), false, m_EntryTree.CreateNewGroup, templateObject);
+    }
+    // 添加分隔符
+    menu.AddSeparator(string.Empty);
+    // 显示menu所有选项
+    menu.DropDown(rMode);
+}
+```
+
+#### SelectionGrid 可点击的Grid
+
+``` csharp
+int index = 0;
+int columnCount = 3;
+// grid的内容
+ConfigGUIContent[] grids;
+index = GUILayout.SelectionGrid(index, grids, columnCount);
+```
+
+可以配合ScrollView使用
+
+#### PopupWindowContent 弹出框（其他区域点击后消失）
+
+``` csharp
+public class CustomPopupWindowContent : PopupWindowContent
+{
+    // 返回该content显示大小
+    public override Vector2 GetWindowSize()
+    {
+        return new Vector2(200f, 200f);
+    }
+}
+```
+
+``` csharp
+CustomPopupWindowContent content = new CustomPopupWindowContent();
+PopupWindow.Show(rect, content);
+```
+
+
+
+#### SearchField
+
+##### 居中的搜索框
+
+```csharp
+private GUIStyle searchStyle;
+private void InitStyle()
+{
+	searchStyle = GUI.skin.FindStyle("ToolbarSeachTextFieldPopup");
+    if (searchStyle == null) searchStyle = EditorGUIUtility.GetBuiltinSkin(EditorSkin.Inspector).FindStyle("ToolbarSeachTextFieldPopup");
+    SearchField searchField = new SearchField();
+}
+
+private void OnGUI()
+{
+    InitStyle();
+    // 用一定百分比的当前window的宽度作为搜索栏的最大宽度
+    Rect searchRect = GUILayoutUtility.GetRect(0f, position.width * 0.6f, EditorGUIUtility.singleLineHeight, EditorGUIUtility.singleLineHeight, searchStyle);
+    assetsTreeView.searchString = searchField.OnGUI(searchRect, assetsTreeView.searchString);
+}
+```
+### 设置按钮
+
+```GUILayout.Button(EditorGUIUtility.FindTexture("d__Popup@2x"), (GUIStyle)"SettingsIconButton");```
+
+### 自定义ProjectSettings或Preferences选项SettingsProvider
+
+``` csharp
+class CustomSettingProvider : SettingsProvider
+{
+    public BordlessFrameworkSettingProvider(string path, SettingsScope scopes = SettingsScope.Project) : base(path, scopes) { }
+
+    [SettingsProvider]
+    private static SettingsProvider ShowSettingsProvider()
+    {
+        return new CustomSettingProvider($"CustomSetting/Log Switch");
+    }
+}
+```
+
+参考：
+
+https://docs.unity3d.com/2019.4/Documentation/ScriptReference/SettingsProvider.html
 
 ### CustomEditor
 
@@ -136,73 +275,6 @@ public class CustomLitGUI : ShaderGUI
         EditorGUI.showMixedValue = false;
     }
 ```
-
-### 控件
-
-#### DropdownButton
-
-``` csharp
-var guiMode = new GUIContent("Create");
-Rect rMode = GUILayoutUtility.GetRect(guiMode, EditorStyles.toolbarDropDown);
-if (EditorGUI.DropdownButton(rMode, guiMode, FocusType.Passive, EditorStyles.toolbarDropDown))
-{
-    // 创建Menu
-    var menu = new GenericMenu();
-    foreach (var templateObject in settings.GroupTemplateObjects)
-    {
-        // 为menu添加选项
-        menu.AddItem(new GUIContent("Group/" + templateObject.name), false, m_EntryTree.CreateNewGroup, templateObject);
-    }
-    // 添加分隔符
-    menu.AddSeparator(string.Empty);
-    // 显示menu所有选项
-    menu.DropDown(rMode);
-}
-```
-
-#### SearchField
-
-##### 居中的搜索框
-
-```csharp
-private GUIStyle searchStyle;
-private void InitStyle()
-{
-	searchStyle = GUI.skin.FindStyle("ToolbarSeachTextFieldPopup");
-    if (searchStyle == null) searchStyle = EditorGUIUtility.GetBuiltinSkin(EditorSkin.Inspector).FindStyle("ToolbarSeachTextFieldPopup");
-    SearchField searchField = new SearchField();
-}
-
-private void OnGUI()
-{
-    InitStyle();
-    // 用一定百分比的当前window的宽度作为搜索栏的最大宽度
-    Rect searchRect = GUILayoutUtility.GetRect(0f, position.width * 0.6f, EditorGUIUtility.singleLineHeight, EditorGUIUtility.singleLineHeight, searchStyle);
-    assetsTreeView.searchString = searchField.OnGUI(searchRect, assetsTreeView.searchString);
-}
-```
-### 设置按钮
-
-```GUILayout.Button(EditorGUIUtility.FindTexture("d__Popup@2x"), (GUIStyle)"SettingsIconButton");```
-
-### 自定义ProjectSettings或Preferences选项SettingsProvider
-
-``` csharp
-class CustomSettingProvider : SettingsProvider
-{
-    public BordlessFrameworkSettingProvider(string path, SettingsScope scopes = SettingsScope.Project) : base(path, scopes) { }
-
-    [SettingsProvider]
-    private static SettingsProvider ShowSettingsProvider()
-    {
-        return new CustomSettingProvider($"CustomSetting/Log Switch");
-    }
-}
-```
-
-参考：
-
-https://docs.unity3d.com/2019.4/Documentation/ScriptReference/SettingsProvider.html
 
 ### 内置GUI资源
 
