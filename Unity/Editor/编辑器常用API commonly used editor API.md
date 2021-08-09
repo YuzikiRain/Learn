@@ -68,8 +68,9 @@ AssetDatabase.Refresh
 ```csharp
 // 将Object保存成资源
 AssetDatabase.AddObjectToAsset
-// 通过默认的Inspector来修改Mono或ScriptableObject对象时，这些修改会被自动保存
+// 通过默认的Inspector来修改Mono或ScriptableObject对象时，对可序列化对象的这些修改会被自动保存
 // 但是如果通过自定义Inspector或代码直接修改，则需要手动调用SetDirty告知对象修改需要保存到磁盘
+// 如果修改的对象附加在某个prefab上，通过代码（自定义Editor）修改了对象后，要将这些改动保存到prefab上，还需要序列化prefab本身，但是修改这些可序列化对象并不会使得prefab变为dirty（非自定义Editor显示在Inspector上的都是可序列化对象，默认的Editor会提供改动后的SetDirty调用），因此还需要额外调用EditorUtility.SetDirty(serializableComponent);
 EditorUtility.SetDirty(obj);
 // 将改动写入磁盘
 AssetDatabase.SaveAssets();
