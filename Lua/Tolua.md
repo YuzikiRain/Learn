@@ -41,13 +41,14 @@ public class TestGameObject: MonoBehaviour
         lua = new LuaState();
         lua.LogGC = true;
         lua.Start();
+        // LuaBinder是自动生成的，会将CustomSettings中指定生成的Wrap类在LuaBinder.Bind里绑定（成为lua全局变量）
         LuaBinder.Bind(lua);
         lua.DoString(script, "TestGameObject.cs");
     }
 }
 ```
 
-### 调用
+### C#与Lua类型交互
 
 - lua调用C#：在CustomSetting中的customTypeList中添加要注册到lua的类型，并通过菜单项生成Wrap类型，以及在luastate初始化后会将对应类型和方法设置到_G里，因此就可以直接调用了
 
@@ -66,7 +67,39 @@ public class TestGameObject: MonoBehaviour
   int num = luaFunc.Invoke<int, int>(123456);
   ```
 
-  
+
+### 委托
+
+- CustomSettings.cs中customDelegateList添加委托类型
+
+  ``` csharp
+  public static DelegateType[] customDelegateList = 
+  {        
+      ...
+      // 自定义委托类型
+      _DT(typeof(System.Action<GameObject>)),
+      ...
+  };
+  ```
+
+- 菜单栏 -> Gen Lua Delegates（或Generate All）
+
+- 在LuaBinder.cs中查看生成的lua类型
+
+  ``` csharp
+  L.BeginModule("System");
+  ...
+  L.RegFunction("Action_UnityEngine_GameObject", System_Action_UnityEngine_GameObject);
+  // System为module，方法名为Action_UnityEngine_GameObject
+  ```
+
+- 使用
+
+  ``` lua
+  local callback = System.Action_UnityEngine_GameObject(function(obj)
+          print(obj)
+      end)
+  ```
 
 ### 模块
 
