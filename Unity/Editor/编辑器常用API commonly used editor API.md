@@ -9,6 +9,9 @@ var IsPartOfPrefabInstance = PrefabUtility.IsPartOfPrefabInstance(gameObject);
 var prefabInstanceRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(prefabInstance)
 // 从Object获得prefab，应配合 PrefabUtility.GetOutermostPrefabInstanceRoot 使用，因为如果参数不是 prefabInstanceRoot 会返回 null
 var prefabAsset = PrefabUtility.GetCorrespondingObjectFromSource(prefabInstanceRoot);
+// 如果prefabInstanceRoot是嵌套预制体中的子prefab，使用GetCorrespondingObjectFromOriginalSource会返回子prefab（transform属性的parent为null），AssetDatabase.GetAssetPath会返回子prefab的path
+// 而GetCorrespondingObjectFromSource则返回父prefab下的子prefab（可通过transform属性的parent一直往上找到父prefab），且AssetDatabase.GetAssetPath(childPrefabInstance)只会返回父prefab的path
+var prefabAsset = PrefabUtility.GetCorrespondingObjectFromOriginalSource(prefabInstanceRoot);
 var prefabAssetPath = AssetDatabase.GetAssetPath(prefabAsset);
 // 如果参数 prefabInstanceRoot 确实是prefab的根物体，返回 null 表示在预制体模式下，否则在一般场景下
 bool isInPrefabStage = prefabInstance != null;
@@ -52,15 +55,14 @@ EditorSceneManager.ClosePreviewScene
 // 获得/设置选中的gameobject
 Selection.gameObjects
 Selection.activeGameObject
+// 返回prefab相对于工程目录的路径（即带有Assets/）
+AssetDatabase.GetAssetPath(prefab)
 // 返回位于path的主资产，不需要类型，主资产是位于层次结构根目录的资产（例如Maya文件，其中可能包含多个Mesh和GameObjects）
 AssetDatabase.LoadMainAssetAtPath(path)
 // 返回位于path的资产，因为一个资产可能包含其他多个子资产，因此需要执行类型
 AssetDatabase.LoadAssetAtPath<TObject>(path)
 // 给定路径，按条件和名称搜索资源
 string[] assetGUIDs = AssetDatabase.FindAssets("t:Prefab prefabName", searchPaths);
-// 刷新Project视窗（代码创建资源后，Project视图不会自动刷新）
-AssetDatabase.Refresh
-
 ```
 
 ### 保存 读取 打开
@@ -113,6 +115,8 @@ sceneView.rotation = Quaternion.Euler(90f, 0f, 0f);
 ### 杂项
 
 ``` csharp
+// 刷新Project视窗（代码创建资源后，Project视图不会自动刷新）
+AssetDatabase.Refresh
 // 子物体的transform发生变化
 private void OnTransformChildrenChanged()
 {
