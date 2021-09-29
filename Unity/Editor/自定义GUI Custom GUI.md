@@ -208,7 +208,7 @@ https://docs.unity3d.com/2019.4/Documentation/ScriptReference/SettingsProvider.h
 
 ### CustomEditor
 
-让目标在Inspector上显示自定义内容
+#### 让目标在Inspector上显示自定义内容
 
 ``` csharp
 //c# 示例 (LookAtPointEditor.cs)
@@ -238,6 +238,46 @@ public class LookAtPointEditor : Editor
     }
 }
 ```
+
+#### 迭代地显示自定义内容
+
+参考UnityEditor.Editor.cs
+
+```csharp
+// UnityEditor.Editor.cs
+internal static bool DoDrawDefaultInspector(SerializedObject obj)
+{
+    EditorGUI.BeginChangeCheck();
+    obj.UpdateIfRequiredOrScript();
+    SerializedProperty iterator = obj.GetIterator();
+    bool enterChildren = true;
+    while (iterator.NextVisible(enterChildren))
+    {
+        using (new EditorGUI.DisabledScope("m_Script" == iterator.propertyPath))
+        {
+            EditorGUILayout.PropertyField(iterator, true);
+        }
+
+        enterChildren = false;
+    }
+
+    obj.ApplyModifiedProperties();
+    return EditorGUI.EndChangeCheck();
+}
+```
+
+ ``` csharp
+ // UnityEditor.Editor.cs
+ internal static bool DoDrawDefaultInspector(SerializedObject obj)
+ {
+ ...
+     // 将 SerializedProperty iterator = obj.GetIterator();改为第一个要显示的SerializedProperty即可
+     SerializedProperty iterator = serializedObject.FindProperty("FirstSerializedPropertyName");
+ ...
+ }
+ ```
+
+
 
 ### CustomPropertyDrawer
 
