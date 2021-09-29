@@ -134,3 +134,28 @@ public class TestGameObject: MonoBehaviour
 
   
 
+### Vector3 Vector2
+
+与实数相乘时，Vector变量要放在最左边
+
+``` lua
+--- 正确
+local vector = Vector3.one * 1.5
+--- 错误
+local vector = 1.5 * Vector3.one
+```
+
+这是因为ToLua对于Vector的乘法用元方法__mul实现的，且vector变量放在左边（不支持函数重载）
+
+``` lua
+Vector3.__mul = function(va, d)
+	if type(d) == "number" then
+		return _new(va.x * d, va.y * d, va.z * d)
+	else
+		local vec = va:Clone()
+		vec:MulQuat(d)
+		return vec
+	end	
+end
+```
+
