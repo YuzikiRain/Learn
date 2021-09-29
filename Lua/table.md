@@ -1,5 +1,5 @@
 ### 语法糖 ```.```
-这两种表达式作用相同 ```table["x"] = "abc" --> table.x = "abc"```
+这几种表达式作用相同 ```table["x"] = "abc" --> table.x = "abc" --> table = { x = "abc"}```
 `table.x`的写法暗示了table具有固定的、预定义的字符串key
 `table["x"]`的写法暗示了table可能用任何字符串作为key
 ### 长度

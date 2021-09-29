@@ -1,4 +1,4 @@
-### GetTemporary
+### GetTemporaryRT
 
 在内部，Unity维护一个RenderTexture池来保存临时渲染纹理，调用该函数会从池中立即返回一个已经创建的（相同大小和格式）纹理，如果没有才会再创建一个RenderTexture到池中并返回它。
 
