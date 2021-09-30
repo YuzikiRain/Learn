@@ -1,10 +1,11 @@
 ### 名词解释
 
-#### Timeline
+#### TimelineAsset
 
 -   每个Timeline实例下有若干个Track
+-   每个TimelineAsset
 
-#### 轨道Track
+#### 轨道TrackAsset
 
 -   Timeline窗口下看到的每一行就是轨道
 
@@ -14,7 +15,7 @@
 
 -   TrackColor标签指定了Track的颜色
 
--   每个轨道实例内可创建多个（同一类型的）Clip实例
+- 每个轨道实例内可创建多个（同一类型的）Clip实例
 
 -   ```cshar
     using UnityEngine.Timeline;
@@ -27,7 +28,7 @@
     }
     ```
 
-#### 剪辑Clip（继承自Playable）
+#### 剪辑Clip（继承自PlayableAsset）  
 
 - 初始化数据的方式
 
@@ -93,8 +94,9 @@
     }
     ```
 
-#### 基类Playable
+#### 基类PlayableAsset
 
+-   Timeline、Track、Clip的基类都是PlayableAsset，之间是组合关系（比如一个TimelineAsset的outputs就是所有track），
 -   GetTime()：当前Playable经过的时间
 -   GetDuration()：表示Playable的时长
 -   要表示当前Playable经过的归一化时间，可以用GetTime() / GetDuration()
@@ -138,6 +140,45 @@
         }
     }
     ```
+
+### 从外部初始化自定义Track和Clip
+
+``` csharp
+// 这里的instantiatedPlayableAsset是读取的TimelineAsset进行Instantiate后的实例，否则会修改资产本身
+var tracks = (instantiatedPlayableAsset as TimelineAsset).GetOutputTracks();
+foreach (var track in tracks)
+{
+    var customTrack = track as CustomTrack;
+    if (customTrack)
+    {
+        // track是否有clip
+		bool hasCilps = trackAsset.hasClips;
+        // 获得所有TimelineClip
+        var timelineClips = moveTrack.GetClips();
+        foreach (var timelineClip in timelineClips)
+        {
+            // 这里要取asset字段，因为默认是TimelineClip装着自定义Clip
+            CustomClip moveClip = timelineClip.asset as CustomClip;
+        }
+    }
+}
+```
+
+
+
+### 绑定TrackBindingType对应类型的实例
+
+```csharp
+PlayableAsset playableAsset;
+foreach (var playableBinding in playableAsset.outputs)
+{
+    // 用类型 outputTargetType 或者用轨道名称 playableBinding.streamName 
+    if (playableBinding.outputTargetType == typeof(GameObject))
+    {
+        playableDirector.SetGenericBinding(playableBinding.sourceObject, gameObject);
+    }
+}
+```
 
 ### PlayableBehaviour生命周期
 
