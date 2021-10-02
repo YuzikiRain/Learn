@@ -7,3 +7,9 @@ Djkastra
 Jump Point Search-JPS
 
 基于视野的寻路
+
+
+
+### 参考
+
+http://theory.stanford.edu/~amitp/GameProgramming/index.html
