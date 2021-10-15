@@ -63,6 +63,8 @@ AssetDatabase.LoadMainAssetAtPath(path)
 AssetDatabase.LoadAssetAtPath<TObject>(path)
 // 给定路径，按条件和名称搜索资源
 string[] assetGUIDs = AssetDatabase.FindAssets("t:Prefab prefabName", searchPaths);
+// 返回targetTransform相对于root的相对路径
+AnimationUtility.CalculateTransformPath(Transform targetTransform, Transform root);
 ```
 
 ### 保存 读取 打开
