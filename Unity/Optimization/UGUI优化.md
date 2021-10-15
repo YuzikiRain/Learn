@@ -46,6 +46,14 @@ Rebuild会触发batch，所以
 
 GraphicRaycaster的父类BaseRaycaster在OnEnable里通过```RaycasterManager.AddRaycaster```添加自身到RaycasterManager的Raycaster列表中，当EventSystem产生事件时，会遍历RaycasterManager的Raycaster列表，为每个Raycaster调用Raycast函数来检查GraphicRaycaster所在的同一画布内的所有Graphic进行射线检测（考虑了Raycast Target是否启用，canvasRenderer是否被剔除，画布所用相机的模式等）
 
+### 暂时地隐藏UI（之后可能会再显示）
+
+不能仅用激活UI物体的方式来实现，因为对应UI组件在OnEnable时仍有开销（需要Rebuild），移出相机渲染范围也不行，虽然没有了渲染开销，但如果UI发生了变化仍会设置Dirty并触发Rebuild（特别是那些一直在Update的UI）
+因此需要考虑的是不仅避免渲染开销，还要避免Rebuild
+
+- 整个Panel：将Canvas所在物体的layer设置到没有被UICamera的Culling Mask覆盖的layer
+- 特定UI元素：将同一物体的CanvasRenderer组件的cull属性设置为false
+
 ### 参考
 
 -   https://learn.unity.com/tutorial/optimizing-unity-ui#5c7f8528edbc2a002053b5a0
