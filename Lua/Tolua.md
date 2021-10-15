@@ -114,8 +114,6 @@ public class TestGameObject: MonoBehaviour
     lua.ReLoad("moduleName");
     ```
 
-    
-
 - 重载模块
 
   - lua
@@ -132,7 +130,39 @@ public class TestGameObject: MonoBehaviour
     lua.ReLoad("moduleName");
     ```
 
-  
+
+### 传递table给C#端
+
+lua端
+
+``` lua
+t = { 
+    dictionary = { first = "aaa", second = "bbb", }
+    array = { "a", "b", "c", }, 
+}
+```
+
+C#端
+
+``` csharp
+using LuaInterface;
+
+public void Test(LuaTable luaTable)
+{
+    // 1.直接用索引器取得对应元素
+    string first = (luaTable)["dictionary"]["first"];
+    string second = (luaTable)["dictionary"]["second"];
+    
+    // 2.转换成数组再处理
+    // 不能直接将object[]直接转换成string[]，需要迭代每个元素并构建string数组
+    object[] array = ((luaTable)["array"]).ToArray();
+    string[] stringArray = string[array.Length];
+    for (int i = 0; i < array.Length; i++)
+    {
+        stringArray[i] = (string)array[i];
+    }
+}
+```
 
 ### Vector3 Vector2
 
