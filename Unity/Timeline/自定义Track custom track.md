@@ -9,7 +9,7 @@
 
 -   Timeline窗口下看到的每一行就是轨道
 
--   TrackBindingType标签指定了绑定于该Track类型（一般是继承了MonoBehaviour的组件，对应PlayableBehaviour.ProcessFrame函数的最后一个参数object playerData）
+-   TrackBindingType标签指定了绑定于该Track类型（一般是继承了MonoBehaviour的组件，**对应PlayableBehaviour.ProcessFrame函数的最后一个参数object playerData**）
 
 -   TrackClipType标签指定了Track内可创建哪一种Clip类型的实例
 
@@ -17,7 +17,7 @@
 
 - 每个轨道实例内可创建多个（同一类型的）Clip实例
 
--   ```cshar
+-   ```csharp
     using UnityEngine.Timeline;
     
     [TrackBindingType(typeof(ControlledComponent))]
