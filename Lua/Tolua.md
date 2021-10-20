@@ -161,6 +161,7 @@ public void Test(LuaTable luaTable)
     {
         stringArray[i] = (string)array[i];
     }
+    // 3.ToDictTable  ToArrayTable
 }
 ```
 
