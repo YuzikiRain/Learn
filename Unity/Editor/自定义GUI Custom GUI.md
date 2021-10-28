@@ -48,10 +48,12 @@ UnityEditor.EditorGUIUtility.isProSkin
 // 使得父Rect的宽度变化时，A GUI 和B GUI 大小仍保持不变，因为多出的宽度被FlexibleSpace使用了
 GUILayout.BeginHorizontal();
 // 绘制A GUI
+...
 GUILayout.FlexibleSpace();
 // 绘制一些间隔
 GUILayout.Space(2f);
 // 绘制B GUI
+...
 GUILayout.EndHorizontal();
 
 // 检查编辑器上的属性是否被修改

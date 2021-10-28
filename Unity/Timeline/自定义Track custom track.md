@@ -216,6 +216,9 @@ namespace BordlessFramework.PluginExtension
     public class CustomPlayableBehaviour : PlayableBehaviour
     {
         public double Time => Playable.GetTime();
+        /// <summary>
+        /// 在OnEnter或Awake
+        /// </summary>
         public double Duration => Playable.GetDuration();
         public double Progress => Time / Duration;
 
@@ -224,12 +227,6 @@ namespace BordlessFramework.PluginExtension
         protected Playable Playable;
 
         private bool IsComponentCached = false;
-
-        /// <summary>
-        /// 首次进入时调用（Editor）
-        /// </summary>
-        /// <param name="playerData"></param>
-        internal void ReInitInEditor(object playerData) { }
 
         public override void OnPlayableCreate(Playable playable)
         {
@@ -282,17 +279,19 @@ namespace BordlessFramework.PluginExtension
             OnStay();
         }
 
+        //调用顺序如下
+
         /// <summary>
-        /// 首次进入时调用（Player）
+        /// 进入时调用
+        /// </summary>
+        protected virtual void OnEnter() { }
+        /// <summary>
+        /// 首次进入时调用（Player），注意其在OnEnter之后
         /// <para>在这里进行Track绑定的组件的实例的缓存</para>
         /// <paramref name="trackBindTypeInstance"/>Track绑定的组件的实例
         /// </summary>
         /// <param name="playerData"></param>
         protected virtual void Awake(object trackBindTypeInstance) { }
-        /// <summary>
-        /// 进入时调用
-        /// </summary>
-        protected virtual void OnEnter() { }
         /// <summary>
         /// 在timeline中时，每帧调用
         /// </summary>
@@ -308,5 +307,59 @@ namespace BordlessFramework.PluginExtension
 
     }
 }
+```
+
+### 屏幕震动
+
+```csharp
+using BordlessFramework.PluginExtension;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ScreenShakeBehaviour : CustomPlayableBehaviour
+{
+    private Transform cameraTransform;
+    private bool isRandom;
+    private Vector3 direction;
+    private AnimationCurve amplitude;
+    private float frequency;
+    private float scale;
+    private Dictionary<int, Vector3> randomDirections = new Dictionary<int, Vector3>();
+
+    public void Init(Transform cameraTransform, bool isRandom, Vector3 direction, AnimationCurve amplitude, float frequency, float scale)
+    {
+        this.cameraTransform = cameraTransform;
+        this.isRandom = isRandom;
+        this.direction = direction;
+        this.amplitude = amplitude;
+        this.frequency = frequency;
+        this.scale = scale;
+    }
+
+    protected override void Awake(object trackBindTypeInstance)
+    {
+        // 生成随机方向数组
+        if (isRandom)
+        {
+            for (int i = 0; i < (float)Duration * frequency; i++)
+            {
+                randomDirections.Add(i, (Quaternion.AngleAxis(Random.Range(0f, 180f), Vector3.forward) * Vector3.right));
+            }
+        }
+    }
+
+    protected override void OnStay()
+    {
+        // 每个周期从已经生成好的随机方向数组中取得新的随机方向
+        if (isRandom) direction = randomDirections[(int)(Time * frequency)];
+        cameraTransform.transform.position = Mathf.Sin((float)Time * frequency * 2f * Mathf.PI) * amplitude.Evaluate((float)Progress) * direction * scale;
+    }
+
+    protected override void OnExit()
+    {
+        cameraTransform.transform.position = Vector3.zero;
+    }
+}
+
 ```
 
