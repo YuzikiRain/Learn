@@ -165,6 +165,30 @@ public void Test(LuaTable luaTable)
 }
 ```
 
+### C#访问Lua
+
+``` csharp
+LuaState lua = new LuaState();
+lua.Start();
+// 访问全局变量
+lua["Objs2Spawn"] = 5;
+
+//cache成LuaTable进行访问
+LuaTable table = lua.GetTable("varTable");
+table["map.name"] = "new";  //table 字符串只能是key
+Debug.Log(table["map"])
+
+// 添加table
+table.AddTable("newmap");
+LuaTable table1 = (LuaTable)table["newmap"];
+table1["name"] = "table1";
+table1.Dispose();
+```
+
+
+
+参考：https://github.com/topameng/tolua/blob/master/Assets/ToLua/Examples/04_AccessingLuaVariables/AccessingLuaVariables.cs
+
 ### Vector3 Vector2
 
 与实数相乘时，Vector变量要放在最左边
