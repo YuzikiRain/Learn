@@ -47,6 +47,11 @@ EditorSceneManager.GetActiveScene();
 EditorSceneManager.CloseScene
 // 编辑器模式下关闭PreviewScene场景（不可用于PrefabStage场景）
 EditorSceneManager.ClosePreviewScene
+// 打开场景
+EditorApplication.OpenScene("Assets/Launch.unity");
+EditorSceneManager.OpenScene("Assets/Launch.unity");
+// 编辑器变为运行状态
+EditorApplication.isPlaying = true;
 ```
 
 ### 查找资源 物体
