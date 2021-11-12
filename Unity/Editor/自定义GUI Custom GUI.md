@@ -55,6 +55,8 @@ GUILayout.Space(2f);
 // 绘制B GUI
 ...
 GUILayout.EndHorizontal();
+// 缩进
+EditorGUI.indentLevel++;
 
 // 检查编辑器上的属性是否被修改
 EditorGUI.BeginChangeCheck();
