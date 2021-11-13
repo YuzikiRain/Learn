@@ -5,3 +5,7 @@ http://esotericsoftware.com/spine-unity-download
 ### Spine手册
 
 http://esotericsoftware.com/spine-unity
+
+### API
+
+http://esotericsoftware.com/spine-api-reference

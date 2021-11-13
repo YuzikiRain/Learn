@@ -20,3 +20,10 @@ Skeleton.SetToSetupPose
 Skeleton.AnimationState.ClearTracks();
 ```
 
+### 生命周期
+
+![img](http://esotericsoftware.com/img/spine-runtimes-guide/spine-unity/spine-unity-skeletonanimation-updates.png)
+
+### API手册
+
+http://esotericsoftware.com/spine-api-reference
