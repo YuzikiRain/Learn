@@ -76,33 +76,34 @@ public void OnUserDefinedEvent(Spine.TrackEntry trackEntry, Spine.Event e) {
 ### spine协程
 
 ``` csharp
-The following yield instructions are provided:
+//The following yield instructions are provided:
+//WaitForSpineAnimation. Waits until a Spine.TrackEntry raises one of the specified events.
 
-WaitForSpineAnimation. Waits until a Spine.TrackEntry raises one of the specified events.
-
-C# var track = skeletonAnimation.state.SetAnimation(0, "interruptible", false);
- var completeOrEnd = WaitForSpineAnimation.AnimationEventTypes.Complete |
+var track = skeletonAnimation.state.SetAnimation(0, "interruptible", false);
+var completeOrEnd = WaitForSpineAnimation.AnimationEventTypes.Complete |
                       WaitForSpineAnimation.AnimationEventTypes.End;
- yield return new WaitForSpineAnimation(track, completeOrEnd);
-WaitForSpineAnimationComplete. Waits until a Spine.TrackEntry raises a Complete event.
+yield return new WaitForSpineAnimation(track, completeOrEnd);
 
-C# var track = skeletonAnimation.state.SetAnimation(0, "talk", false);
- yield return new WaitForSpineAnimationComplete(track);
-WaitForSpineAnimationEnd. Waits until a Spine.TrackEntry raises an End event.
+//WaitForSpineAnimationComplete. Waits until a Spine.TrackEntry raises a Complete event.
+var track = skeletonAnimation.state.SetAnimation(0, "talk", false);
+yield return new WaitForSpineAnimationComplete(track);
 
-C# var track = skeletonAnimation.state.SetAnimation(0, "talk", false);
- yield return new WaitForSpineAnimationEnd(track);
-WaitForSpineEvent. Waits until a Spine.AnimationState raises a user-defined Spine.Event (named in Spine editor).
+//WaitForSpineAnimationEnd. Waits until a Spine.TrackEntry raises an End event.
+var track = skeletonAnimation.state.SetAnimation(0, "talk", false);
+yield return new WaitForSpineAnimationEnd(track);
 
-C# yield return new WaitForSpineEvent(skeletonAnimation.state, "spawn bullet");
- // You can also pass a Spine.Event's Spine.EventData reference.
- Spine.EventData spawnBulletEvent; // cached in e.g. Start()
- ..
- yield return new WaitForSpineEvent(skeletonAnimation.state, spawnBulletEvent);
+//WaitForSpineEvent. Waits until a Spine.AnimationState raises a user-defined Spine.Event (named in Spine editor).
+yield return new WaitForSpineEvent(skeletonAnimation.state, "spawn bullet");
+
+// You can also pass a Spine.Event's Spine.EventData reference.
+Spine.EventData spawnBulletEvent; // cached in e.g. Start()
+..
+yield return new WaitForSpineEvent(skeletonAnimation.state, spawnBulletEvent);
 ```
 
 
 
 ### 参考
 
-http://esotericsoftware.com/spine-unity-events
+- http://esotericsoftware.com/spine-unity-events
+- http://esotericsoftware.com/spine-unity#Animation---AnimationState
