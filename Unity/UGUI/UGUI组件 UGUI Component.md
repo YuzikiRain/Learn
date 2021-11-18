@@ -7,6 +7,8 @@ LayoutRebuilder.MarkLayoutForRebuild(GetComponent<RectTransform>());
 LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
 // 强制更新RectTransform
 rectTransform.ForceUpdateRectTransforms();
+// 判断指针是否在任意UI上，如果发射射线同时也点击了UI，可以忽略这次UI点击
+EventSystem.current.IsPointerOverGameObject()
 ```
 
 ### Text
