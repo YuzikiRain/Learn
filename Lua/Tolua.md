@@ -185,9 +185,26 @@ table1["name"] = "table1";
 table1.Dispose();
 ```
 
-
-
 参考：https://github.com/topameng/tolua/blob/master/Assets/ToLua/Examples/04_AccessingLuaVariables/AccessingLuaVariables.cs
+
+#### 数组长度
+
+``` lua
+list = {[0] = 0, [1] = 1, [2] = 2, }
+```
+
+``` csharp
+public void Show(LuaTable luaTable)
+{
+	object[] objectArray = luaTable.ToArray();
+    int[] intArray = new int[objectArray.Length];
+    for (int i = 0; i < intArray.Length; i++)
+    {
+        intArray[i] = (int)objectArray[i];
+    }
+    // intArray为 {1, 2}，忽略了索引为0的元素（如果有负数索引的元素应该也会被忽略吧）
+}
+```
 
 ### Vector3 Vector2
 
