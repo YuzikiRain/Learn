@@ -1,4 +1,5 @@
 ### Rect Transform
+
 假设Canvas Scaler的Screen Match Mode为Match With Screen Size，Match为Width
 
 Match为Width，表示**保持Rect Transform的Width为Reference Solution.width，缩放Scale使得实际width等于屏幕width**
@@ -56,7 +57,7 @@ Match为Width，表示**保持Rect Transform的Width为Reference Solution.width�
 
 ##### Override Sorting
 
-有时候会遇到想要将一些非UGUI元素如Particle、Sprite、3D模型等显示在两个UI之间，而非Screen Space - Overlay和Screen Space - Camera模式下的UI由于用额外的相机来渲染，要么全部在非UGUI元素之前要么在之后
+有时候会遇到想要将一些非UGUI元素如Particle、Sprite、3D模型等显示在两个UI之间，非Screen Space - Overlay和Screen Space - Camera模式下的UI由于用额外的相机来渲染，要么全部在非UGUI元素之前要么在之后
 
 -   给指定UGUI元素和非UGUI元素附加Canvas组件，勾选Override Sorting
 -   设置合适的Sorting Layer，使得非UGUI元素显示正确
