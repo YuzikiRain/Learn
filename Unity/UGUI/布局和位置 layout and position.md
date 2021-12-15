@@ -16,13 +16,6 @@ Image、Text等组件都实现了 **ILayoutElement** 接口，因此有这些布
 
 ![image-20210122223025506](assets/image-20210122223025506.png)
 
-#### **Vertical Layout Group**的Min和Preferred
-
-|Control Child Size|宽度|高度|
-|-|-|-|
-|未勾选|子LayoutElement的 width 的最大值|子LayoutElement的 height 总和|
-|勾选|所有子LayoutElement的 Min或Preferred 的最大值|所有子LayoutElement的 Min或Preferred 总和|
-
 如果Padding不为0，那么Width要加上Left+Right，Height要加上Top+Bottom
 
 #### 自动设置布局属性
@@ -34,7 +27,15 @@ Flexible默认是不开启的
 
 #### Horizontal/Vertical Layout Group
 
+- Control Child Size：子物体使用Prefer Size或Min Size作为边界大小
+
+    | Control Child Size | 宽度                                          | 高度                                      |
+    | ------------------ | --------------------------------------------- | ----------------------------------------- |
+    | 未勾选             | 子LayoutElement的 width 的最大值              | 子LayoutElement的 height 总和             |
+    | 勾选               | 所有子LayoutElement的 Min或Preferred 的最大值 | 所有子LayoutElement的 Min或Preferred 总和 |
+
 - Child Force Expand：勾选则开启Flexible，并设置为1，不勾选则关闭
+
 - Use Child Scale：
 
 ### 自定义Layout - Layout Element
