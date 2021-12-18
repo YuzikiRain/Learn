@@ -30,5 +30,4 @@ class MyTexturePostprocessor : AssetPostprocessor
 参考
 
 -   https://docs.unity3d.com/ScriptReference/AssetPostprocessor.html
--   https://docs.unity3d.com/ScriptReference/AssetPostprocessor.html
 
