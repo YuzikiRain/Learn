@@ -1,3 +1,10 @@
+### CinemachineCameraOffset
+
+-   在CinemachineVirtualCamera组件所在物体上添加组件CinemachineCameraOffset
+-   通过动态地设置Offset属性即可（跟直接控制相机的transform属性一样）
+
+### CinemachineImpulseSource
+
 
 - 新建Noise Settings
 
@@ -20,7 +27,7 @@
           ImpulseSource.GenerateImpulse(direction * strength);
       }
   }
-
+  
   ```
 
 ### 参考
