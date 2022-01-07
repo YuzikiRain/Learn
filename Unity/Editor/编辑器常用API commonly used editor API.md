@@ -119,6 +119,39 @@ sceneView.orthographic = true;
 sceneView.rotation = Quaternion.Euler(90f, 0f, 0f);
 ```
 
+### Scripting Define Symbols
+
+```csharp
+private static readonly string[] SteamTestSymbols = new string[] { "STEAMTEST" };
+
+// 添加或删除
+if (isEnableSteamTest) AddDefineSymbols(SteamTestSymbols);
+else RemoveDefineSymbols(SteamTestSymbols);
+
+private static void AddDefineSymbols(string[] symbols)
+{
+    string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+    List<string> allDefines = definesString.Split(';').ToList();
+    allDefines.AddRange(symbols.Except(allDefines));
+    PlayerSettings.SetScriptingDefineSymbolsForGroup(
+        EditorUserBuildSettings.selectedBuildTargetGroup,
+        string.Join(";", allDefines.ToArray()));
+}
+
+private static void RemoveDefineSymbols(string[] symbols)
+{
+    string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+    List<string> allDefines = definesString.Split(';').ToList();
+    for (int i = symbols.Length - 1; i >= 0; i--)
+    {
+        allDefines.Remove(symbols[i]);
+    }
+    PlayerSettings.SetScriptingDefineSymbolsForGroup(
+        EditorUserBuildSettings.selectedBuildTargetGroup,
+        string.Join(";", allDefines.ToArray()));
+}
+```
+
 ### 杂项
 
 ``` csharp
