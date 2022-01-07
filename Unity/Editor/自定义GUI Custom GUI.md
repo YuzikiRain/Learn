@@ -113,9 +113,11 @@ EditorGUILayout.EndScrollView();
 
 ### 常用控件
 
-#### DropdownButton
+#### toolbar DropdownButton
 
 ``` csharp
+GUILayout.BeginHorizontal(EditorStyles.toolbar);
+
 var guiMode = new GUIContent("Create");
 Rect rMode = GUILayoutUtility.GetRect(guiMode, EditorStyles.toolbarDropDown);
 if (EditorGUI.DropdownButton(rMode, guiMode, FocusType.Passive, EditorStyles.toolbarDropDown))
@@ -132,6 +134,8 @@ if (EditorGUI.DropdownButton(rMode, guiMode, FocusType.Passive, EditorStyles.too
     // 显示menu所有选项
     menu.DropDown(rMode);
 }
+
+GUILayout.EndHorizontal();
 ```
 
 #### SelectionGrid 可点击的Grid
@@ -323,6 +327,72 @@ public class CustomLitGUI : ShaderGUI
 ### 内置GUI资源
 
 http://wiki.unity3d.com/index.php/Show_Built_In_Resources
+
+### EditorStyles
+
+![f:id:hacchi_man:20200331233616p:plain](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed@master/img/202201072202261.png)
+
+虽然下面没有描述， * EditorStyles.toolbarSearchField * EditorStyles.foldoutHeader * EditorStyles.foldoutHeaderIcon 从 2019.1 开始可用。
+
+```cs
+private void OnGUI()
+{
+    EditorGUILayout.LabelField("label", EditorStyles.label);
+    EditorGUILayout.LabelField("miniLabel", EditorStyles.miniLabel);
+    EditorGUILayout.LabelField("largeLabel", EditorStyles.largeLabel);
+    EditorGUILayout.LabelField("boldLabel", EditorStyles.boldLabel);
+    EditorGUILayout.LabelField("miniBoldLabel", EditorStyles.miniBoldLabel);
+    EditorGUILayout.LabelField("centeredGreyMiniLabel", EditorStyles.centeredGreyMiniLabel);
+    EditorGUILayout.LabelField("wordWrappedMiniLabel", EditorStyles.wordWrappedMiniLabel);
+    EditorGUILayout.LabelField("wordWrappedLabel", EditorStyles.wordWrappedLabel);
+    EditorGUILayout.LabelField("whiteLabel", EditorStyles.whiteLabel);
+    EditorGUILayout.LabelField("whiteMiniLabel", EditorStyles.whiteMiniLabel);
+    EditorGUILayout.LabelField("whiteLargeLabel", EditorStyles.whiteLargeLabel);
+    EditorGUILayout.LabelField("whiteBoldLabel", EditorStyles.whiteBoldLabel);
+    EditorGUILayout.LabelField("radioButton", EditorStyles.radioButton);
+    EditorGUILayout.LabelField("miniButton", EditorStyles.miniButton);
+    using (new EditorGUILayout.HorizontalScope())
+    {
+        EditorGUILayout.LabelField("miniButtonLeft", EditorStyles.miniButtonLeft);
+        EditorGUILayout.LabelField("miniButtonMid", EditorStyles.miniButtonMid);
+        EditorGUILayout.LabelField("miniButtonRight", EditorStyles.miniButtonRight);
+    }
+    EditorGUILayout.LabelField("miniPullDown", EditorStyles.miniPullDown);
+    EditorGUILayout.LabelField("textField", EditorStyles.textField);
+    EditorGUILayout.LabelField("textArea", EditorStyles.textArea);
+    EditorGUILayout.LabelField("miniTextField", EditorStyles.miniTextField);
+    EditorGUILayout.LabelField("numberField", EditorStyles.numberField);
+    EditorGUILayout.LabelField("popup", EditorStyles.popup);
+    EditorGUILayout.LabelField("structHeadingLabel", EditorStyles.structHeadingLabel);
+    EditorGUILayout.LabelField("objectField", EditorStyles.objectField);
+    EditorGUILayout.LabelField("objectFieldThumb", EditorStyles.objectFieldThumb);
+    EditorGUILayout.LabelField("objectFieldMiniThumb", EditorStyles.objectFieldMiniThumb);
+    EditorGUILayout.LabelField("colorField", EditorStyles.colorField);
+    EditorGUILayout.LabelField("layerMaskField", EditorStyles.layerMaskField);
+    EditorGUILayout.LabelField("toggle", EditorStyles.toggle);
+    EditorGUILayout.LabelField("foldout", EditorStyles.foldout);
+    EditorGUILayout.LabelField("foldoutPreDrop", EditorStyles.foldoutPreDrop);
+    EditorGUILayout.LabelField("toggleGroup", EditorStyles.toggleGroup);
+    EditorGUILayout.LabelField("toolbar", EditorStyles.toolbar);
+    GUILayout.Space(5);
+    using (new EditorGUILayout.HorizontalScope(EditorStyles.toolbar))
+    {
+        EditorGUILayout.LabelField("toolbarButton", EditorStyles.toolbarButton);
+        EditorGUILayout.LabelField("toolbarPopup", EditorStyles.toolbarPopup);
+        EditorGUILayout.LabelField("toolbarDropDown", EditorStyles.toolbarDropDown);
+    }
+    GUILayout.Space(5);
+    using (new EditorGUILayout.HorizontalScope(EditorStyles.toolbar))
+    {
+        EditorGUILayout.LabelField("toolbarTextField", EditorStyles.toolbarTextField);
+    }
+    EditorGUILayout.LabelField("inspectorDefaultMargins", EditorStyles.inspectorDefaultMargins);
+    EditorGUILayout.LabelField("inspectorFullWidthMargins", EditorStyles.inspectorFullWidthMargins);
+    EditorGUILayout.LabelField("helpBox", EditorStyles.helpBox);
+}
+```
+
+参考：https://hacchi-man.hatenablog.com/entry/2020/04/06/220000
 
 ### 参考
 
