@@ -33,6 +33,8 @@ public static void ReplaceAttachmentFromAtlas(this SkeletonRenderer skeletonRend
 {
     var slot = skeletonRenderer.Skeleton.FindSlot(slotName);
     var originalAttachment = slot.Attachment;
+    // 也可以通过实例对SkeletonDataAsset的引用获得
+    // SpineAtlasAsset atlasAsset = (SpineAtlasAsset)skeletonAnimation.SkeletonDataAsset.atlasAssets[0];
     var atlas = atlasAsset.GetAtlas();
     var region = atlas.FindRegion(regionName);
     var scale = skeletonRenderer.skeletonDataAsset.scale;
