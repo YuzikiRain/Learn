@@ -25,14 +25,14 @@ Image、Text等组件都实现了 **ILayoutElement** 接口，因此有这些布
 
 Flexible默认是不开启的
 
-#### Horizontal/Vertical Layout Group
+#### Vertical Layout Group
 
-- Control Child Size：子物体使用Prefer Size或Min Size作为边界大小
+- Control Child Size：
 
-    | Control Child Size | 宽度                                          | 高度                                      |
-    | ------------------ | --------------------------------------------- | ----------------------------------------- |
-    | 未勾选             | 子LayoutElement的 width 的最大值              | 子LayoutElement的 height 总和             |
-    | 勾选               | 所有子LayoutElement的 Min或Preferred 的最大值 | 所有子LayoutElement的 Min或Preferred 总和 |
+    | Control Child Size | 宽度                                      | 高度                                  |
+    | ------------------ | ----------------------------------------- | ------------------------------------- |
+    | 未勾选             | 子LayoutElement的 width 的最大值          | 子LayoutElement的 height 总和         |
+    | 勾选               | 子LayoutElement的 Min或Preferred 的最大值 | 子LayoutElement的 Min或Preferred 总和 |
 
 - Child Force Expand：勾选则开启Flexible，并设置为1，不勾选则关闭
 
@@ -54,14 +54,14 @@ Flexible默认是不开启的
 
 ![image-20210122145836935](assets/image-20210122145836935.png)
 
--   rect：在编辑器上能直观看到的UI的边界，rect.min 和 rect.max 分别表示左下角和右上角的位置
+-   **rect**：在编辑器上能直观看到的UI的边界，rect.min 和 rect.max 分别表示左下角和右上角的位置
 -   anchor（锚点）： **使得锚点的四个角与rect的四个角的距离保持不变**。anchorMin 表示锚点左下角在父节点位置的百分比，anchorMax 表示右上角，范围[0, 1]
 -   pivot：矩形绕这个点进行旋转
 -   localPosition：pivot到父RectTransform的pivot的相对位置
 -   anchoredPosition：**计算很复杂，还未完全弄明白，不要使用这个** anchoredPosition = offsetMin + Vector2.Scale(sizeDelta, rect.pivot)
 -   offsetMax：矩形右上角相对于锚框右上角的偏移
 -   offsetMin：矩形左下角相对于锚框左下角的偏移
--   sizeDelta：The size of this RectTransform relative to the distances between the anchors. 另一种表示RectTransform的大小的方式。sizeDelta = offsetMax - offsetMin，几何意义是**rect本身大小**减去**锚框**大小，**不要使用这个**
+-   sizeDelta：The size of this RectTransform relative to the distances between the anchors. 另一种表示RectTransform的大小的方式。sizeDelta = offsetMax - offsetMin，几何意义是**rect本身大小**减去**锚框**大小，**如果是为了获得rect区域大小，不要使用这个，而是使用rect**
 
 ``` csharp
 [SerializeField] private RectTransform rectTransform;

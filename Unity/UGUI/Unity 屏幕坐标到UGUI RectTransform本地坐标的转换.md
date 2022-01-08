@@ -1,3 +1,5 @@
+### ScreenPointToLocalPointInRectangle 屏幕坐标转换到Rect本地坐标
+
 
 ```
 public static bool ScreenPointToLocalPointInRectangle(RectTransform rect, Vector2 screenPoint, Camera cam, out Vector2 localPoint);
@@ -21,16 +23,15 @@ public class GlobalTest : MonoBehaviour
 {
     public Canvas canvas;
     Text uiText;
-    RectTransform canvasRect;
-    RectTransform textRect;
+    RectTransform referenceRectTransform;
+    RectTransform targetRectTransform;
     void Start()
     {
         uiText = canvas.GetComponentInChildren<Text>();
-        canvasRect = canvas.GetComponent<RectTransform>();
-        textRect = uiText.GetComponent<RectTransform>();
+        referenceRectTransform = canvas.GetComponent<RectTransform>();
+        targetRectTransform = uiText.GetComponent<RectTransform>();
  
-        Debug.Log(textRect.anchoredPosition);
- 
+        Debug.Log(targetRectTransform.anchoredPosition);
     }
  
     void Update()
@@ -38,16 +39,22 @@ public class GlobalTest : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             Vector2 outVec;
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect,Input.mousePosition,null,out outVec))
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(referenceRectTransform,Input.mousePosition,null,out outVec))
             {
                 Debug.Log("Setting anchored positiont to: " + outVec);
-                textRect.anchoredPosition = outVec;
+                targetRectTransform.anchoredPosition = outVec;
             }
         }
  
     }
 }
 ```
+### 是否在Rect之中
+
+```csharp
+bool isInRect = UnityEngine.RectTransformUtility.RectangleContainsScreenPoint(referenceRectTransform, UnityEngine.Input.mousePosition, uiCamera)
+```
+
 参考：
 https://forum.unity.com/threads/issues-with-recttransformutility-screenpointtolocalpointinrectangle.437246/
 
@@ -64,5 +71,4 @@ https://forum.unity.com/threads/issues-with-recttransformutility-screenpointtolo
 ```
 参考：
 https://docs.unity3d.com/ScriptReference/EventSystems.IPointerDownHandler.html
-
 
