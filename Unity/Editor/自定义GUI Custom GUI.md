@@ -86,8 +86,6 @@ public class CustomEditorWindow : EditorWindow
 }
 ```
 
-
-
 ### Layout
 
 GUI和GUILayout可用于编辑器和Player，EditorGUI和EditorGUILayout仅能用于编辑器

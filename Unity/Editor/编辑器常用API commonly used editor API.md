@@ -66,7 +66,7 @@ AssetDatabase.GetAssetPath(prefab)
 AssetDatabase.LoadMainAssetAtPath(path)
 // 返回位于path的资产，因为一个资产可能包含其他多个子资产，因此需要执行类型
 AssetDatabase.LoadAssetAtPath<TObject>(path)
-// 给定路径，按条件和名称搜索资源
+// 给定路径，按条件和名称搜索资源 https://docs.unity3d.com/ScriptReference/AssetDatabase.FindAssets.html
 string[] assetGUIDs = AssetDatabase.FindAssets("t:Prefab prefabName", searchPaths);
 // 返回targetTransform相对于root的相对路径
 AnimationUtility.CalculateTransformPath(Transform targetTransform, Transform root);
@@ -119,7 +119,7 @@ sceneView.orthographic = true;
 sceneView.rotation = Quaternion.Euler(90f, 0f, 0f);
 ```
 
-### Scripting Define Symbols
+### Scripting Define Symbols 通过代码设置预编译指令
 
 ```csharp
 private static readonly string[] SteamTestSymbols = new string[] { "STEAMTEST" };
@@ -152,6 +152,80 @@ private static void RemoveDefineSymbols(string[] symbols)
 }
 ```
 
+### MenuItem
+
+```cs
+using UnityEditor;
+using UnityEngine;
+public class MenuTest : MonoBehaviour
+{
+    // 最简单的用法
+    // Add a menu item named "Do Something" to MyMenu in the menu bar.
+    [MenuItem("MyMenu/Do Something")]
+    static void DoSomething()
+    {
+        Debug.Log("Doing Something...");
+    }    
+    
+    // Validated menu item.
+    // Add a menu item named "Log Selected Transform Name" to MyMenu in the menu bar.
+    // We use a second function to validate the menu item
+    // so it will only be enabled if we have a transform selected.
+    [MenuItem("MyMenu/Log Selected Transform Name")]
+    static void LogSelectedTransformName()
+    {
+        Debug.Log("Selected Transform is on " + Selection.activeTransform.gameObject.name + ".");
+    }    
+    
+    // 验证：如果返回false则该菜单项不可点击，该函数在显示菜单项之前调用
+    // Validate the menu item defined by the function above.
+    // The menu item will be disabled if this function returns false.
+    [MenuItem("MyMenu/Log Selected Transform Name", true)]
+    static bool ValidateLogSelectedTransformName()
+    {      
+        // Return false if no transform is selected.
+        return Selection.activeTransform != null;
+    }
+    
+    // 快捷键
+    // Add a menu item named "Do Something with a Shortcut Key" to MyMenu in the menu bar
+    // and give it a shortcut (ctrl-g on Windows, cmd-g on macOS).
+    [MenuItem("MyMenu/Do Something with a Shortcut Key %g")]
+    static void DoSomethingWithAShortcutKey()
+    {
+        Debug.Log("Doing something with a Shortcut Key...");
+    }    
+    
+    // 组件的上下文菜单
+    // Add a menu item called "Double Mass" to a Rigidbody's context menu.
+    [MenuItem("CONTEXT/Rigidbody/Double Mass")]
+    static void DoubleMass(MenuCommand command)
+    {
+        Rigidbody body = (Rigidbody)command.context;
+        body.mass = body.mass * 2;
+        Debug.Log("Doubled Rigidbody's Mass to " + body.mass + " from Context Menu.");
+    }    
+    
+    // 新建GameObject
+    // Add a menu item to create custom GameObjects.
+    // Priority 1 ensures it is grouped with the other menu items of the same kind
+    // and propagated to the hierarchy dropdown and hierarchy context menus.
+    [MenuItem("GameObject/MyCategory/Custom Game Object", false, 10)]
+    static void CreateCustomGameObject(MenuCommand menuCommand)
+    {
+        // Create a custom game object
+        GameObject go = new GameObject("Custom Game Object");
+        // Ensure it gets reparented if this was a context click (otherwise does nothing)
+        GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
+        // Register the creation in the undo system
+        Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
+        Selection.activeObject = go;
+    }
+}
+```
+
+参考：https://docs.unity3d.com/ScriptReference/MenuItem.html
+
 ### 杂项
 
 ``` csharp
@@ -169,5 +243,8 @@ EditorUtility.InstanceIDToObject
 
 // 是否开启了PlayMode选项，影响ReloaDomain
 EditorSettings.enterPlayModeOptionsEnabled
+    
+// 设置显示菜单项是否被勾选
+Menu.SetChecked("MyMenu/IsEnableLog", isEnableLog);
 ```
 
