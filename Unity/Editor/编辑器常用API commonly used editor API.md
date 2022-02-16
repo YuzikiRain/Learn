@@ -225,6 +225,7 @@ public class MenuTest : MonoBehaviour
 ```
 
 参考：https://docs.unity3d.com/ScriptReference/MenuItem.html
+**参数priority的差超过20时才会显示分割线**
 
 ### 杂项
 
