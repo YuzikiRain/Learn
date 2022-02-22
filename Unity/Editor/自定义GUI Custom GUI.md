@@ -31,9 +31,19 @@ EditorGUILayout.Popup
 EditorGUILayout.TextField
 EditorGUILayout.BeginHorizontal
 EditorGUI.DropdownButton
+// 大按钮
+GUILayout.Button("搜索label", GUILayout.MaxHeight(height))
+// 控制长度的Popup
+GUILayout.BeginHorizontal();
+// Popup总宽度100f，label宽度70f，剩余30f的宽度为弹出菜单
+EditorGUIUtility.labelWidth = labelWidth;
+labelLength = EditorGUILayout.Popup("label总数：", labelLength, editorLabelsLengthArray, GUILayout.Width(popupWidth + labelWidth));
+GUILayout.FlexibleSpace();
+EditorGUIUtility.labelWidth = 0f;
+GUILayout.EndHorizontal();
     
 // GUILayoutOption，可用于GUILayout和EditorGUILayout的GUILayoutOption参数数组
-GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight, GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
+GUILayout.Width(5f), GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight, GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
 
 // 常见控件的GUIStyle
 EditorStyles.toolbarDropDown
