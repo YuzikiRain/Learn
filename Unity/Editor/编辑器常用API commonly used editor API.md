@@ -194,7 +194,8 @@ public class MenuTest : MonoBehaviour
     static void DoSomethingWithAShortcutKey()
     {
         Debug.Log("Doing something with a Shortcut Key...");
-    }    
+    }
+    
     
     // 组件的上下文菜单
     // Add a menu item called "Double Mass" to a Rigidbody's context menu.
@@ -224,8 +225,11 @@ public class MenuTest : MonoBehaviour
 }
 ```
 
-参考：https://docs.unity3d.com/ScriptReference/MenuItem.html
 **参数priority的差超过20时才会显示分割线**
+
+要创建热键，您可以使用以下特殊字符：**%**（Windows 上为 ctrl，macOS 上为 cmd）、**#**（shift）**和 &**（alt）。如果不需要特殊的修饰键组合，则可以在下划线后给出键。例如，使用热键 shift-alt-g 创建菜单`"MyMenu/Do Something #&g"`。要创建带有热键**g**且未按下任何键修饰符的菜单，请使用`"MyMenu/Do Something _g"`.
+
+参考：https://docs.unity3d.com/ScriptReference/MenuItem.html
 
 ### 杂项
 
@@ -247,5 +251,27 @@ EditorSettings.enterPlayModeOptionsEnabled
     
 // 设置显示菜单项是否被勾选
 Menu.SetChecked("MyMenu/IsEnableLog", isEnableLog);
+
+// 获取当前label、设置label、移除所有label
+AssetDatabase.GetLabels
+AssetDatabase.SetLabels
+AssetDatabase.ClearLabels
+
+// 使用label在project窗口搜索资源
+private static void SearchByLabels(string[] labels)
+{
+    Type projectBrowserType = Type.GetType("UnityEditor.ProjectBrowser,UnityEditor");
+    EditorWindow window = EditorWindow.GetWindow(projectBrowserType);
+
+    // UnityEditor.ProjectBrowser.SetSearch(string searchString)
+    MethodInfo setSearchMethodInfo = projectBrowserType.GetMethod("SetSearch", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance, null, new Type[] { typeof(string) }, null);
+
+    string s = "";
+    foreach (var label in labels)
+    {
+        if (!string.IsNullOrEmpty(label)) s += $"l:{label} ";
+    }
+    setSearchMethodInfo.Invoke(window, new object[] { s });
+}
 ```
 
