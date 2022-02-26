@@ -165,7 +165,7 @@ public void Test(LuaTable luaTable)
 }
 ```
 
-### C#访问Lua
+### Lua访问C#
 
 ``` csharp
 LuaState lua = new LuaState();
@@ -231,3 +231,6 @@ Vector3.__mul = function(va, d)
 end
 ```
 
+### 与其他语言交互的原理
+
+http://www.vanille.work/2020/10/14/tolua%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/

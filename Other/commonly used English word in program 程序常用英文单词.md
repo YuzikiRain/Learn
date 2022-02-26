@@ -2,8 +2,6 @@
 
 [TOC]
 
-
-
 ### A
 
 - adjacency List 邻接表
@@ -18,11 +16,17 @@
 - complexity 复杂度
 
 ### D
+
+- declaration 声明
 - dimension 英[daɪˈmenʃn] 维度 
 - directed graph 有向图
 - distinct 明确的、明显的、清楚的、卓越不寻常的
 - distort 歪曲、使变形、失真
 - dynamic programming(DP) 动态规划
+
+### E
+
+- expression 表达式
 
 ### I
 - iteration 迭代
@@ -59,6 +63,7 @@
 ### S
 
 -   slash 斜杠，猛砍
+-   statement 语句
 
 ### T
 - Thread 线程、线索

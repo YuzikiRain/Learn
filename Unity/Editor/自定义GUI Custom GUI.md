@@ -31,9 +31,19 @@ EditorGUILayout.Popup
 EditorGUILayout.TextField
 EditorGUILayout.BeginHorizontal
 EditorGUI.DropdownButton
+// 大按钮
+GUILayout.Button("搜索label", GUILayout.MaxHeight(height))
+// 控制长度的Popup
+GUILayout.BeginHorizontal();
+// Popup总宽度100f，label宽度70f，剩余30f的宽度为弹出菜单
+EditorGUIUtility.labelWidth = labelWidth;
+labelLength = EditorGUILayout.Popup("label总数：", labelLength, editorLabelsLengthArray, GUILayout.Width(popupWidth + labelWidth));
+GUILayout.FlexibleSpace();
+EditorGUIUtility.labelWidth = 0f;
+GUILayout.EndHorizontal();
     
 // GUILayoutOption，可用于GUILayout和EditorGUILayout的GUILayoutOption参数数组
-GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight, GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
+GUILayout.Width(5f), GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight, GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
 
 // 常见控件的GUIStyle
 EditorStyles.toolbarDropDown
@@ -65,23 +75,46 @@ if (EditorGUI.EndChangeCheck())
 {
     SetKeyword("_METALLIC_MAP", map.textureValue);
 }
+
+// 取得上一次使用的rect区域，仅能在OnGUI中使用
+if (Event.current.type == EventType.Repaint) buttonRect = GUILayoutUtility.GetLastRect();
 ```
 
 ### EditorWindow
 
 ``` csharp
-[MenuItem("地图编辑器/编辑版块")]
-    private static void Open()
+using UnityEngine;
+using UnityEditor;
+
+public class MyWindow : EditorWindow
+{
+    string myString = "Hello World";
+
+    // Add menu named "My Window" to the Window menu
+    [MenuItem("Window/My Window")]
+    static void Init()
     {
-        var editorWindow = EditorWindow.GetWindow<CustomEditorWindow>();
-        editorWindow.titleContent = new GUIContent("窗口标题");
+        // Get existing open window or if none, make a new one:
+        MyWindow window = (MyWindow)EditorWindow.GetWindow(typeof(MyWindow));
+        window.Show();
     }
 
-public class CustomEditorWindow : EditorWindow
-{
-	private OnGUI()
+    [MenuItem("Window/Close My Window")]
+    static void Close()
     {
-        // 绘制一些GUI
+        // Checks if any window of type MyWindow is open
+        // 某类型的EditorWindow是否已经打开
+        if (EditorWindow.HasOpenInstances<MyWindow>())
+        {
+            var window = EditorWindow.GetWindow(typeof(MyWindow));
+            window.Close();
+        }
+    }
+
+    void OnGUI()
+    {
+        GUILayout.Label("Base Settings", EditorStyles.boldLabel);
+        myString = EditorGUILayout.TextField("Text Field", myString);
     }
 }
 ```
@@ -151,6 +184,35 @@ index = GUILayout.SelectionGrid(index, grids, columnCount);
 #### PopupWindowContent 弹出框（其他区域点击后消失）
 
 ``` csharp
+using UnityEngine;
+using UnityEditor;
+
+public class EditorWindowWithPopup : EditorWindow
+{
+    // Add menu item
+    [MenuItem("Example/Popup Example")]
+    static void Init()
+    {
+        EditorWindow window = EditorWindow.CreateInstance<EditorWindowWithPopup>();
+        window.Show();
+    }
+
+    Rect buttonRect;
+    void OnGUI()
+    {
+        {
+            GUILayout.Label("Editor window with Popup example", EditorStyles.boldLabel);
+            if (GUILayout.Button("Popup Options", GUILayout.Width(200)))
+            {
+                // 第一个参数rect的左上角就是CustomPopupWindowContent的初始位置
+                PopupWindow.Show(buttonRect, new CustomPopupWindowContent());
+            }
+            // 取得上一次使用的rect区域
+            if (Event.current.type == EventType.Repaint) buttonRect = GUILayoutUtility.GetLastRect();
+        }
+    }
+}
+
 public class CustomPopupWindowContent : PopupWindowContent
 {
     // 返回该content显示大小
@@ -166,7 +228,7 @@ CustomPopupWindowContent content = new CustomPopupWindowContent();
 PopupWindow.Show(rect, content);
 ```
 
-
+参考：https://docs.unity3d.com/ScriptReference/PopupWindow.html
 
 #### SearchField
 
