@@ -32,7 +32,7 @@ EditorGUILayout.TextField
 EditorGUILayout.BeginHorizontal
 EditorGUI.DropdownButton
 // 大按钮
-GUILayout.Button("搜索label", GUILayout.MaxHeight(height))
+GUILayout.Button("搜索label", GUILayout.MaxHeight(height), GUILayout.MaxWidth(width))
 // 控制长度的Popup
 GUILayout.BeginHorizontal();
 // Popup总宽度100f，label宽度70f，剩余30f的宽度为弹出菜单
@@ -139,10 +139,7 @@ scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Width
 EditorGUILayout.EndScrollView();
 ```
 
-
 ### 控件
-
-### 常用控件
 
 #### toolbar DropdownButton
 
@@ -181,7 +178,28 @@ index = GUILayout.SelectionGrid(index, grids, columnCount);
 
 可以配合ScrollView使用
 
-#### PopupWindowContent 弹出框（其他区域点击后消失）
+#### SearchField
+
+##### 居中的搜索框
+
+```csharp
+private GUIStyle searchStyle;
+private void InitStyle()
+{
+	searchStyle = GUI.skin.FindStyle("ToolbarSeachTextFieldPopup");
+    if (searchStyle == null) searchStyle = EditorGUIUtility.GetBuiltinSkin(EditorSkin.Inspector).FindStyle("ToolbarSeachTextFieldPopup");
+    SearchField searchField = new SearchField();
+}
+
+private void OnGUI()
+{
+    InitStyle();
+    // 用一定百分比的当前window的宽度作为搜索栏的最大宽度
+    Rect searchRect = GUILayoutUtility.GetRect(0f, position.width * 0.6f, EditorGUIUtility.singleLineHeight, EditorGUIUtility.singleLineHeight, searchStyle);
+    assetsTreeView.searchString = searchField.OnGUI(searchRect, assetsTreeView.searchString);
+}
+```
+### PopupWindowContent 弹出框（其他区域点击后消失）
 
 ``` csharp
 using UnityEngine;
@@ -220,6 +238,11 @@ public class CustomPopupWindowContent : PopupWindowContent
     {
         return new Vector2(200f, 200f);
     }
+    
+    public override void OnGUI(Rect rect)
+    {
+
+    }
 }
 ```
 
@@ -229,31 +252,6 @@ PopupWindow.Show(rect, content);
 ```
 
 参考：https://docs.unity3d.com/ScriptReference/PopupWindow.html
-
-#### SearchField
-
-##### 居中的搜索框
-
-```csharp
-private GUIStyle searchStyle;
-private void InitStyle()
-{
-	searchStyle = GUI.skin.FindStyle("ToolbarSeachTextFieldPopup");
-    if (searchStyle == null) searchStyle = EditorGUIUtility.GetBuiltinSkin(EditorSkin.Inspector).FindStyle("ToolbarSeachTextFieldPopup");
-    SearchField searchField = new SearchField();
-}
-
-private void OnGUI()
-{
-    InitStyle();
-    // 用一定百分比的当前window的宽度作为搜索栏的最大宽度
-    Rect searchRect = GUILayoutUtility.GetRect(0f, position.width * 0.6f, EditorGUIUtility.singleLineHeight, EditorGUIUtility.singleLineHeight, searchStyle);
-    assetsTreeView.searchString = searchField.OnGUI(searchRect, assetsTreeView.searchString);
-}
-```
-### 设置按钮
-
-```GUILayout.Button(EditorGUIUtility.FindTexture("d__Popup@2x"), (GUIStyle)"SettingsIconButton");```
 
 ### 自定义ProjectSettings或Preferences选项SettingsProvider
 
@@ -449,6 +447,8 @@ private void OnGUI()
     EditorGUILayout.LabelField("inspectorDefaultMargins", EditorStyles.inspectorDefaultMargins);
     EditorGUILayout.LabelField("inspectorFullWidthMargins", EditorStyles.inspectorFullWidthMargins);
     EditorGUILayout.LabelField("helpBox", EditorStyles.helpBox);
+    // 设置按钮
+	GUILayout.Button(EditorGUIUtility.FindTexture("d__Popup@2x"), (GUIStyle)"SettingsIconButton");
 }
 ```
 
