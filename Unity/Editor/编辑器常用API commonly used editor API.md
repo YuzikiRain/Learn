@@ -60,6 +60,8 @@ EditorApplication.isPlaying = true;
 // 获得/设置选中的gameobject
 Selection.gameObjects
 Selection.activeGameObject
+// 获得选中资源和目录下的资源（如果选中的资源是目录的话，目录也是一种资源Default Asset，基类是UnityEngine.Object）
+Selection.GetFiltered<UnityEngine.Object>(SelectionMode.DeepAssets)
 // 返回prefab相对于工程目录的路径（即带有Assets/）
 AssetDatabase.GetAssetPath(prefab)
 // 返回位于path的主资产，不需要类型，主资产是位于层次结构根目录的资产（例如Maya文件，其中可能包含多个Mesh和GameObjects）
@@ -67,9 +69,13 @@ AssetDatabase.LoadMainAssetAtPath(path)
 // 返回位于path的资产，因为一个资产可能包含其他多个子资产，因此需要执行类型
 AssetDatabase.LoadAssetAtPath<TObject>(path)
 // 给定路径，按条件和名称搜索资源 https://docs.unity3d.com/ScriptReference/AssetDatabase.FindAssets.html
+// 第一个参数填string.Empty则为无条件搜索给定路径
 string[] assetGUIDs = AssetDatabase.FindAssets("t:Prefab prefabName", searchPaths);
 // 返回targetTransform相对于root的相对路径
 AnimationUtility.CalculateTransformPath(Transform targetTransform, Transform root);
+
+// 是否是文件夹
+AssetDatabase.IsValidFolder(path);
 ```
 
 ### 保存 读取 打开
@@ -273,5 +279,8 @@ private static void SearchByLabels(string[] labels)
     }
     setSearchMethodInfo.Invoke(window, new object[] { s });
 }
+
+// 打开对话框
+if (EditorUtility.DisplayDialog("Warning", "Are you really sure to delete these assets?", "Yes", "No")) delete something
 ```
 
