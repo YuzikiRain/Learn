@@ -1,3 +1,5 @@
+## 多个Canvas
+
 ### 位置
 
 添加RectTransform组件（而不是用默认的Transform组件），然后设置anchoredPosition或anchoredPosition3D为UI层上的位置（transform的坐标系和RectTransform的不同）
@@ -11,3 +13,9 @@
 
 勾选了Override Sorting的UGUI元素使用SortingLayer来排序，而不再由在Canvas中的层次顺序决定，因此与其他默认UGUI元素之前渲染顺序无法得到保证。
 但其**子物体中的UGUI元素之间**的渲染顺序仍由层次顺序决定
+
+## BakeMesh（推荐）
+
+使用ParticleEffectForUGUI插件，只需要为Particle添加UIParticle组件即可让Particle的显示顺序也根据在Canvas中的层次顺序决定
+
+https://github.com/mob-sakai/ParticleEffectForUGUI
