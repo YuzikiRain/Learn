@@ -91,6 +91,11 @@ EditorUtility.SetDirty(obj);
 AssetDatabase.SaveAssets();
 // 打开资源，等同于Project视图中双击打开资源，会触发[OnOpenAsset]标签修饰的函数
 AssetDatabase.OpenAsset
+// 弹出对话框询问是否保存已修改的场景：是-》保存修改，返回true，否-》不保存，返回true，取消-》保持现状，返回false
+// 如果当前场景没有修改，则不会弹出对话框
+bool hasSaveModifyScene = EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
+if (hasSaveModifyScene) Debug.Log("有修改的场景需要保存，已选择保存或丢弃");
+else Debug.Log("取消，保持y");
 ```
 
 ### 文件相关
