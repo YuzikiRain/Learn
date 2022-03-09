@@ -1,6 +1,8 @@
 ### Prefab
 
 ``` csharp
+// PrefabInstanceStatus：预制体状态，不是预制体NotAPrefab，Connected预制体，MissingAsset引用的预制体资源丢失，Disconnected旧版本功能已弃用
+PrefabUtility.GetPrefabInstanceStatus(UnityEngine.Object componentOrGameObject)
 // 预制体，且不在场景中（在Asset中，是资源） is a prefab in asset
 var IsPartOfPrefabAsset = PrefabUtility.IsPartOfPrefabAsset(gameObject);
 // 预制体，且在场景中   is a prefab in hierarchy(scene) as instance
