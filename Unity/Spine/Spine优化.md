@@ -86,3 +86,7 @@ Dragon示例展示了这种有很多绘制调用的用例:
 ![img](http://zh.esotericsoftware.com/img/spine-runtimes-guide/spine-unity/render_spineunity_alternatingmaterials.png)
 
 因此, 建议将附件打包到尽可能少的atlas页中, 并根据绘制顺序将附件分组置入atlas页以防止多余的material切换. 请参阅[Spine Texture Packer: Folder Structure](http://esotericsoftware.com/spine-texture-packer#Folder-structure)了解如何在你的Spine atlas中编排atlas区域.
+
+### ECS
+
+搜索 Spine animation converter for ECS and Tiny
