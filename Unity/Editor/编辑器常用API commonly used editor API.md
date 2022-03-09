@@ -62,6 +62,8 @@ EditorApplication.isPlaying = true;
 // 获得/设置选中的gameobject
 Selection.gameObjects
 Selection.activeGameObject
+// 获得选中资源和目录下的资源（如果选中的资源是目录的话，目录也是一种资源Default Asset，基类是UnityEngine.Object）
+Selection.GetFiltered<UnityEngine.Object>(SelectionMode.DeepAssets)
 // 返回prefab相对于工程目录的路径（即带有Assets/）
 AssetDatabase.GetAssetPath(prefab)
 // 返回位于path的主资产，不需要类型，主资产是位于层次结构根目录的资产（例如Maya文件，其中可能包含多个Mesh和GameObjects）
@@ -69,9 +71,13 @@ AssetDatabase.LoadMainAssetAtPath(path)
 // 返回位于path的资产，因为一个资产可能包含其他多个子资产，因此需要执行类型
 AssetDatabase.LoadAssetAtPath<TObject>(path)
 // 给定路径，按条件和名称搜索资源 https://docs.unity3d.com/ScriptReference/AssetDatabase.FindAssets.html
+// 第一个参数填string.Empty则为无条件搜索给定路径
 string[] assetGUIDs = AssetDatabase.FindAssets("t:Prefab prefabName", searchPaths);
 // 返回targetTransform相对于root的相对路径
 AnimationUtility.CalculateTransformPath(Transform targetTransform, Transform root);
+
+// 是否是文件夹
+AssetDatabase.IsValidFolder(path);
 ```
 
 ### 保存 读取 打开
@@ -87,6 +93,11 @@ EditorUtility.SetDirty(obj);
 AssetDatabase.SaveAssets();
 // 打开资源，等同于Project视图中双击打开资源，会触发[OnOpenAsset]标签修饰的函数
 AssetDatabase.OpenAsset
+// 弹出对话框询问是否保存已修改的场景：是-》保存修改，返回true，否-》不保存，返回true，取消-》保持现状，返回false
+// 如果当前场景没有修改，则不会弹出对话框
+bool hasSaveModifyScene = EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
+if (hasSaveModifyScene) Debug.Log("有修改的场景需要保存，已选择保存或丢弃");
+else Debug.Log("取消，保持y");
 ```
 
 ### 文件相关
@@ -275,5 +286,8 @@ private static void SearchByLabels(string[] labels)
     }
     setSearchMethodInfo.Invoke(window, new object[] { s });
 }
+
+// 打开对话框
+if (EditorUtility.DisplayDialog("Warning", "Are you really sure to delete these assets?", "Yes", "No")) delete something
 ```
 
