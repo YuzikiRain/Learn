@@ -41,7 +41,12 @@ labelLength = EditorGUILayout.Popup("label总数：", labelLength, editorLabelsL
 GUILayout.FlexibleSpace();
 EditorGUIUtility.labelWidth = 0f;
 GUILayout.EndHorizontal();
-    
+
+// 设置GUI颜色
+var prevColor = GUI.color;
+GUI.color = isValid ? Color.green : Color.red;
+UnityEditor.EditorGUILayout.LabelField($"资源路径 {(isValid ? "合法" : "非法")}");
+GUI.color = prevColor;
 // GUILayoutOption，可用于GUILayout和EditorGUILayout的GUILayoutOption参数数组
 GUILayout.Width(5f), GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight, GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
 
@@ -307,7 +312,7 @@ public class LookAtPointEditor : Editor
 
 #### 迭代地显示自定义内容
 
-参考UnityEditor.Editor.cs
+参考UnityEditor.Editor.cs，这里是从当前Mono脚本去迭代地查找SerializedProperty即每个被序列化的字段，然后再对每个去迭代地显示
 
 ```csharp
 // UnityEditor.Editor.cs
@@ -332,13 +337,15 @@ internal static bool DoDrawDefaultInspector(SerializedObject obj)
 }
 ```
 
+所以如果要自定义地迭代显示（改变显示顺序，或增加、减少一些显示），就需要自己把要显示的字段的SerializedProperty挑出来，只利用`while (iterator.NextVisible(enterChildren))`来显示自己想显示的字段即可
+
  ``` csharp
  // UnityEditor.Editor.cs
  internal static bool DoDrawDefaultInspector(SerializedObject obj)
  {
  ...
-     // 将 SerializedProperty iterator = obj.GetIterator();改为第一个要显示的SerializedProperty即可
-     SerializedProperty iterator = serializedObject.FindProperty("FirstSerializedPropertyName");
+     // 将 SerializedProperty iterator = obj.GetIterator();改为要显示的SerializedProperty即可
+     SerializedProperty iterator = serializedObject.FindProperty("YourSerializedPropertyName");
  ...
  }
  ```
