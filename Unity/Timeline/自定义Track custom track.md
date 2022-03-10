@@ -152,9 +152,9 @@ foreach (var track in tracks)
     if (customTrack)
     {
         // track是否有clip
-		bool hasCilps = trackAsset.hasClips;
+		bool hasCilps = customTrack.hasClips;
         // 获得所有TimelineClip
-        var timelineClips = moveTrack.GetClips();
+        var timelineClips = customTrack.GetClips();
         foreach (var timelineClip in timelineClips)
         {
             // 这里要取asset字段，因为默认是TimelineClip装着自定义Clip
