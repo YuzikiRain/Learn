@@ -51,8 +51,8 @@ public static async void PlaySoundEffect(AssetReference audioClipAsset)
     }
 }
 ```
-#### async Task<T>
-```csharp
+#### `async Task<T>`
+``` csharp
 private async static Task<T> LoadAssetAsync<T>() where T : Object
 {
     var path = "address of prefab";
@@ -70,6 +70,7 @@ public static async Task<T> InstantiateAssetAsync<T>() where T : Object
     var obj = await LoadAssetAsync<T>();
 }
 ```
+
 #### 协程
 ```csharp
 public IEnumerator Start() {
@@ -86,8 +87,23 @@ public IEnumerator Start() {
 ```
 
 ### 同步加载
-[Unity Github Addressables](https://github.com/Unity-Technologies/Addressables-Sample/tree/master/Advanced/Sync%20Addressables)
-if can not find, go to Unity github repository and find the repository named addresables-sample
+- addressables版本>=1.17：
+	``` csharp
+	void Start()
+	{
+	    //Basic use case of forcing a synchronous load of a GameObject
+	    var op = Addressables.LoadAssetAsync<GameObject>("myGameObjectKey");
+	    GameObject go = op.WaitForCompletion();
+	
+	    //Do work...
+	
+	    Addressables.Release(op);
+	}
+	```
+- addressables版本<1.17
+	[Unity Github Addressables](https://github.com/Unity-Technologies/Addressables-Sample/tree/master/Advanced/Sync%20Addressables)
+	if can not find, go to Unity github repository and find the repository named addresables-sample
+
 
 ### 本地打包流程
 - 在AddressableAssetsData/AssetGroups下找到对应Group的配置，这里可以查看到Build Path的本地路径。

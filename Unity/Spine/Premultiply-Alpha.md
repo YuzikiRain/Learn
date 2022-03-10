@@ -22,6 +22,8 @@
 >
 > http://blogs.msdn.com/b/shawnhar/archive/2009/11/06/premultiplied-alpha.aspx
 
-### 参考
+参考：http://esotericsoftware.com/forum/Premultiply-Alpha-3132
 
-http://esotericsoftware.com/forum/Premultiply-Alpha-3132
+## Spine的纹理压缩和半透显示
+
+[Spine的纹理压缩和半透显示 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/76077345)
