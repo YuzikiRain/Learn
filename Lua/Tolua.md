@@ -183,9 +183,32 @@ table.AddTable("newmap");
 LuaTable table1 = (LuaTable)table["newmap"];
 table1["name"] = "table1";
 table1.Dispose();
+
+// 调用lua的function
+//Get the function object
+luaFunc = lua.GetFunction("test.luaFunc");
+
+if (luaFunc != null)
+{
+    int num = luaFunc.Invoke<int, int>(123456);
+    Debugger.Log("generic call return: {0}", num);
+
+    num = CallFunc();
+    Debugger.Log("expansion call return: {0}", num);
+
+    Func<int, int> Func = luaFunc.ToDelegate<Func<int, int>>();
+    num = Func(123456);
+    Debugger.Log("Delegate call return: {0}", num);
+
+    num = lua.Invoke<int, int>("test.luaFunc", 123456, true);
+    Debugger.Log("luastate call return: {0}", num);
+}
 ```
 
-参考：https://github.com/topameng/tolua/blob/master/Assets/ToLua/Examples/04_AccessingLuaVariables/AccessingLuaVariables.cs
+参考：
+
+- https://github.com/topameng/tolua/blob/master/Assets/ToLua/Examples/04_AccessingLuaVariables/AccessingLuaVariables.cs
+- [tolua/CallLuaFunction.cs at master · topameng/tolua · GitHub](https://github.com/topameng/tolua/blob/master/Assets/ToLua/Examples/03_CallLuaFunction/CallLuaFunction.cs)
 
 #### 数组长度
 
