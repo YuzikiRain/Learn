@@ -1,4 +1,4 @@
-### 布局控制器
+### <span id="LayoutController">布局控制器</span>
 
 实现了 **ILayoutController** 的类型
 常见的有 Horizontal/Vertical/Grid Layout Group、ContentSizeFitter
@@ -49,6 +49,10 @@ Flexible默认是不开启的
 **光是有布局属性并没有什么用，这个组件会使用某些布局属性来设置RectTransform的宽高**
 
 比如 Text 的 Horizontal/Vertical Overflow 虽然会影响 Text 的表现，但不影响布局属性，所以不会影响 RectTransform 的宽高
+
+### 父物体Image的width或height根据子物体Text的内容而确定
+
+父物体Image添加任意一种[布局控制器](#LayoutController)，再添加`Content Size Filter`组件，以纵向为例，布局控制器勾选Control Child Size的Height，`Content Size Filter`组件的Vertical Fit选择Preferred Size
 
 ### RectTransform
 
