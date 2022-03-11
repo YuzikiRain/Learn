@@ -75,7 +75,8 @@ AssetDatabase.LoadAssetAtPath<TObject>(path)
 string[] assetGUIDs = AssetDatabase.FindAssets("t:Prefab prefabName", searchPaths);
 // 返回targetTransform相对于root的相对路径
 AnimationUtility.CalculateTransformPath(Transform targetTransform, Transform root);
-
+// 指定路径下文件是否存在
+isExist = UnityEditor.AssetDatabase.AssetPathToGUID(path) != "";
 // 是否是文件夹
 AssetDatabase.IsValidFolder(path);
 ```
