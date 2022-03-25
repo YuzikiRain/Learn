@@ -72,6 +72,7 @@ AssetDatabase.LoadMainAssetAtPath(path)
 AssetDatabase.LoadAssetAtPath<TObject>(path)
 // 给定路径，按条件和名称搜索资源 https://docs.unity3d.com/ScriptReference/AssetDatabase.FindAssets.html
 // 第一个参数填string.Empty则为无条件搜索给定路径
+// 返回的资源名称为搜索名称的子集，因此搜索结果与搜索名称并不完全匹配
 string[] assetGUIDs = AssetDatabase.FindAssets("t:Prefab prefabName", searchPaths);
 // 返回targetTransform相对于root的相对路径
 AnimationUtility.CalculateTransformPath(Transform targetTransform, Transform root);
