@@ -151,6 +151,14 @@ var e = b.normalized * offset.magnitude;
 b === d === e
 ```
 
-### 参考
+## ScreenToWorldPoint
+
+`public Vector3 ScreenToWorldPoint(Vector3 screenPosition);`
+
+输入参数screenPosition的xy分量为屏幕坐标（一般就是Input.mousePosition），z分量还要再加上需要的深度（一般为相机的位置的z分量加上近平面）
+
+如果z分量没有加上需要的深度，当然就是默认的0了，这样一来相当于转换到（透视）相机的近平面为0的平面上，screenPosition变化量再大，返回的世界坐标的变化量也为0
+
+## 参考
 
 -   https://irfanbaysal.medium.com/differences-between-transformvector-transformpoint-and-transformdirection-2df6f3ebbe11
