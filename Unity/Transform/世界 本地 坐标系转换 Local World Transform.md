@@ -1,4 +1,4 @@
-### TransformPoint TransformVector TransformDirection
+## TransformPoint TransformVector TransformDirection
 
 -   TransformPoint：将本地空间下的某个点变换到世界空间下，受Transform的位置、旋转、缩放影响
 
@@ -124,7 +124,9 @@
 
 localScale 的含义就是**相比于父空间坐标单位，本地坐标单位被缩放了scale倍，从父空间到子空间的向量缩放了 1/scale 倍**
 
-### transform.localPosition
+参考：https://irfanbaysal.medium.com/differences-between-transformvector-transformpoint-and-transformdirection-2df6f3ebbe11
+
+## transform.localPosition
 
 ``` csharp
 // 将表示方向的向量从世界坐标系转换到本地坐标系，忽略缩放影响
@@ -137,7 +139,7 @@ target.position != target.parent.position + target.localPosition;
 target.position == target.parent.position + target.parent.rotation * target.localPosition;
 ```
 
-### Vector3从World到Local
+## Vector3从World到Local
 
 ```csharp
 Transform target;
@@ -155,10 +157,14 @@ b === d === e
 
 `public Vector3 ScreenToWorldPoint(Vector3 screenPosition);`
 
-输入参数screenPosition的xy分量为屏幕坐标（一般就是Input.mousePosition），z分量还要再加上需要的深度（一般为相机的位置的z分量加上近平面）
+输入参数screenPosition的xy分量为屏幕坐标（一般就是Input.mousePosition），屏幕坐标的z分量默认为0，z分量还要再加上需要的深度
+
+将位置从屏幕空间变换到世界空间下，而z是无法得到的，返回的Vector3的z分量就是传入的screenPosition的z分量，即z分量是调用者确定的
 
 如果z分量没有加上需要的深度，当然就是默认的0了，这样一来相当于转换到（透视）相机的近平面为0的平面上，screenPosition变化量再大，返回的世界坐标的变化量也为0
 
+参考：[Unity - Scripting API: Camera.ScreenToWorldPoint (unity3d.com)](https://docs.unity3d.com/ScriptReference/Camera.ScreenToWorldPoint.html)
+
 ## 参考
 
--   https://irfanbaysal.medium.com/differences-between-transformvector-transformpoint-and-transformdirection-2df6f3ebbe11
+-   
