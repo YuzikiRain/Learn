@@ -1,4 +1,4 @@
-### 搭建图床
+## 搭建图床
 
 - 新建github仓库，可见性public
 
@@ -15,12 +15,26 @@
 
 - **设置为默认图床**
 
-### Typora
+## Typora
 
 - 按下图设置
     ![image-20220108103503367](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220108103503367.png)
-    - 插入图片时：上传图片（这样就不用再点击上传图片的按钮了）
+    
+    - 插入图片时：上传图片（这样就不用再点击上传图片的按钮了，虽然还是会弹出是否上传的右键菜单）
     - 上传服务：PicGo（app）
     - PicGo路径：PicGo.exe路径
-- 验证图片上传选项：测试是否能正常上传，不行的话检查下PicGo的**自定义域名**设置、Server设置（打开或关闭）
-    ![image-20220108103730124](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220108103730124.png)
+    
+- 验证图片上传选项：测试是否能正常上传，不行的话
+  
+    - 是否指定位置下已经存在typora-icon.png和typora-icon2.png了，有的话先到仓库里删除
+    - 检查下PicGo的**自定义域名**设置、Server设置（打开或关闭）
+        ![image-20220108103730124](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220108103730124.png)
+    
+    
+    
+    
+    
+## 使用
+
+- 打开图片，在图片查看器中复制，而不是复制图片文件
+- 粘贴，此时会自动上传，虽然还是会弹出是否上传的右键菜单
