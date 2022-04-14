@@ -252,6 +252,8 @@ public class CustomTrack : TrackAsset
 
 可使得TimelineAsset引用场景中的资源，便于编辑器下预览。运行时则可以动态设置其引用
 
+参考：[Unity - Scripting API: ExposedReference (unity3d.com)](https://docs.unity3d.com/ScriptReference/ExposedReference_1.html)
+
 ##### 设置引用
 
 -   引用序列化在Clip里了，直接在clip里设置（这种情况下Director组件物体和引用都在同一场景里）
@@ -416,6 +418,63 @@ public T Resolve(IExposedPropertyTable resolver)
     适用于同一个Track内的不同Clip之间有不同的预览属性（都相同则可以直接在Track里写）
 
 参考：https://forum.unity.com/threads/temporary-preview-changes-from-custom-timeline-track.650902/
+
+#### 取得ExposedReference对应的值
+
+- Clip中取得
+
+    ``` csharp
+    public class TestClip : PlayableAsset, ITimelineClipAsset, IPropertyPreview
+    {
+        [SerializeField] private TestBehaviour _template;
+    
+        public ClipCaps clipCaps => ClipCaps.None;
+    
+        public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+        {
+            return ScriptPlayable<TestBehaviour>.Create(graph, _template);
+        }
+    }
+    ```
+
+- 激活TimelineEditorWindow编辑器时
+
+    - 从自定义编辑器扩展中
+
+        ``` csharp
+        [UnityEditor.CustomEditor(typeof(ParticleControlClip))]
+        public class ParticleControlClipEditor : UnityEditor.Editor
+        {
+            private void OnEnable()
+            {
+                // 直接取得序列化字段exposedReference的exposedReferenceValue值，就是需要的值
+                var sourceGameObjectProperty = this.serializedObject.FindProperty("sourceGameObject");
+        		var instance = sourceGameObjectProperty.exposedReferenceValue;
+            }
+        }
+        ```
+
+#### 取得PlayableDirector
+
+- 激活TimelineEditorWindow编辑器时
+
+    - 从自定义编辑器扩展中：serializedObject.context
+
+        ``` csharp
+        [UnityEditor.CustomEditor(typeof(ParticleControlClip))]
+        public class ParticleControlClipEditor : UnityEditor.Editor
+        {
+            private void OnEnable()
+            {
+                var director = this.serializedObject.context as PlayableDirector;
+            }
+        }
+        ```
+
+    - `UnityEditor.Timeline.TimelineEditor.inspectedDirector`
+
+    - `var directorContext = UnityEditor.Selection.activeContext as PlayableDirector;`
+        未经过验证，来自julienb [How can I resolve an ExposedReference from within a Marker? - Unity Forum](https://forum.unity.com/threads/how-can-i-resolve-an-exposedreference-from-within-a-marker.1043728/)
 
 ### 自定义
 
