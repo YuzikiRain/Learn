@@ -7,13 +7,14 @@ PrefabUtility.GetPrefabInstanceStatus(UnityEngine.Object componentOrGameObject)
 var IsPartOfPrefabAsset = PrefabUtility.IsPartOfPrefabAsset(gameObject);
 // 预制体，且在场景中   is a prefab in hierarchy(scene) as instance
 var IsPartOfPrefabInstance = PrefabUtility.IsPartOfPrefabInstance(gameObject);
-// 从prefabInstance的子物体中取得prefab的root
-var prefabInstanceRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(prefabInstance)
+// 从prefabInstance的子物体中取得root
+var prefabInstanceRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(prefabInstance);
 // 从Object获得prefab，应配合 PrefabUtility.GetOutermostPrefabInstanceRoot 使用，因为如果参数不是 prefabInstanceRoot 会返回 null
 var prefabAsset = PrefabUtility.GetCorrespondingObjectFromSource(prefabInstanceRoot);
 // 如果prefabInstanceRoot是嵌套预制体中的子prefab，使用GetCorrespondingObjectFromOriginalSource会返回子prefab（transform属性的parent为null），AssetDatabase.GetAssetPath会返回子prefab的path
 // 而GetCorrespondingObjectFromSource则返回父prefab下的子prefab（可通过transform属性的parent一直往上找到父prefab），且AssetDatabase.GetAssetPath(childPrefabInstance)只会返回父prefab的path
 var prefabAsset = PrefabUtility.GetCorrespondingObjectFromOriginalSource(prefabInstanceRoot);
+// 从prefab资产中取得对应路径
 var prefabAssetPath = AssetDatabase.GetAssetPath(prefabAsset);
 // 如果参数 prefabInstanceRoot 确实是prefab的根物体，返回 null 表示在预制体模式下，否则在一般场景下
 bool isInPrefabStage = prefabInstance != null;
@@ -88,11 +89,15 @@ AssetDatabase.IsValidFolder(path);
 // 将Object保存成资源
 AssetDatabase.AddObjectToAsset
 // 通过默认的Inspector来修改Mono或ScriptableObject对象时，对可序列化对象的这些修改会被自动保存
-// 但是如果通过自定义Inspector或代码直接修改，则需要手动调用SetDirty告知对象修改需要保存到磁盘
+// 但是如果通过自定义Inspector或代码直接修改序列化字段，则需要手动调用SetDirty告知对象修改需要保存到磁盘
 // 如果修改的对象附加在某个prefab上，通过代码（自定义Editor）修改了对象后，要将这些改动保存到prefab上，还需要序列化prefab本身，但是修改这些可序列化对象并不会使得prefab变为dirty（非自定义Editor显示在Inspector上的都是可序列化对象，默认的Editor会提供改动后的SetDirty调用），因此还需要额外调用EditorUtility.SetDirty(serializableComponent);
 EditorUtility.SetDirty(obj);
 // 将改动写入磁盘
 AssetDatabase.SaveAssets();
+
+// 如果在自定义编辑器上修改了serializedObject的一些字段，必须调用该函数才能保存
+serializedObject.ApplyModifiedProperties();
+
 // 打开资源，等同于Project视图中双击打开资源，会触发[OnOpenAsset]标签修饰的函数
 AssetDatabase.OpenAsset
 ```
