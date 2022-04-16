@@ -185,17 +185,33 @@ foreach (var track in tracks)
 
 #### 绑定TrackBindingType对应类型的实例
 
-```csharp
-PlayableAsset playableAsset;
-foreach (var playableBinding in playableAsset.outputs)
-{
-    // 用类型 outputTargetType 或者用轨道名称 playableBinding.streamName 
-    if (playableBinding.outputTargetType == typeof(GameObject))
+- outputs
+
+    ``` csharp
+    PlayableAsset playableAsset;
+    foreach (var playableBinding in playableAsset.outputs)
     {
-        playableDirector.SetGenericBinding(playableBinding.sourceObject, gameObject);
+        // 用类型 outputTargetType 或者用轨道名称 playableBinding.streamName 
+        if (playableBinding.outputTargetType == typeof(GameObject))
+        {
+            playableDirector.SetGenericBinding(playableBinding.sourceObject, gameObject);
+        }
     }
-}
-```
+    ```
+
+- GetOutputTracks
+
+    ``` csharp
+    var tracks = (playableAsset as TimelineAsset).GetOutputTracks();
+    foreach (var track in tracks)
+    {
+        var customTrack = track as SpineAnimationStateTrack;
+        if (customTrack)
+        {
+        	playableDirector.SetGenericBinding(customTrack, SkeletonAnimation);
+        }
+    }
+    ```
 
 #### 基类PlayableAsset
 
