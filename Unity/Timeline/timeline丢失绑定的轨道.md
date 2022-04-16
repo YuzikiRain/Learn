@@ -12,4 +12,8 @@
     也可以参考减号对应的函数调用，写自定义的代码处理所有涉及的prefab
 - 清除错误的（最好是全部）PlayableDirector组件的m_SceneBindings序列化字段
 
-[如何编写代码以删除 PlayableDirector 中未使用的绑定？- 统一答案 (unity.com)](https://answers.unity.com/questions/1833426/how-can-i-code-to-delete-unused-bindings-in-playab.html)
+参考：
+
+-  [如何编写代码以删除 PlayableDirector 中未使用的绑定？- 统一答案 (unity.com)](https://answers.unity.com/questions/1833426/how-can-i-code-to-delete-unused-bindings-in-playab.html)
+- [【unity】timelineからトラックが抜け落ちる件/)| GAMEWORKS LAB](https://gameworkslab.jp/2020/01/27/【unity】timelineからトラックが抜け落ちる件/)
+
