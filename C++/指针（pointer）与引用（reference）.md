@@ -32,6 +32,29 @@ int *pi = &i;
 
 将（指针`pi`所指向的）变量`i`的值增加10
 
+## `->`和`.`操作符
+
+``` c++
+class Shader
+{
+public:
+	unsigned int ID;
+	void use(){}
+}
+```
+
+``` c++
+Shader* shader = new Shader();
+
+(*shader).ID = 1;
+(*shader).use();
+// 以下写法效果一致
+shader->ID = 2;
+shader->use();
+
+delete shader;
+```
+
 ## 指针和引用的区别
 
 指针可能指向某个实际对象，也可能指向0
