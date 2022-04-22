@@ -46,7 +46,7 @@ transform.localEulerAngles = (10f, 20f, 30f);
 transform.Rotate(new Vector3(10f, 20f, 30f), Space.Self);
 ```
 
-（虽然是按z-x-y的顺序使用欧拉角进行旋转）但不等同于以下，因为每次旋转操作都会改变当前坐标系，即下一次旋转时参考坐标系变了，而之前的操作都是相对于旋转前的本地坐标系为参考，称为**静态欧拉角**
+（虽然是按z-x-y的顺序使用欧拉角进行旋转）但不等同于以下，因为每次旋转操作都会改变当前坐标系，即下一次旋转时参考坐标系变了，而之前的操作（一次绕3个轴旋转）都是相对于旋转前的本地坐标系为参考，称为**静态欧拉角**
 
 ``` csharp
 transform.Rotate(new Vector3(0f, 0f, 30f), Space.Self);
@@ -85,3 +85,4 @@ public void Rotate(Vector3 eulerAngles, Space relativeTo = Space.Self);
 - [bonus_gimbal_lock.pdf (krasjet.github.io)](https://krasjet.github.io/quaternion/bonus_gimbal_lock.pdf)
 - [【Unity编程】Unity中的欧拉旋转_AndrewFan的博客-CSDN博客_欧拉旋转](https://blog.csdn.net/andrewfan/article/details/60866636)
 - [Unity WebGL Player | Objects (andrewfanchina.github.io)](https://andrewfanchina.github.io/UnityLabs/Euler/)
+- [做控制要知道的刚体旋转知识（三）欧拉角 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/98320567)
