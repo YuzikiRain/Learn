@@ -1,5 +1,4 @@
 ### 数学公式
-
 $$
 \begin{align}
 h(x) =& \frac{1}{\int_xt(x)\mathrm{d}x} \tag{1}\\
@@ -9,6 +8,14 @@ $$
 
 必须要以```\begin{align}```开头，```\end{align}```结尾表示对齐，使用```&```标记对齐位置
 ```\\```用于公式换行
+$$
+out=\begin{Bmatrix}
+ x/w&a\\
+ y/w&b\\
+ z/w&c\\
+ \end{Bmatrix}
+$$
+ 矩阵
 
 ### 符号
 
