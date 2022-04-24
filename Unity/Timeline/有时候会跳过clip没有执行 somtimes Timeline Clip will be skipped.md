@@ -2,6 +2,8 @@
 
 ## 解决方案
 
+### 逐帧Evaluate
+
 使用`PlayableDirectorWatcher.PlayAndWatchTimeline`来播放`TimelineAsset`，该class会以不低于`TimelineAsset`的默认帧率，逐帧地`Evaluate`整个`TimelineAsset`
 
 ``` csharp
@@ -88,6 +90,222 @@ namespace BordlessFramework
                             break;
                         }
                         playableDirector.Evaluate();
+                    }
+
+                }
+            }
+        }
+    }
+}
+```
+
+ 缺点：无法播放AudioTrack，该轨道必须要在非Manual模式下才能使用
+
+### 逐帧检查当前Director时间是否超过Behaviour对应的TimelineClip的时间
+
+需要使用TimelineClip的start和end初始化对应自定义clip，再初始化对应Behaviour
+
+#### 初始化
+
+``` csharp
+var tracks = (playableAsset as TimelineAsset).GetOutputTracks().ToArray();
+foreach (var track in tracks)
+{
+    switch (track)
+    {
+        case CustomTrack customTrack:
+            {
+                var timelineClips = customTrack.GetClips();
+                foreach (var timelineClip in timelineClips)
+                {
+                    CustomClip customClip = timelineClip.asset as CustomClip;
+                    customClip.SetPlayableDirector(playableDirector);
+                    customClip.SetTime(timelineClip.start, timelineClip.end);
+                }
+                break;
+            }
+    }
+}
+```
+
+#### WatchableClip 基类
+
+``` csharp
+using UnityEngine.Playables;
+
+namespace BordlessFramework.PluginExtension
+{
+    public abstract class WatchableClip : PlayableAsset
+    {
+        protected PlayableDirector PlayableDirector;
+        public double StartTime { get; private set; }
+        public double EndTime { get; private set; }
+
+        public void SetPlayableDirector(PlayableDirector playableDirector)
+        {
+            this.PlayableDirector = playableDirector;
+        }
+
+        public void SetTime(double startTime, double endTime)
+        {
+            StartTime = startTime;
+            EndTime = endTime;
+        }
+    }
+}
+```
+
+#### CustomClip：你的自定义clip类
+
+``` csharp
+using BordlessFramework.PluginExtension;
+using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
+
+public class CustomClip : WatchableClip
+{
+    public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+    {
+        var playable = ScriptPlayable<CustomBehaviour>.Create(graph);
+        var behaviour = playable.GetBehaviour();
+        behaviour.AddWatch(PlayableDirector, StartTime, EndTime);
+    }
+}
+```
+
+#### WatchableCustomPlayableBehaviour：基类
+
+``` csharp
+using UnityEngine.Playables;
+
+namespace BordlessFramework.PluginExtension
+{
+    public class WatchableCustomPlayableBehaviour : PlayableBehaviour
+    {
+        public double StartTime { get; private set; }
+        public double EndTime { get; private set; }
+        public bool IsWatchStart = false;
+        public bool IsWatchComplete = false;
+
+        public virtual void OnWatchStart() { }
+        public virtual void OnWatchComplete() { }
+
+        public void AddWatch(PlayableDirector playableDirector, double startTime, double endTime)
+        {
+            StartTime = startTime;
+            EndTime = endTime;
+            PlayableWatcher.Add(playableDirector, this);
+        }
+
+        private void RemoveWatch()
+        {
+            PlayableWatcher.Remove(this);
+        }
+    }
+}
+```
+
+#### CustomBehaviour：你的自定义Behaviour类
+
+``` csharp
+using BordlessFramework.PluginExtension;
+using UnityEngine;
+
+public class CustomBehaviour : WatchableCustomPlayableBehaviour
+{
+    public override void OnWatchStart()
+    {
+        // 自定义逻辑
+    }
+    
+    public override void OnWatchComplete()
+    {
+        // 自定义逻辑
+    }
+}
+```
+
+#### PlayableWatcher：管理器，Updater
+
+``` csharp
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Playables;
+
+namespace BordlessFramework.PluginExtension
+{
+    /// <summary>
+    /// 监视PlayableBehaviour是否播放开始、结束
+    /// </summary>
+    public static class PlayableWatcher
+    {
+        private static HashSet<WatchableCustomPlayableBehaviour> playableBehavioursToRemove = new HashSet<WatchableCustomPlayableBehaviour>();
+        private static Dictionary<WatchableCustomPlayableBehaviour, PlayableDirector> playableBehaviourToDirector = new Dictionary<WatchableCustomPlayableBehaviour, PlayableDirector>();
+        private static PlayableWatcherUpdater playableDirectorWatcherUpdater;
+
+        static PlayableWatcher()
+        {
+            var obj = new GameObject();
+            obj.hideFlags = HideFlags.HideAndDontSave;
+            playableDirectorWatcherUpdater = obj.AddComponent<PlayableWatcherUpdater>();
+        }
+
+        public static void SetIsWatching(bool isWatching)
+        {
+            playableDirectorWatcherUpdater.enabled = isWatching;
+        }
+
+        public static void Reset()
+        {
+            playableBehavioursToRemove.Clear();
+            playableBehaviourToDirector.Clear();
+        }
+
+        public static void Add(PlayableDirector playableDirector, WatchableCustomPlayableBehaviour customPlayableBehaviour)
+        {
+            playableBehaviourToDirector.Add(customPlayableBehaviour, playableDirector);
+        }
+
+        public static void Remove(WatchableCustomPlayableBehaviour customPlayableBehaviour)
+        {
+            playableBehavioursToRemove.Add(customPlayableBehaviour);
+        }
+
+        [DefaultExecutionOrder(9999)]
+        class PlayableWatcherUpdater : MonoBehaviour
+        {
+            private void Update()
+            {
+                // 先删除待删除的
+                foreach (var playableDirector in playableBehavioursToRemove)
+                {
+                    playableBehaviourToDirector.Remove(playableDirector);
+                }
+                playableBehavioursToRemove.Clear();
+
+                // 更新现有的
+                foreach (var pair in playableBehaviourToDirector)
+                {
+                    var playableBehaviour = pair.Key;
+                    var playableDirector = pair.Value;
+
+                    if (playableDirector.time >= playableBehaviour.StartTime)
+                    {
+                        if (!playableBehaviour.IsWatchStart)
+                        {
+                            playableBehaviour.IsWatchStart = true;
+                            playableBehaviour.OnWatchStart();
+                        }
+                    }
+                    if (playableDirector.time >= playableBehaviour.EndTime)
+                    {
+                        if (!playableBehaviour.IsWatchComplete)
+                        {
+                            playableBehaviour.IsWatchComplete = true;
+                            playableBehaviour.OnWatchComplete();
+                            Remove(playableBehaviour);
+                        }
                     }
 
                 }
