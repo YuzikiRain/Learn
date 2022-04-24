@@ -220,6 +220,8 @@ foreach (var track in tracks)
 -   GetDuration()：表示Playable的时长
 -   要表示当前Playable经过的归一化时间，可以用GetTime() / GetDuration()
 
+#### 常用
+
 ```csharp
 // 从timeline资源中取得各个Track的信息
 var playableAsset = playableDirector.playableAsset;
@@ -247,9 +249,9 @@ foreach (var track in tracks)
         foreach (var timelineClip in timelineClips)
         {
             // 这里要取asset字段，因为默认是TimelineClip装着自定义Clip
-            MoveClip moveClip = timelineClip.asset as CustomClip;
-            moveClip.self = self;
-            moveClip.to = target;
+            CustomClip customClip = timelineClip.asset as CustomClip;
+            customClip.self = self;
+            customClip.to = target;
         }
     }
 }
