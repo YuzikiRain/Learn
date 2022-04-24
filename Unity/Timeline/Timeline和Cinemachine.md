@@ -1,4 +1,4 @@
 创建了若干CinemachineVirtualCamera，可以用以下方式切换
 
 - 激活、关闭CinemachineVirtualCamera物体：CinemachineBrain会自动从当前CinemachineVirtualCamera切换到active的CinemachineVirtualCamera中的priority最高的那个
-- 使用timeline中的CinemachineTrack：**对应首个和最后一个TimelineCip可以设置Blend In/Out Duration，来从当前CinemachineVirtualCamera切换到CinemachineShot指定的CinemachineVirtualCamera，否则就是硬切换**
+- 使用timeline中的CinemachineTrack：**对应首个和最后一个TimelineCip可以设置Blend In/Out Duration，来从当前CinemachineVirtualCamera切换到CinemachineShot指定的CinemachineVirtualCamera（有过渡），否则就是硬切换**
