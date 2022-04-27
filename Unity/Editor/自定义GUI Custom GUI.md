@@ -100,7 +100,7 @@ public class MyWindow : EditorWindow
     static void Init()
     {
         // Get existing open window or if none, make a new one:
-        MyWindow window = (MyWindow)EditorWindow.GetWindow(typeof(MyWindow));
+        MyWindow window = EditorWindow.GetWindow<MyWindow>();
         window.Show();
     }
 
@@ -111,7 +111,7 @@ public class MyWindow : EditorWindow
         // 某类型的EditorWindow是否已经打开
         if (EditorWindow.HasOpenInstances<MyWindow>())
         {
-            var window = EditorWindow.GetWindow(typeof(MyWindow));
+            var window = EditorWindow.GetWindow<MyWindow>();
             window.Close();
         }
     }

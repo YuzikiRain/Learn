@@ -87,12 +87,16 @@ AssetDatabase.IsValidFolder(path);
 
 ```csharp
 // 将Object保存成资源
+AssetDatabase.CreateAsset(asset, path);
+// 添加物体到资产上
 AssetDatabase.AddObjectToAsset
 // 通过默认的Inspector来修改Mono或ScriptableObject对象时，对可序列化对象的这些修改会被自动保存
 // 但是如果通过自定义Inspector或代码直接修改序列化字段，则需要手动调用SetDirty告知对象修改需要保存到磁盘
 // 如果修改的对象附加在某个prefab上，通过代码（自定义Editor）修改了对象后，要将这些改动保存到prefab上，还需要序列化prefab本身，但是修改这些可序列化对象并不会使得prefab变为dirty（非自定义Editor显示在Inspector上的都是可序列化对象，默认的Editor会提供改动后的SetDirty调用），因此还需要额外调用EditorUtility.SetDirty(serializableComponent);
 EditorUtility.SetDirty(obj);
-// 将改动写入磁盘
+// 将文件改动写入磁盘
+AssetDatabase.SaveAssetIfDirty(obj);
+// 将所有改动文件写入磁盘
 AssetDatabase.SaveAssets();
 
 // 如果在自定义编辑器上修改了serializedObject的一些字段，必须调用该函数才能保存
@@ -107,6 +111,8 @@ AssetDatabase.OpenAsset
 ``` csharp
 // 将路径转换为Assets相对路径
 string relativePath = FileUtil.GetProjectRelativePath(fullPath);
+// 检查路径，如果路径已经存在，则基于原路径创建新的唯一路径
+string uniquePath = AssetDatabase.GenerateUniqueAssetPath(originPath);
 // 替换文件或文件夹
 FileUtil.ReplaceFile
 FileUtil.ReplaceDirectory
@@ -114,7 +120,12 @@ FileUtil.ReplaceDirectory
 EditorGUIUtility.PingObject(obj);
 // 打开目录
 EditorUtility.RevealInFinder(dierctoryPathRelativeToProject);
+// 打开文件（用默认应用）
 EditorUtility.OpenWithDefaultApp(dierctoryPathRelativeToProject);
+// 打开文件对话框
+EditorUtility.OpenFilePanel
+// 打开文件夹对话框
+EditorUtility.OpenFolderPanel
 ```
 
 ### Attribute
@@ -250,7 +261,7 @@ public class MenuTest : MonoBehaviour
 
 ``` csharp
 // 刷新Project视窗（代码创建资源后，Project视图不会自动刷新）
-AssetDatabase.Refresh
+AssetDatabase.Refresh();
 // 子物体的transform发生变化
 private void OnTransformChildrenChanged()
 {
