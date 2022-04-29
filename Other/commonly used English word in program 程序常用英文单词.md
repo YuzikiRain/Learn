@@ -49,8 +49,10 @@
 ### O
 
 -   orientation 朝向
+-   out-of-the-box 开箱即用的
 
 ### P
+
 - process 进程、过程
 - represent 表示、象征
 

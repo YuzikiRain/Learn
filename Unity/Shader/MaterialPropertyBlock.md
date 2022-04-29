@@ -19,5 +19,14 @@
     meshRenderer.SetPropertyBlock(mpb);
     ```
 
+- 清理设置的值
+
+    ``` csharp
+    var meshRenderer = GetComponent<MeshRenderer>();
+    meshRenderer.GetPropertyBlock(mpb);
+    mpb.Clear();
+    meshRenderer.SetPropertyBlock(mpb);
+    ```
+
     
 

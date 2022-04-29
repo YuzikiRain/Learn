@@ -23,6 +23,9 @@ Skeleton.SetToSetupPose
 // 移除所有轨道上的动画，但保持skeleton为当前pose
 // 务必在SetToSetupPose之后调用该函数，因为轨道上仍有动画
 Skeleton.AnimationState.ClearTracks();
+
+// 翻转
+Skeleton.FlipX = false
 ```
 
 ### 生命周期
