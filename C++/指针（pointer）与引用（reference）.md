@@ -75,3 +75,27 @@ referenceValue = anotherValue;
 pointer = &referenceValue;
 ```
 
+## 按值传递和按引用传递
+
+当 我们 调用 一个 函数 时， 会在 内存 中 建立 起 一块 特殊 区域， 称为“ 程序 堆栈（ program stack）”。 这块 特殊 区域 提供 了 每个 函数 参数 的 储存 空间。 它 也 提供 了 函数 所 定义 的 每个 对象 的 内存 空间—— 我们将 这些 对象 称为 local object（ 局部 对象）。 一旦 函数 完成， 这块 内存 就会 被 释放 掉， 或者说 是 从 程序 堆栈 中 被 pop 出来。
+
+``` c++
+// 无法工作！！val1和val2都是在函数堆栈中，且通过按值传递被拷贝了一份，即形参和实参是不同地址的变量
+void swap(int val1, int val2)
+{
+    int temp = val1;
+    val1 = val2;
+    val2 = temp;
+}
+
+// 正确，实参和形参都代表同一个地址的变量
+void swap(int &val1, int &val2)
+{
+    int temp = val1;
+    val1 = val2;
+    val2 = temp;
+}
+```
+
+
+
