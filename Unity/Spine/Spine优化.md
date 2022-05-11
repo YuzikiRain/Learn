@@ -90,3 +90,12 @@ Dragon示例展示了这种有很多绘制调用的用例:
 ### ECS
 
 搜索 Spine animation converter for ECS and Tiny
+
+### 绘制顺序
+
+[spine-unity-docs/spine-unity-rendering.md at master · pharan/spine-unity-docs (github.com)](https://github.com/pharan/spine-unity-docs/blob/master/spine-unity-rendering.md#sorting-via-camera-distance)
+
+## 渲染
+
+[spine-unity-docs/spine-unity-rendering.md at master ·pharan/spine-unity-docs (github.com)](https://github.com/pharan/spine-unity-docs/blob/master/spine-unity-rendering.md)
+

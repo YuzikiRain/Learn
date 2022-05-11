@@ -67,6 +67,10 @@ public class TestGameObject: MonoBehaviour
   int num = luaFunc.Invoke<int, int>(123456);
   ```
 
+### 屏蔽某些类或字段不生成Wrap代码
+
+- 字段成员：ToLuaExport.memberFilter下增加，比如"SkeletonRenderer.Start",
+- 类：ToLuaMenu.dropType下增加，比如typeof(LayerMask),     
 
 ### 委托
 
