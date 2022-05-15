@@ -38,3 +38,7 @@ int main() {
 ```
 
 `sizeof` 运算符是一个一元运算符，用于检索给定表达式或数据类型的存储大小。此运算符以字节为单位评估对象大小，并且 `sizeof(char)` 保证为 `1`。
+
+参考：
+
+[C++ 字符串 | 菜鸟教程 (runoob.com)](https://www.runoob.com/cplusplus/cpp-strings.html)
