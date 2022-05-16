@@ -23,6 +23,7 @@
 - distinct 明确的、明显的、清楚的、卓越不寻常的
 - distort 歪曲、使变形、失真
 - dynamic programming(DP) 动态规划
+- derive 英[dɪˈraɪv] 派生
 
 ### E
 
@@ -30,6 +31,7 @@
 
 ### I
 - iteration 迭代
+- inherit 英[ɪnˈherɪt] 继承
 - intersect 交叉
 - interpolate 插值
 - issue ['ɪʃu] 问题
