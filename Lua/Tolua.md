@@ -169,7 +169,7 @@ public void Test(LuaTable luaTable)
 }
 ```
 
-### Lua访问C#
+### C#访问Lua
 
 ``` csharp
 LuaState lua = new LuaState();
@@ -258,6 +258,25 @@ Vector3.__mul = function(va, d)
 end
 ```
 
-### 与其他语言交互的原理
+## Lua访问C#
+
+### 数组
+
+``` lua
+--- 创建数组
+local length = 10
+--- ExampleClass在CustomSetting中已注册
+local array = System.Array.CreateInstance(typeof(UnityEngine.XXXClass), length)
+--- 访问数组
+for i = 0, array.Length - 1 do
+	print(array[i])
+end
+```
+
+### List
+
+CustomSettings添加`_GT(typeof(List<string>)),`
+
+## 与其他语言交互的原理
 
 http://www.vanille.work/2020/10/14/tolua%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/
