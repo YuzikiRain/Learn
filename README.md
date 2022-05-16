@@ -8,7 +8,7 @@ C#相关的笔记
 
 ## Unity
 
-Unity常见的小技巧和坑
+- asset and memory management：
 
 - Tips：小技巧
 - Trap：坑
@@ -23,5 +23,4 @@ Unity常见的小技巧和坑
 
 - Collection：未整理的题目
 - Unity：Unity相关问题
-
 
