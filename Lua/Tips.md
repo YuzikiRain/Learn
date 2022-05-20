@@ -32,3 +32,4 @@ true
 false
 ```
 
+5.3可用，5.2应该用`function load(chunk, chunkname, mode, env) end`
