@@ -1,4 +1,4 @@
-### 初始化
+## 初始化
 
 - 简单地跑一些lua代码
 
@@ -48,7 +48,7 @@ public class TestGameObject: MonoBehaviour
 }
 ```
 
-### C#与Lua类型交互
+## C#与Lua类型交互
 
 - lua调用C#：在CustomSetting中的customTypeList中添加要注册到lua的类型，并通过菜单项生成Wrap类型，以及在luastate初始化后会将对应类型和方法设置到_G里，因此就可以直接调用了
 
@@ -67,7 +67,7 @@ public class TestGameObject: MonoBehaviour
   int num = luaFunc.Invoke<int, int>(123456);
   ```
 
-### 屏蔽某些类或字段不生成Wrap代码
+## 屏蔽某些类或字段不生成Wrap代码
 
 - 字段成员：ToLuaExport.memberFilter下增加，比如"SkeletonRenderer.Start",
 - 类：ToLuaMenu.dropType下增加，比如typeof(LayerMask),     
@@ -134,8 +134,7 @@ public class TestGameObject: MonoBehaviour
     lua.ReLoad("moduleName");
     ```
 
-
-### 传递table给C#端
+## 传递table给C#端
 
 lua端
 
@@ -169,7 +168,7 @@ public void Test(LuaTable luaTable)
 }
 ```
 
-### C#访问Lua
+## C#访问Lua
 
 ``` csharp
 LuaState lua = new LuaState();
@@ -275,7 +274,28 @@ end
 
 ### List
 
+#### lua中创建C#的list
+
 CustomSettings添加`_GT(typeof(List<string>)),`
+
+``` lua
+local list = System.Collections.Generic.List_string()
+list:Add("123")
+print(list[0])
+```
+
+### Dictionary
+
+#### lua中创建C#的dictionary
+
+CustomSettings添加`_GT(typeof(Dictionary<int, string>)),`
+
+``` lua
+local dict = System.Collections.Generic.Dictionary_int_string()
+dict:Add(123,"123")
+```
+
+
 
 ## 与其他语言交互的原理
 
