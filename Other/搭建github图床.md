@@ -34,8 +34,12 @@
 - 打开图片，在图片查看器中复制，而不是复制图片文件
 - 粘贴，此时会自动上传，虽然还是会弹出是否上传的右键菜单
 
-## cdn失效
+## 无法使用
 
-### 2022.5
+### 2022.5 jsdelivr cdn失效
 
-https://cdn.jsdelivr.net需要改为https://fastly.jsdelivr.net
+https://fastly.jsdelivr.net需要改为https://fastly.jsdelivr.net
+
+### 无法上传
+
+-   关闭代理软件，比如fastgithub、sstap等
