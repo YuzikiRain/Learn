@@ -2,7 +2,7 @@
 
 - 重新安装SVN
 
-![image-20220418191939783](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220418191939783.png)
+![image-20220418191939783](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220418191939783.png)
 
 - 打开cmd命令提示符，执行以下脚本：`cd /d 工程目录`
 - 执行以下脚本：`svn revert . --depth infinity`

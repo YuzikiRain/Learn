@@ -395,7 +395,7 @@ http://wiki.unity3d.com/index.php/Show_Built_In_Resources
 
 ### EditorStyles
 
-![f:id:hacchi_man:20200331233616p:plain](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed@master/img/202201072202261.png)
+![f:id:hacchi_man:20200331233616p:plain](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed@master/img/202201072202261.png)
 
 虽然下面没有描述， * EditorStyles.toolbarSearchField * EditorStyles.foldoutHeader * EditorStyles.foldoutHeaderIcon 从 2019.1 开始可用。
 
