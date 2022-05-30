@@ -1,4 +1,5 @@
-### 数学公式
+## 数学公式
+
 $$
 \begin{align}
 h(x) =& \frac{1}{\int_xt(x)\mathrm{d}x} \tag{1}\\
@@ -8,16 +9,30 @@ $$
 
 必须要以```\begin{align}```开头，```\end{align}```结尾表示对齐，使用```&```标记对齐位置
 ```\\```用于公式换行
+
+### 矩阵
+
+-   以`\begin{matrix}`开头，以`\end{matrix}`结尾
+-   每一行用`\\`结尾，用`&`分隔行内元素
+
 $$
-out=\begin{Bmatrix}
+\begin{matrix}
  x/w&a\\
  y/w&b\\
  z/w&c\\
- \end{Bmatrix}
+ \end{matrix}
 $$
- 矩阵
+#### 矩阵边框
 
-### 符号
+matrix表示默认矩阵边框，可替换为以下
+
+-   `pmatrix`：小括号边框
+-   `bmatrix`：中括号边框
+-   `Bmatrix`：大括号边框
+-   `vmatrix`：单竖线边框
+-   `Vmatrix`：双竖线边框
+
+## 符号
 
 - \cdot $\cdot$
 - \frac $\frac{分子}{分母}$

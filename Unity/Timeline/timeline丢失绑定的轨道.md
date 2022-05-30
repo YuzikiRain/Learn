@@ -4,7 +4,7 @@
 
 有时可以找到绑定，有时不能。部分可以，部分不能，那么不是代码剥离问题（否则就是全都丢失绑定或者都不丢失）
 
-![image-20220416230938671](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220416230938671.png)
+![image-20220416230938671](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220416230938671.png)
 
 ### 解决方案
 
