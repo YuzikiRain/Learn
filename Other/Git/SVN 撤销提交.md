@@ -3,3 +3,4 @@
     ![image-20220531143535808](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220531143535808.png)
 - revert changes from this revision
     ![image-20220531143221725](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220531143221725.png)
+- 从export目录里拷贝到工程目录里
