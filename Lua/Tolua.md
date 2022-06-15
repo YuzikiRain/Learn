@@ -295,6 +295,12 @@ local dict = System.Collections.Generic.Dictionary_int_string()
 dict:Add(123,"123")
 ```
 
+### 泛型
+
+ToLua并没有直接支持泛型，而是只能使用传入Type类型的方法，比如`GetComponent(typeof(UnityEngine.GameObject))`，因此泛型方法并不会生成到Wrap文件里，也无法被调用
+
+推荐做法是在一个自定义的扩展方法类里定义一个同名的参数为Type的泛型方法，可以被生成到Wrap文件里并被调用
+
 ## 与其他语言交互的原理
 
 http://www.vanille.work/2020/10/14/tolua%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/
