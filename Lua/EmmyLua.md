@@ -27,5 +27,9 @@ local ClassA = require("Lua.ClassA")
 function Character.Create(prototype)
     return prototype()
 end
+
+---具体table类型  {a:number, b:string}
+---@type {a:number, b:string}
+local t = {a = 1, b = "2"}
 ```
 
