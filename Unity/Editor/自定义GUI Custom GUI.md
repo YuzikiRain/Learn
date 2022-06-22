@@ -1,4 +1,4 @@
-### 常用API
+## 常用API
 
 ```csharp
 // 找到已序列化字段
@@ -53,6 +53,8 @@ GUILayout.Width(5f), GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, G
 // 常见控件的GUIStyle
 EditorStyles.toolbarDropDown
     
+// 是否有多个值（比如：LayerMask）
+SerializedProperty.hasMultipleDifferentValues
 // 多选时，如果Property有不同的值，是否显示mixValue符号
 EditorGUI.showMixedValue
 // 默认label的gui样式
@@ -85,43 +87,80 @@ if (EditorGUI.EndChangeCheck())
 if (Event.current.type == EventType.Repaint) buttonRect = GUILayoutUtility.GetLastRect();
 ```
 
-### EditorWindow
+## 基本概念
 
-``` csharp
+### SerializedObject
+
+序列化物体，嵌套序列化字段
+
+非Unity自带类型应该用`[System.Serializable]`
+
+``` c#
+[System.Serializable]
+class A
+{
+    public int fieldA;
+    public B fieldB;
+}
+
+[System.Serializable]
+class B
+{
+    public string fieldC;
+}
+```
+
+常用于编辑器显示
+
+``` c#
+//c# 示例 (LookAtPointEditor.cs)
 using UnityEngine;
 using UnityEditor;
 
-public class MyWindow : EditorWindow
+// 修饰CustomEditor(typeof(目标类))
+[CustomEditor(typeof(LookAtPoint))]
+[CanEditMultipleObjects]
+public class LookAtPointEditor : Editor
 {
-    string myString = "Hello World";
-
-    // Add menu named "My Window" to the Window menu
-    [MenuItem("Window/My Window")]
-    static void Init()
+    SerializedProperty lookAtPoint;
+    
+    void OnEnable()
     {
-        // Get existing open window or if none, make a new one:
-        MyWindow window = EditorWindow.GetWindow<MyWindow>();
-        window.Show();
+        lookAtPoint = serializedObject.FindProperty("lookAtPoint");
+        // 找到lookAtPoint下的一个名为 fieldOflookAtPoint 的已序列化字段
+        lookAtPoint.FindPropertyRelative("fieldOflookAtPoint");
     }
 
-    [MenuItem("Window/Close My Window")]
-    static void Close()
+    public override void OnInspectorGUI()
     {
-        // Checks if any window of type MyWindow is open
-        // 某类型的EditorWindow是否已经打开
-        if (EditorWindow.HasOpenInstances<MyWindow>())
-        {
-            var window = EditorWindow.GetWindow<MyWindow>();
-            window.Close();
-        }
-    }
-
-    void OnGUI()
-    {
-        GUILayout.Label("Base Settings", EditorStyles.boldLabel);
-        myString = EditorGUILayout.TextField("Text Field", myString);
+        serializedObject.Update();
+        EditorGUILayout.PropertyField(lookAtPoint);
+        // 如果在编辑器上修改了serializedObject的一些字段，必须调用该函数才能保存
+        serializedObject.ApplyModifiedProperties();
     }
 }
+```
+
+[Unity - Scripting API: SerializedObject (unity3d.com)](https://docs.unity3d.com/ScriptReference/SerializedObject.html)
+
+#### 常用操作
+
+``` c#
+// 找到已序列化字段
+SerializedProperty property = serializedObject.FindProperty(fieldName);
+// 如果在编辑器上修改了serializedObject的一些字段，必须调用该函数才能保存
+serializedObject.ApplyModifiedProperties();
+```
+
+### SerializedProperty
+
+序列化字段，可再嵌套其他序列化字段
+
+#### 常用操作
+
+``` c#
+// 从序列化字段中查找字段
+property.FindPropertyRelative(fieldName)
 ```
 
 ### Layout
@@ -144,9 +183,9 @@ scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Width
 EditorGUILayout.EndScrollView();
 ```
 
-### 控件
+## 控件
 
-#### toolbar DropdownButton
+### toolbar DropdownButton
 
 ``` csharp
 GUILayout.BeginHorizontal(EditorStyles.toolbar);
@@ -171,7 +210,7 @@ if (EditorGUI.DropdownButton(rMode, guiMode, FocusType.Passive, EditorStyles.too
 GUILayout.EndHorizontal();
 ```
 
-#### SelectionGrid 可点击的Grid
+### SelectionGrid 可点击的Grid
 
 ``` csharp
 int index = 0;
@@ -183,7 +222,7 @@ index = GUILayout.SelectionGrid(index, grids, columnCount);
 
 可以配合ScrollView使用
 
-#### SearchField
+### SearchField
 
 ##### 居中的搜索框
 
@@ -258,28 +297,13 @@ PopupWindow.Show(rect, content);
 
 参考：https://docs.unity3d.com/ScriptReference/PopupWindow.html
 
-### 自定义ProjectSettings或Preferences选项SettingsProvider
-
-``` csharp
-class CustomSettingProvider : SettingsProvider
-{
-    public BordlessFrameworkSettingProvider(string path, SettingsScope scopes = SettingsScope.Project) : base(path, scopes) { }
-
-    [SettingsProvider]
-    private static SettingsProvider ShowSettingsProvider()
-    {
-        return new CustomSettingProvider($"CustomSetting/Log Switch");
-    }
-}
-```
-
-参考：
-
-https://docs.unity3d.com/2019.4/Documentation/ScriptReference/SettingsProvider.html
+## 自定义Inspector显示
 
 ### CustomEditor
 
 #### 让目标在Inspector上显示自定义内容
+
+serializedObject是一个隐含的变量，表示目标类型的序列化物体，名称不能变
 
 ``` csharp
 //c# 示例 (LookAtPointEditor.cs)
@@ -309,6 +333,8 @@ public class LookAtPointEditor : Editor
     }
 }
 ```
+
+[Unity - Manual: Custom Editors (unity3d.com)](https://docs.unity3d.com/Manual/editor-CustomEditors.html)
 
 #### 迭代地显示自定义内容
 
@@ -372,6 +398,45 @@ public class BarragePropertyDrawer : PropertyDrawer
 }
 ```
 
+### EditorWindow
+
+``` csharp
+using UnityEngine;
+using UnityEditor;
+
+public class MyWindow : EditorWindow
+{
+    string myString = "Hello World";
+
+    // Add menu named "My Window" to the Window menu
+    [MenuItem("Window/My Window")]
+    static void Init()
+    {
+        // Get existing open window or if none, make a new one:
+        MyWindow window = EditorWindow.GetWindow<MyWindow>();
+        window.Show();
+    }
+
+    [MenuItem("Window/Close My Window")]
+    static void Close()
+    {
+        // Checks if any window of type MyWindow is open
+        // 某类型的EditorWindow是否已经打开
+        if (EditorWindow.HasOpenInstances<MyWindow>())
+        {
+            var window = EditorWindow.GetWindow<MyWindow>();
+            window.Close();
+        }
+    }
+
+    void OnGUI()
+    {
+        GUILayout.Label("Base Settings", EditorStyles.boldLabel);
+        myString = EditorGUILayout.TextField("Text Field", myString);
+    }
+}
+```
+
 ### CustomShaderGUI
 
 ```csharp
@@ -389,11 +454,42 @@ public class CustomLitGUI : ShaderGUI
     }
 ```
 
-### 内置GUI资源
+## 杂项
+
+### inspector上显示LayerMask
+
+``` c#
+// layerMaskProperty是LayerMask对应的SerializedProperty
+// 获得修改后的值
+LayerMask tempMask = UnityEditor.EditorGUILayout.MaskField("LayerMask", UnityEditorInternal.InternalEditorUtility.LayerMaskToConcatenatedLayersMask(layerMaskProperty.intValue), UnityEditorInternal.InternalEditorUtility.layers);
+// 应用到序列化字段上
+layerMaskProperty.intValue = UnityEditorInternal.InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask);
+```
+
+### 自定义ProjectSettings或Preferences选项SettingsProvider
+
+``` csharp
+class CustomSettingProvider : SettingsProvider
+{
+    public BordlessFrameworkSettingProvider(string path, SettingsScope scopes = SettingsScope.Project) : base(path, scopes) { }
+
+    [SettingsProvider]
+    private static SettingsProvider ShowSettingsProvider()
+    {
+        return new CustomSettingProvider($"CustomSetting/Log Switch");
+    }
+}
+```
+
+参考：
+
+https://docs.unity3d.com/2019.4/Documentation/ScriptReference/SettingsProvider.html
+
+## 内置GUI资源
 
 http://wiki.unity3d.com/index.php/Show_Built_In_Resources
 
-### EditorStyles
+## EditorStyles
 
 ![f:id:hacchi_man:20200331233616p:plain](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed@master/img/202201072202261.png)
 
