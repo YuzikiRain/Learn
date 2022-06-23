@@ -31,13 +31,16 @@ EditorGUILayout.Popup
 EditorGUILayout.TextField
 EditorGUILayout.BeginHorizontal
 EditorGUI.DropdownButton
+// 根据类型进行默认绘制
+EditorGUILayout.PropertyField(serializedProperty)
+    
 // 大按钮
 GUILayout.Button("搜索label", GUILayout.MaxHeight(height), GUILayout.MaxWidth(width))
 // 控制长度的Popup
 GUILayout.BeginHorizontal();
 // Popup总宽度100f，label宽度70f，剩余30f的宽度为弹出菜单
 EditorGUIUtility.labelWidth = labelWidth;
-labelLength = EditorGUILayout.Popup("label总数：", labelLength, editorLabelsLengthArray, GUILayout.Width(popupWidth + labelWidth));
+EditorGUILayout.Popup("label总数：", labelLength, editorLabelsLengthArray, GUILayout.Width(popupWidth + labelWidth));
 GUILayout.FlexibleSpace();
 EditorGUIUtility.labelWidth = 0f;
 GUILayout.EndHorizontal();
@@ -376,8 +379,6 @@ internal static bool DoDrawDefaultInspector(SerializedObject obj)
  }
  ```
 
-
-
 ### CustomPropertyDrawer
 
 CustomPropertyDrawer 直接影响 SerializedProperty 在Inspector上的显示（如果有CustomEditor(目标类)，且CustomPropertyDrawer所作用的类是目标类的字段，会被CustomEditor的OnInspectorGUI覆盖） 
@@ -391,9 +392,16 @@ using UnityEngine;
 [CustomPropertyDrawer(typeof(BarrageBehaviour))]
 public class BarragePropertyDrawer : PropertyDrawer
 {
+    private static string[] triggerTypeValues = new string[] { "空", "接近时", "交互时", };
+    
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         var barrageProperty = property.FindPropertyRelative("_barrages");
+        // 注意：设置label宽度，否则之后的triggerTypeRect计算时不会考虑到宽度，可能width或height变为负数
+		EditorGUIUtility.labelWidth = 40;
+		var triggerTypeRect = new Rect(position) { width = 100f, };
+		barrageProperty.intValue = EditorGUI.Popup(triggerTypeRect, "触发类型", barrageProperty.intValue, triggerTypeValues);
+
     }
 }
 ```
@@ -484,6 +492,12 @@ class CustomSettingProvider : SettingsProvider
 参考：
 
 https://docs.unity3d.com/2019.4/Documentation/ScriptReference/SettingsProvider.html
+
+### 可排序列表 ReorderableList
+
+虽然从2020版本开始已经默认支持了，但是如果要自定义每个元素的显示时（比如通过PropertyDrawer），仍需要自定义编写
+
+[Unity: make your lists functional with ReorderableList (lent.in)](https://va.lent.in/unity-make-your-lists-functional-with-reorderablelist/)
 
 ## 内置GUI资源
 
