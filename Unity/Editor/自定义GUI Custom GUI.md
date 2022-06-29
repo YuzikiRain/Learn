@@ -11,7 +11,7 @@ serializedObject.ApplyModifiedProperties();
 // 在GUILayout.BeginVertical之后使用，空行，高度为一行的高度
 EditorGUILayout.Space(EditorGUIUtility.singleLineHeight)
 // 在GUILayout.BeginVertical之后使用，使得之后的GUILayout绘制的GUI被排列到最后一行
-GUILayout.Space(position.height - EditorGUIUtility.singleLineHeight * (1f + 1f + 0.5f));
+EditorGUILayout.Space(position.height - EditorGUIUtility.singleLineHeight * (1f + 1f + 0.5f));
 // 设置label宽度，对之后的所有物体都生效，所以一般在对的下一行的物体应用后再设置回之前的宽度（设置为0f会用默认值）
 EditorGUIUtility.labelWidth = 300f;
 // 将包裹的绘制GUI变为只读的
@@ -50,8 +50,13 @@ var prevColor = GUI.color;
 GUI.color = isValid ? Color.green : Color.red;
 UnityEditor.EditorGUILayout.LabelField($"资源路径 {(isValid ? "合法" : "非法")}");
 GUI.color = prevColor;
+// label居中
+var style = new GUIStyle(GUI.skin.label) {alignment = TextAnchor.MiddleCenter};
+EditorGUILayout.LabelField（“Blabla”， style， GUILayout.ExpandWidth(true);
 // GUILayoutOption，可用于GUILayout和EditorGUILayout的GUILayoutOption参数数组
-GUILayout.Width(5f), GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight, GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
+GUILayout.Width(5f), GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight, GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight
+// 内置的GUI样式（可以只修改一部分再传入）
+GUI.skin.label, GUI.skin.text
 
 // 常见控件的GUIStyle
 EditorStyles.toolbarDropDown
@@ -188,7 +193,7 @@ EditorGUILayout.EndScrollView();
 
 ## 控件
 
-### toolbar DropdownButton
+### 菜单栏 toolbar DropdownButton
 
 ``` csharp
 GUILayout.BeginHorizontal(EditorStyles.toolbar);
@@ -461,6 +466,10 @@ public class CustomLitGUI : ShaderGUI
         EditorGUI.showMixedValue = false;
     }
 ```
+
+### 继承属性显示
+
+[(Unity)十分钟掌握自定义编辑器工具的开发_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1JE411s7PZ)
 
 ## 杂项
 
