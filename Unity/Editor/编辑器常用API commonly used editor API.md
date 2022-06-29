@@ -1,12 +1,12 @@
 ### Prefab
 
 ``` csharp
-// PrefabInstanceStatus：预制体状态，不是预制体NotAPrefab，Connected预制体，MissingAsset引用的预制体资源丢失，Disconnected旧版本功能已弃用
+// PrefabInstanceStatus：预制体状态，NotAPrefab不是预制体，Connected预制体，MissingAsset引用的预制体资源丢失，Disconnected旧版本功能已弃用
 PrefabUtility.GetPrefabInstanceStatus(UnityEngine.Object componentOrGameObject)
 // 预制体，且不在场景中（在Asset中，是资源） is a prefab in asset
-var IsPartOfPrefabAsset = PrefabUtility.IsPartOfPrefabAsset(gameObject);
+var isPartOfPrefabAsset = PrefabUtility.IsPartOfPrefabAsset(gameObject);
 // 预制体，且在场景中   is a prefab in hierarchy(scene) as instance
-var IsPartOfPrefabInstance = PrefabUtility.IsPartOfPrefabInstance(gameObject);
+var isPartOfPrefabInstance = PrefabUtility.IsPartOfPrefabInstance(gameObject);
 // 从prefabInstance的子物体中取得root
 var prefabInstanceRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(prefabInstance);
 // 从Object获得prefab，应配合 PrefabUtility.GetOutermostPrefabInstanceRoot 使用，因为如果参数不是 prefabInstanceRoot 会返回 null
@@ -81,6 +81,8 @@ AnimationUtility.CalculateTransformPath(Transform targetTransform, Transform roo
 isExist = UnityEditor.AssetDatabase.AssetPathToGUID(path) != "";
 // 是否是文件夹
 AssetDatabase.IsValidFolder(path);
+// 取得场景下的所有根物体
+scene.GetRootGameObjects();
 ```
 
 ### 保存 读取 打开
