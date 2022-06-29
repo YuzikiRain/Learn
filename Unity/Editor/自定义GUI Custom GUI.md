@@ -55,9 +55,8 @@ var style = new GUIStyle(GUI.skin.label) {alignment = TextAnchor.MiddleCenter};
 EditorGUILayout.LabelField（“Blabla”， style， GUILayout.ExpandWidth(true);
 // GUILayoutOption，可用于GUILayout和EditorGUILayout的GUILayoutOption参数数组
 GUILayout.Width(5f), GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight, GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight
-// 内置的GUI样式（可以只修改一部分再传入）
+// 内置的GUIStyle样式（可以只修改一部分再传入）
 GUI.skin.label, GUI.skin.text
-
 // 常见控件的GUIStyle
 EditorStyles.toolbarDropDown
     
@@ -507,6 +506,15 @@ https://docs.unity3d.com/2019.4/Documentation/ScriptReference/SettingsProvider.h
 虽然从2020版本开始已经默认支持了，但是如果要自定义每个元素的显示时（比如通过PropertyDrawer），仍需要自定义编写
 
 [Unity: make your lists functional with ReorderableList (lent.in)](https://va.lent.in/unity-make-your-lists-functional-with-reorderablelist/)
+
+### EditorGUILayout.Vector3Field 单行显示 single line
+
+```c#
+bool wideMode = EditorGUIUtility.wideMode;
+EditorGUIUtility.wideMode = true;
+position = EditorGUILayout.Vector3Field("位置", position);
+EditorGUIUtility.wideMode = wideMode;
+```
 
 ## 内置GUI资源
 
