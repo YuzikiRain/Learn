@@ -1,4 +1,4 @@
-### Prefab
+## Prefab
 
 ``` csharp
 // PrefabInstanceStatus：预制体状态，NotAPrefab不是预制体，Connected预制体，MissingAsset引用的预制体资源丢失，Disconnected旧版本功能已弃用
@@ -28,7 +28,7 @@ PrefabUtility.SaveAsPrefabAssetAndConnect
 PrefabUtility.SaveAsPrefabAsset
 ```
 
-### Stage
+## Stage
 
 ```csharp
 // 在预制体模式下，获得预制体场景
@@ -41,7 +41,7 @@ StageUtility.GoBackToPreviousStage();
 StageUtility.GetMainStage();
 ```
 
-### EditorScene
+## EditorScene
 
 ```csharp
 // 编辑器模式下获得当前激活场景
@@ -57,7 +57,7 @@ EditorSceneManager.OpenScene("Assets/Launch.unity");
 EditorApplication.isPlaying = true;
 ```
 
-### 查找资源 物体
+## 查找资源 物体
 
 ```csharp
 // 获得/设置选中的gameobject
@@ -78,14 +78,14 @@ string[] assetGUIDs = AssetDatabase.FindAssets("t:Prefab prefabName", searchPath
 // 返回targetTransform相对于root的相对路径
 AnimationUtility.CalculateTransformPath(Transform targetTransform, Transform root);
 // 指定路径下文件是否存在
-isExist = UnityEditor.AssetDatabase.AssetPathToGUID(path) != "";
+bool isExist = UnityEditor.AssetDatabase.AssetPathToGUID(path) != "";
 // 是否是文件夹
 AssetDatabase.IsValidFolder(path);
 // 取得场景下的所有根物体
 scene.GetRootGameObjects();
 ```
 
-### 保存 读取 打开
+## 保存 读取 打开
 
 ```csharp
 // 将Object保存成资源
@@ -106,9 +106,21 @@ serializedObject.ApplyModifiedProperties();
 
 // 打开资源，等同于Project视图中双击打开资源，会触发[OnOpenAsset]标签修饰的函数
 AssetDatabase.OpenAsset
+// 打开资源时的回调，常用于打开ScriptableObject资源时打开对应编辑器窗口
+[OnOpenAssetAttribute(priority)]
+public static bool OpenAsset(int instanceID, int line)
+{
+    YourScriptable asset = EditorUtility.InstanceIDToObject(instanceID) as YourScriptable;
+    if (asset != null)
+    {
+        // 打开窗口，使用asset进行初始化
+        return true;
+    }
+    else return false;
+}
 ```
 
-### 文件相关
+## 文件相关
 
 ``` csharp
 // 将路径转换为Assets相对路径
@@ -130,14 +142,7 @@ EditorUtility.OpenFilePanel
 EditorUtility.OpenFolderPanel
 ```
 
-### Attribute
-
-``` csharp
-// 打开资源时的回调，常用于打开ScriptableObject资源时打开对应编辑器窗口
-[OnOpenAsset]
-```
-
-### SceneView视图
+## SceneView视图
 
 ``` csharp
 // Scene变为顶视图
@@ -147,7 +152,7 @@ sceneView.orthographic = true;
 sceneView.rotation = Quaternion.Euler(90f, 0f, 0f);
 ```
 
-### Scripting Define Symbols 通过代码设置预编译指令
+## Scripting Define Symbols 通过代码设置预编译指令
 
 ```csharp
 private static readonly string[] SteamTestSymbols = new string[] { "STEAMTEST" };
@@ -180,7 +185,7 @@ private static void RemoveDefineSymbols(string[] symbols)
 }
 ```
 
-### MenuItem
+## MenuItem
 
 ```cs
 using UnityEditor;
@@ -259,7 +264,77 @@ public class MenuTest : MonoBehaviour
 
 参考：https://docs.unity3d.com/ScriptReference/MenuItem.html
 
-### 杂项
+## EditMode和PlayMode
+
+有时候进入PlayMode时，想要在新的空场景中执行初始化逻辑，不影响EditMode下的编辑用的场景
+
+```c#
+using UnityEditor;
+
+class MyEditorWindow : EditorWindow
+{
+    private void OnEnable()
+    {
+        EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+    }
+    
+    private void OnPlayModeStateChanged(PlayModeStateChange state)
+    {
+        // PlayModeStateChange的四种状态分别对应：即将退出PlayMode/EditMode，已经进入PlayMode/EditMode
+        switch (state)
+        {
+            case PlayModeStateChange.ExitingEditMode:
+                BeforeStartDebug();
+                break;
+                // 进入PlayMode
+            case PlayModeStateChange.EnteredPlayMode:
+                AfterStartDebug();
+                break;
+            case PlayModeStateChange.ExitingPlayMode:
+                break;
+                // 进入EditMode
+            case PlayModeStateChange.EnteredEditMode:
+                AfterStopDebug();
+                break;
+            default:
+                break;
+        }
+    }
+    
+    private void BeforeStartDebug()
+    {
+        // 禁用一些物体上，以避免执行物体上的脚本的Start、OnEnable等函数
+        foreach (var controller in targetMono)
+        {
+            controller.gameObject.SetActive(false);
+        }
+        // 在回到EditMode时不保留原场景的这些修改
+        var debugScene = EditorSceneManager.GetActiveScene();
+        EditorSceneManager.MarkSceneDirty(debugScene);
+    }
+    
+    private void AfterStartDebug()
+    { 
+		// 在新场景中执行初始化逻辑，避免对原场景的修改
+        var newScene = UnityEngine.SceneManagement.SceneManager.CreateScene($"{storyData.name}");
+        UnityEngine.SceneManagement.SceneManager.SetActiveScene(newScene);
+    }
+    
+    
+    private void AfterStopDebug()
+    {
+        // 重新打开原场景
+       var scene = EditorSceneManager.OpenScene("Assets/Debug.unity"); 
+    }
+}
+```
+
+## 杂项
 
 ``` csharp
 // 刷新Project视窗（代码创建资源后，Project视图不会自动刷新）
