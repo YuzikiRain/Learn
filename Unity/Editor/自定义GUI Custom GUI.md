@@ -1,74 +1,14 @@
 ## 常用API
 
-```csharp
-// 找到已序列化字段
-SerializedProperty property = serializedObject.FindProperty(fieldName);
-// 从序列化字段中查找字段
-property.FindPropertyRelative(fieldName)
-// 如果在编辑器上修改了serializedObject的一些字段，必须调用该函数才能保存
-serializedObject.ApplyModifiedProperties();
+### Layout
 
-// 在GUILayout.BeginVertical之后使用，空行，高度为一行的高度
-EditorGUILayout.Space(EditorGUIUtility.singleLineHeight)
-// 在GUILayout.BeginVertical之后使用，使得之后的GUILayout绘制的GUI被排列到最后一行
-EditorGUILayout.Space(position.height - EditorGUIUtility.singleLineHeight * (1f + 1f + 0.5f));
-// 设置label宽度，对之后的所有物体都生效，所以一般在对的下一行的物体应用后再设置回之前的宽度（设置为0f会用默认值）
-EditorGUIUtility.labelWidth = 300f;
-// 将包裹的绘制GUI变为只读的
-EditorGUI.BeginDisabledGroup(isDisabled);
-// 绘制一些GUI
-EditorGUI.EndDisabledGroup();
-// 返回默认类型的GUIStyle
-GUIStyle guiStyle = EditorStyles.toolbarDropDown;
-// 返回一个足够容纳 GUIContent 的指定 GUIStyle 类型的Rect
-Rect rect = GUILayoutUtility.GetRect(new GUIContent("Content"), guiStyle);
+``` c#
+// 绘制固定长度的带有box灰色背景的布局
+EditorGUILayout.BeginHorizontal();
+EditorGUILayout.BeginVertical("box", GUILayout.Width(200f), GUILayout.ExpandHeight(true));
+EditorGUILayout.EndVertical();
+EditorGUILayout.EndHorizontal();
 
-// 绘制常见控件
-GUILayout.Button
-EditorGUILayout.Toggle
-EditorGUILayout.ToggleLeft
-EditorGUILayout.Popup
-EditorGUILayout.TextField
-EditorGUILayout.BeginHorizontal
-EditorGUI.DropdownButton
-// 根据类型进行默认绘制
-EditorGUILayout.PropertyField(serializedProperty)
-    
-// 大按钮
-GUILayout.Button("搜索label", GUILayout.MaxHeight(height), GUILayout.MaxWidth(width))
-// 控制长度的Popup
-GUILayout.BeginHorizontal();
-// Popup总宽度100f，label宽度70f，剩余30f的宽度为弹出菜单
-EditorGUIUtility.labelWidth = labelWidth;
-EditorGUILayout.Popup("label总数：", labelLength, editorLabelsLengthArray, GUILayout.Width(popupWidth + labelWidth));
-GUILayout.FlexibleSpace();
-EditorGUIUtility.labelWidth = 0f;
-GUILayout.EndHorizontal();
-
-// 设置GUI颜色
-var prevColor = GUI.color;
-GUI.color = isValid ? Color.green : Color.red;
-UnityEditor.EditorGUILayout.LabelField($"资源路径 {(isValid ? "合法" : "非法")}");
-GUI.color = prevColor;
-// label居中
-var style = new GUIStyle(GUI.skin.label) {alignment = TextAnchor.MiddleCenter};
-EditorGUILayout.LabelField（“Blabla”， style， GUILayout.ExpandWidth(true);
-// GUILayoutOption，可用于GUILayout和EditorGUILayout的GUILayoutOption参数数组
-GUILayout.Width(5f), GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight, GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight
-// 内置的GUIStyle样式（可以只修改一部分再传入）
-GUI.skin.label, GUI.skin.text
-// 常见控件的GUIStyle
-EditorStyles.toolbarDropDown
-    
-// 是否有多个值（比如：LayerMask）
-SerializedProperty.hasMultipleDifferentValues
-// 多选时，如果Property有不同的值，是否显示mixValue符号
-EditorGUI.showMixedValue
-// 默认label的gui样式
-GUIStyle style = GUI.skin.label;
-// 是否使用Dark主题
-UnityEditor.EditorGUIUtility.isProSkin
-    
 // 使得父Rect的宽度变化时，A GUI 和B GUI 大小仍保持不变，因为多出的宽度被FlexibleSpace使用了
 GUILayout.BeginHorizontal();
 // 绘制A GUI
@@ -82,6 +22,88 @@ GUILayout.EndHorizontal();
 // 缩进
 EditorGUI.indentLevel++;
 
+// 在GUILayout.BeginVertical之后使用，空行，高度为一行的高度
+EditorGUILayout.Space(EditorGUIUtility.singleLineHeight)
+// 在GUILayout.BeginVertical之后使用，使得之后的GUILayout绘制的GUI被排列到最后一行
+EditorGUILayout.Space(position.height - EditorGUIUtility.singleLineHeight * (1f + 1f + 0.5f));
+// 设置label宽度，对之后的所有物体都生效，所以一般在对的下一行的物体应用后再设置回之前的宽度（设置为0f会用默认值）
+EditorGUIUtility.labelWidth = 300f;
+
+// 返回一个足够容纳 GUIContent 的指定 GUIStyle 类型的Rect
+Rect rect = GUILayoutUtility.GetRect(new GUIContent("Content"), guiStyle);
+// 取得上一次使用的rect区域，仅能在OnGUI中使用
+if (Event.current.type == EventType.Repaint) buttonRect = GUILayoutUtility.GetLastRect();
+```
+
+### GUILayout
+
+``` c#
+// GUILayoutOption，可用于GUILayout和EditorGUILayout的GUILayoutOption参数数组
+GUILayout.Width(5f), GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight, GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight
+```
+
+### GUI
+
+``` c#
+// 设置GUI颜色
+var prevColor = GUI.color;
+GUI.color = isValid ? Color.green : Color.red;
+UnityEditor.EditorGUILayout.LabelField($"资源路径 {(isValid ? "合法" : "非法")}");
+GUI.color = prevColor;
+```
+
+### GUIStyle
+
+``` c#
+// 内置的GUIStyle样式（可以只修改一部分再传入）
+GUI.skin.label, GUI.skin.text
+// 常见控件的GUIStyle
+EditorStyles.toolbarDropDown
+// 居中的label
+var style = new GUIStyle(GUI.skin.label) {alignment = TextAnchor.MiddleCenter};
+```
+
+### SerializedProperty SerializedObject
+
+``` c#
+// 找到已序列化字段
+SerializedProperty property = serializedObject.FindProperty(fieldName);
+// 从序列化字段中查找字段
+property.FindPropertyRelative(fieldName)
+// 如果在编辑器上修改了serializedObject的一些字段，必须调用该函数才能保存
+serializedObject.ApplyModifiedProperties();
+```
+
+### 常见控件
+
+``` c#
+// 绘制常见控件
+GUILayout.Button
+EditorGUILayout.Toggle
+EditorGUILayout.ToggleLeft
+EditorGUILayout.Popup
+EditorGUILayout.TextField
+EditorGUILayout.BeginHorizontal
+EditorGUI.DropdownButton
+// 根据类型进行默认绘制
+EditorGUILayout.PropertyField(serializedProperty)
+    
+// 大按钮
+GUILayout.Button("搜索label", GUILayout.MaxHeight(height), GUILayout.MaxWidth(width))
+    
+// 控制长度的Popup
+GUILayout.BeginHorizontal();
+// Popup总宽度100f，label宽度70f，剩余30f的宽度为弹出菜单
+EditorGUIUtility.labelWidth = labelWidth;
+EditorGUILayout.Popup("label总数：", labelLength, editorLabelsLengthArray, GUILayout.Width(popupWidth + labelWidth));
+GUILayout.FlexibleSpace();
+EditorGUIUtility.labelWidth = 0f;
+GUILayout.EndHorizontal();
+```
+
+### 杂项
+
+``` c#
 // 检查编辑器上的属性是否被修改
 EditorGUI.BeginChangeCheck();
 some code may change editor
@@ -89,9 +111,16 @@ if (EditorGUI.EndChangeCheck())
 {
     SetKeyword("_METALLIC_MAP", map.textureValue);
 }
-
-// 取得上一次使用的rect区域，仅能在OnGUI中使用
-if (Event.current.type == EventType.Repaint) buttonRect = GUILayoutUtility.GetLastRect();
+// 是否使用Dark主题
+UnityEditor.EditorGUIUtility.isProSkin
+// 是否有多个值（比如：LayerMask）
+SerializedProperty.hasMultipleDifferentValues
+// 多选时，如果Property有不同的值，是否显示mixValue符号
+EditorGUI.showMixedValue
+// 将包裹的绘制GUI变为只读的
+EditorGUI.BeginDisabledGroup(isDisabled);
+// 绘制一些GUI
+EditorGUI.EndDisabledGroup();
 ```
 
 ## 基本概念
@@ -418,6 +447,7 @@ using UnityEditor;
 
 public class MyWindow : EditorWindow
 {
+    // 当从EditMode进入PlayMode时，程序集会被重载，这也意味着`EditorWindow`会被重载（销毁->OnDisable->构造、OnEnable），因此`EditorWindow`所引用的变量应当是可序列化的（用public或[SerializeField]修饰）
     string myString = "Hello World";
 
     // Add menu named "My Window" to the Window menu
@@ -448,6 +478,12 @@ public class MyWindow : EditorWindow
     }
 }
 ```
+
+```EditorWindow.minSize```：窗口的最小尺寸，主要用于有时候窗口大小坏了变得过小无法打开
+
+### 序列化
+
+当从EditMode进入PlayMode时，程序集会被重载，这也意味着`EditorWindow`会被重载（销毁->OnDisable->构造、OnEnable），因此`EditorWindow`所引用的变量应当是可序列化的（用public或[SerializeField]修饰）
 
 ### CustomShaderGUI
 
