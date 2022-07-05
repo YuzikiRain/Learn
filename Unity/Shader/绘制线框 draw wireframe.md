@@ -1,12 +1,14 @@
 ## 底层API GL.Vertex
 
+绘制顺序在Camera的最后，无法控制
+
 ``` c#
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// 绘制线框组件
-/// 使用方式：1.添加MeshFilter组件，2.右键该组件选择”根据MeshFilter组件生成Line数据“
+/// 使用方式：1.添加MeshFilter组件，然后附加对应mesh 2.右键该组件选择”根据MeshFilter组件生成Line数据“
 /// </summary>
 [ExecuteInEditMode]
 public class MeshWireframe : MonoBehaviour
@@ -19,7 +21,7 @@ public class MeshWireframe : MonoBehaviour
 
     private void OnRenderObject()
     {
-        if (vertices == null || vertices.Count == 0) return;
+        if (vertices == null || vertices.Count == 0 || lineMaterial == null || meshs == null || meshs.Count == 0) return;
 
         // 必须每帧都调用
         lineMaterial.SetColor(lineColorProperty, lineColor);
@@ -65,7 +67,7 @@ public class MeshWireframe : MonoBehaviour
 
 #if UNITY_EDITOR
 
-    [ContextMenu("根据MeshFilter组件生成线段数据")]
+    [ContextMenu("根据MeshFilter组件生成顶点数据")]
     private void GetMeshesDataFromMeshFilter()
     {
         if (meshs != null) meshs.Clear();
@@ -88,7 +90,5 @@ public class MeshWireframe : MonoBehaviour
 #endif
 }
 ```
-
-
 
 参考：[Unity中绘制线框(Wireframe)的几种方法 - 简书 (jianshu.com)](https://www.jianshu.com/p/e95e6507659c)
