@@ -6,6 +6,7 @@
 
 - adjacency List 邻接表
 - assume 假设
+- assign 赋予（赋值）
 
 ### B
 - breadth 广度，宽度
@@ -38,6 +39,7 @@
 
 ### L
 - label n.标签 v.被标为
+- literal adj.字面上的; 原义的; 逐字的
 
 ### M
 - minimal 最小的
