@@ -8,6 +8,18 @@ project(hello_cmake)
 
 会创建一个值为 `hello_cmake` 的变量`${PROJECT_NAME}`
 
+### 添加子目录
+
+``` cmake
+add_subdirectory(subdirectoryPath)
+```
+
+范例
+
+``` cmake
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/moduleA)
+```
+
 ### 添加库
 
 ``` cmake
