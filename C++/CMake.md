@@ -8,6 +8,18 @@ project(hello_cmake)
 
 会创建一个值为 `hello_cmake` 的变量`${PROJECT_NAME}`
 
+### 添加子目录
+
+``` cmake
+add_subdirectory(subdirectory)
+```
+
+范例
+
+``` cmake
+add_subdirectory(${PROJECT_SOURCE_DIR}/src2)
+```
+
 ### 添加库
 
 ``` cmake
@@ -80,8 +92,8 @@ CMake 语法指定了许多变量，这些[变量](https://gitlab.kitware.com/cm
 | **CMAKE_SOURCE_DIR**         | 这是包含顶级CMakeLists.txt目录的目录，即**顶级源目录**       |
 | PROJECT_NAME                 | 由 PROJECT（） 命令设置的项目的名称                          |
 | CMAKE_PROJECT_NAME           | 由 PROJECT（） 命令设置的第一个项目的名称，即顶级项目        |
-| PROJECT_BINARY_DIR           | 包含构建树的顶级目录的完整路径                               |
-| PROJECT_SOURCE_DIR           | 包含项目源目录根目录的完整路径，即 CMakeLists.txt 包含 PROJECT（） 命令的最近目录 |
+| **PROJECT_BINARY_DIR**       | 包含构建树的顶级目录的完整路径                               |
+| **PROJECT_SOURCE_DIR**       | 包含项目源目录根目录的完整路径，即 CMakeLists.txt 包含 PROJECT（） 命令的最近目录 |
 
 ## 创建变量
 
