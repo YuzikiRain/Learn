@@ -66,7 +66,7 @@ double *p = &pi;
 ``` c++
 int a = 0;
 // 正确
-int *const p = &a;
+int *const cp = &a;
 ```
 
-从
+从右往左阅读，const表示cp是不可变的常量，`*`表示cp是一个指针类型，int表示指针指向int
