@@ -11,13 +11,13 @@ project(hello_cmake)
 ### 添加子目录
 
 ``` cmake
-add_subdirectory(subdirectory)
+add_subdirectory(subdirectoryPath)
 ```
 
 范例
 
 ``` cmake
-add_subdirectory(${PROJECT_SOURCE_DIR}/src2)
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/moduleA)
 ```
 
 ### 添加库
