@@ -125,5 +125,7 @@ cmake_minimum_required(VERSION 3.5)
 
 ## 参考
 
+-   [CMake 很难，因为你没看过这篇文章 (qq.com)](https://mp.weixin.qq.com/s?__biz=Mzg4ODAxMzE2OA==&mid=2247484983&idx=1&sn=af9760f5960492190efeb040596702ad&chksm=cf80ee28f8f7673e49c7f4cf8a71e248b283545492a1c231b4535db14d6b1738f3746c58982b&token=391208598&lang=zh_CN#rd)
+-   [Cmake之深入理解find_package()的用法 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/97369704?utm_source=wechat_session&utm_medium=social&utm_oi=730003385939415040&utm_campaign=shareopn)
 -   [CMake从入门到精通系列链接整理 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/393316878)
 -   [ttroy50 (Thom Troy) (github.com)](https://github.com/ttroy50)
