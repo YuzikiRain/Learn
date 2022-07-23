@@ -79,21 +79,21 @@ CMake 语法指定了许多变量，这些[变量](https://gitlab.kitware.com/cm
 
 | 变量                         | 信息                                                         |
 | ---------------------------- | ------------------------------------------------------------ |
-| **CMAKE_BINARY_DIR**         | 如果您正在源代码中构建，则与CMAKE_SOURCE_DIR相同，否则这是构建树的顶级目录 |
+| CMAKE_BINARY_DIR             | 如果就地构建，则与CMAKE_SOURCE_DIR相同，否则这是顶级CMakeLists.txt对应的build目录 |
+| **CMAKE_SOURCE_DIR**         | **顶级CMakeLists.txt目录**                                   |
+| CMAKE_CURRENT_BINARY_DIR     | 如果就地构建，则与CMAKE_CURRENT_SOURCE_DIR相同，否则这是从当前CMakeLists编译或生成的文件的build目录 |
+| **CMAKE_CURRENT_SOURCE_DIR** | **当前CMakeLists.txt所在的目录**                             |
+| PROJECT_BINARY_DIR           | 当前project的CMakeLists.txt对应build目录                     |
+| **PROJECT_SOURCE_DIR**       | **当前project的CMakeLists.txt目录**                          |
 | CMAKE_COMMAND                | 这是当前运行的 cmake 的完整路径（例如 ）。请注意，如果您有调用 的自定义命令，则使用 CMAKE_COMMAND 作为 CMake 可执行文件*非常重要*，因为 CMake 可能不在系统 PATH 上。`/usr/local/bin/cmake``cmake -E` |
-| **CMAKE_CURRENT_BINARY_DIR** | 如果您正在源代码中构建，则与CMAKE_CURRENT_SOURCE_DIR相同，否则这是从当前CMakeLists编译或生成的文件的目录.txt将转到的目录。 |
-| **CMAKE_CURRENT_SOURCE_DIR** | 这是当前处理的CMakeLists.txt所在的目录                       |
 | CMAKE_CURRENT_LIST_FILE      | 这是当前正在处理的列表文件的完整路径                         |
 | **CMAKE_CURRENT_LIST_DIR**   | （自 **2.8.3** 起）这是当前正在处理的列表文件的目录          |
 | CMAKE_CURRENT_LIST_LINE      | 这是使用变量的行号                                           |
 | CMAKE_FILES_DIRECTORY        | 当前二进制目录中包含所有 CMake 生成文件的目录。通常计算结果为“/CMakeFiles”。请注意目录的前导斜杠。通常与当前二进制目录一起使用，即 `${CMAKE_CURRENT_BINARY_DIR}``${CMAKE_FILES_DIRECTORY}` |
 | CMAKE_MODULE_PATH            | 当您使用FIND_PACKAGE（）或INCLUD（）时，告诉CMake首先在CMAKE_MODULE_PATH中列出的目录中搜索`SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/MyCMakeScripts)` `FIND_PACKAGE(HelloWorld)` |
 | CMAKE_ROOT                   | 这是CMake安装目录                                            |
-| **CMAKE_SOURCE_DIR**         | 这是包含顶级CMakeLists.txt目录的目录，即**顶级源目录**       |
 | PROJECT_NAME                 | 由 PROJECT（） 命令设置的项目的名称                          |
 | CMAKE_PROJECT_NAME           | 由 PROJECT（） 命令设置的第一个项目的名称，即顶级项目        |
-| **PROJECT_BINARY_DIR**       | 包含构建树的顶级目录的完整路径                               |
-| **PROJECT_SOURCE_DIR**       | 包含项目源目录根目录的完整路径，即 CMakeLists.txt 包含 PROJECT（） 命令的最近目录 |
 
 ## 创建变量
 
