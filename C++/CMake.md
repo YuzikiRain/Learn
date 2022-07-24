@@ -11,13 +11,28 @@ project(hello_cmake)
 ### 添加子目录
 
 ``` cmake
-add_subdirectory(subdirectoryPath)
+add_subdirectory(source_dir [binary_dir] [EXCLUDE_FROM_ALL])
 ```
 
 范例
 
 ``` cmake
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/moduleA)
+```
+
+如果`source_dir`不是当前目录的子目录，还需要额外设置`binary_dir`，否则会报错：
+
+```bash
+add_subdirectory not given a binary directory but the given source
+  directory "source_dir" is not a subdirectory of
+  "current_dir".  When specifying an out-of-tree source a
+  binary directory must be explicitly specified.
+```
+
+`binary_dir`一般设置为`CMAKE_BINARY_DIR`下的某个子目录（一般`CMAKE_BINARY_DIR`用于`add_executable`输出可执行文件，而`CMAKE_BINARY_DIR`不能和其相同）
+
+``` cmake
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/moduleA ${CMAKE_BINARY_DIR}/moduleA)
 ```
 
 ### 添加库
@@ -85,6 +100,7 @@ CMake 语法指定了许多变量，这些[变量](https://gitlab.kitware.com/cm
 | **CMAKE_CURRENT_SOURCE_DIR** | **当前CMakeLists.txt所在的目录**                             |
 | PROJECT_BINARY_DIR           | 当前project的CMakeLists.txt对应build目录                     |
 | **PROJECT_SOURCE_DIR**       | **当前project的CMakeLists.txt目录**                          |
+| TOP_DIR                      |                                                              |
 | CMAKE_COMMAND                | 这是当前运行的 cmake 的完整路径（例如 ）。请注意，如果您有调用 的自定义命令，则使用 CMAKE_COMMAND 作为 CMake 可执行文件*非常重要*，因为 CMake 可能不在系统 PATH 上。`/usr/local/bin/cmake``cmake -E` |
 | CMAKE_CURRENT_LIST_FILE      | 这是当前正在处理的列表文件的完整路径                         |
 | **CMAKE_CURRENT_LIST_DIR**   | （自 **2.8.3** 起）这是当前正在处理的列表文件的目录          |
