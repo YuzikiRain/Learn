@@ -72,6 +72,12 @@ The following generators are available on this platform (* marks default):
 
 windows下直接调用cmake会默认用当前安装的visual studio版本对应的编译器，因此需要指定编译器
 
+## 缺少dll无法执行
+
+不同平台（比如台式机和笔记本，或者不同系统）构建出来的dll不同，有时无法兼容
+
+因此如果要在不同平台执行，要么根据平台提前编译需要的dll，要么将源码也加入到cmake目录中进行构建
+
 ## cmake步骤
 
 - github clone源码，（最好新建一个build目录，然后cd到该目录下）执行以下cmake命令（指定编译器为Mingw）
