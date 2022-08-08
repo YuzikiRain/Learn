@@ -303,7 +303,41 @@ ToLua并没有直接支持泛型，而是只能使用传入Type类型的方法�
 
 ## 与其他语言交互的原理
 
-http://www.vanille.work/2020/10/14/tolua%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/
+### 事前准备
+
+-   CustomSettings中添加要生成wrap文件的类
+
+-   GenerateClassWraps生成对应类的wrap文件
+
+-   启动lua虚拟机（LuaState）时，函数GenLuaBinder生成绑定类（wrap文件）
+
+
+### 运行时
+
+先为lua虚拟机生成所有已经绑定的类的同名table：`LuaBinder.Bind(lua);`
+
+ 以如下代码为例
+
+``` lua
+local tempGameObject = UnityEngine.GameObject("temp")
+local transform = tempGameObject.GetComponent("Transform")
+```
+
+`UnityEngine.GameObject`就是`_G.UnityEngine.GameObject`，其指向一个构造函数
+
+``` c#
+public class UnityEngine_GameObjectWrap
+{
+	public static void Register(LuaState L)
+	{
+		L.BeginClass(typeof(UnityEngine.GameObject), typeof(UnityEngine.Object));
+```
+
+
+
+​    
+
+参考：[【Unity游戏开发】tolua之wrap文件的原理与使用 - 马三小伙儿 - 博客园 (cnblogs.com)](https://www.cnblogs.com/msxh/p/9813147.html)
 
 ## Update
 
