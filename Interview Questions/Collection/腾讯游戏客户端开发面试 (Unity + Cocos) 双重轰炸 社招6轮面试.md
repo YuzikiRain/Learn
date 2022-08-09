@@ -48,11 +48,15 @@ ECS BUFF系统
 
 大地图渲染：LightMap，静态动态和批
 
+### 暗黑三的动态地图生成怎么实现的？
+
 ## Unity
 
 ###  Unity内存、场景、资源管理，热更新策略
 
 ### 协程和线程区别
+
+[Learn/协程 Coroutine.md at master · YuzikiRain/Learn (github.com)](https://github.com/YuzikiRain/Learn/blob/master/Unity/Script/协程 Coroutine.md)
 
 ### 图集策略，打包策略，java和Oc
 
@@ -63,6 +67,8 @@ ECS BUFF系统
 ### 值类型引用类型，new值类型在栈上还是堆上
 
 ### GC
+
+[Learn/垃圾回收 Garbage Collect.md at master · YuzikiRain/Learn (github.com)](https://github.com/YuzikiRain/Learn/blob/master/C%23/垃圾回收 Garbage Collect.md)
 
 ### C# List对应C++什么，C++ list对应C#什么，STL源码拷问
 
@@ -84,7 +90,7 @@ GPU：合批
 
     参考：[面剔除 - LearnOpenGL CN (learnopengl-cn.github.io)](https://learnopengl-cn.github.io/04 Advanced OpenGL/04 Face culling/#_2)
 
-- 裁剪：裁剪空间，坐标的范围为$$[-1,1]$$，在范围之外的三角形会被裁剪或者丢弃
+- 裁剪：裁剪空间，坐标的范围为$$[-w,w]$$，在范围之外的三角形会被裁剪或者丢弃
 
 ### 光栅化的方法，画线的方法
 
@@ -137,17 +143,20 @@ ShadowMap：
 - 基于颜色检测的后处理：
     - 先渲染颜色缓冲到纹理，然后通过经验公式计算明度（luminance），卷积公式得出和周围像素的差异是否超过某个阈值来决定是否是边缘
     - 先用指定颜色（一般就纯色）渲染要描边的物体，然后
-- 法线外扩：
+- 法线外扩：将顶点沿着法线方向移动一定距离（即描边宽度），再渲染成描边颜色，背面剔除设置为仅剔除正面来剔除前半部分的描边壳子，再利用深度测试剔除与物体重叠的部分
 - 法线方向和视角方向的夹角判断是否是边缘：缺点是边缘宽度不能控制
-- 模板测试：类似后处理，
+- 模板测试：第一个pass写入模板缓冲（模板测试为always replace），第二个pass需要法线外扩，再进行模板测试，和第一个pass的模板值比较，仅当不相等时（即扩张出来的部分的片元）才渲染描边颜色
+- SDF：还不太了解
 
 ### Blinn-phong公式
 
+[Unity-Shader-Note/blinn-phong光照模型.md at master · YuzikiRain/Unity-Shader-Note (github.com)](https://github.com/YuzikiRain/Unity-Shader-Note/blob/master/blinn-phong光照模型.md)
+
 ### 深度值知道嘛？OpenGL如何开启？可以写入嘛？
 
-### 设计缓存池保存顶点数据
+-   线性深度：深度缓冲中使用非线性深度，如果需要可视化深度等操作，需要重新映射成线性深度，否则只有在非常靠近视锥体近平面的部分才能看到深度
 
-### 暗黑三的动态地图生成怎么实现的？
+### 设计缓存池保存顶点数据
 
 ### 全局的光线变化怎么实现的？
 
@@ -170,6 +179,8 @@ ShadowMap：
 ### 弱引用，弱表的试用
 
 ### ToLua XLua如何与C# C C++交互
+
+
 
 ## 物理
 
