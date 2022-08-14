@@ -1,11 +1,3 @@
-### AB包的组成
-
-传统AB和Addressable的ab包功能都类似，由包头和数据段组成
-
-包头包含有关AssetBundle 的信息，比如标识符、压缩类型和内容清单。清单是一个以Objects name为键的查找表。每个条目都提供一个字节索引，用来指示该Objects在AssetBundle数据段的位置。在大多数平台上，这个查找表是用平衡搜索树实现的。具体来说，Windows和OSX派生平台(包括IOS)都采用了红黑树。因此，构建清单所需的时间会随着AssetBundle中Assets的数量增加而线性增加。
-
-数据段包含通过序列化AssetBundle中的Assets而生成的原始数据。如果指定LZMA为压缩方案的话，则对所有序列化Assets后的完整字节数组进行压缩。如果指定了LZ4，则单独压缩单独Assets的字节。如果不使用压缩，数据段将保持为原始字节流。
-
 ### 加载和引用计数
 
 使用 ```Addressables.LoadAssetAsync``` 或 ```Addressables.InstantiateAsync``` 加载资源时，会自动加载资源所在AB包，以及加载所有依赖的AB包，并保持它们一直在内存中，直到您调用```Addressables.Release```
@@ -39,35 +31,15 @@ AssetBundleProvider调用的释放方法里会执行 ```bundleInstance.Unload(tr
 -   仅释放部分资源，然后**将这些资源的引用都置为null**（否则这些部分资源仍有来自这些引用的引用计数），再调用 **```Resources.UnloadUnusedAssets```** ，AB包会被卸载且释放资源所占内存，但Addressable无法识别这些事件。且**这个操作很慢，最好只在Loading等性能无关紧要的时机执行**。
 -   每个资源都是单独的AB包，当资源释放时，AB包当然不再有任何计数，自然就被卸载了。但AB包太多也可能影响性能，详见 https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressablesFAQ.html#Is-it-better-to-have-many-small-bundles-or-a-few-bigger-ones
 
-#### 隐式依赖
-
-如果资源a引用了b资源，a资源显式地指定了所在的包，而b没有显式指定所在包，那么b也会被打到a所在的包中。如果还有另一个资源c也引用了b资源，那么b还会再被打包到c所在的包里，a和c资源被加载时会分别去自动加载所依赖的在各自包中的资源b，**这两个b资源互相之间没有任何联系**。这样可以避免包之间的依赖。
-
-#### 显式依赖
-
-如果ABC都分别各自显式地指定了一个包，那么此时A或B资源加载时就会自动加载C资源所在的C包，从而产生包之间的依赖。
-
 ##### 自动释放
 
-如果**A包仅a资源、C包仅c资源没有释放**，那么调用```Addressables.Release```释放a资源时，资源a、c都会被释放
+如果**A包仅a资源、C包仅c资源没有释放，c资源是由被依赖的a资源自动加载的**，那么调用```Addressables.Release```释放a资源时，资源a、c都会被释放
 
 除此之外的情形，都不会自动释放依赖资源
-
-#### 隐式加载
-
-一个资源可能在加载时又引用了其他资源，比如timeline资源（在A包中）中使用了AudioClip（在B包中），**这种情况不会在打包时产生隐式依赖而打包到同一个包里**，但是一旦timeline资源被加载并使用，它又会去加载所需要的AudioClip，如果AudioClip所在的B包里有任何资源没有被释放，B包就不可能被卸载（调用Resources.UnloadUnusedAssets只会释放无引用资源），那么依赖了AudioClip的timeline也一直无法释放。
-
-隐式依赖打包策略原本是为了解决这种问题，但是这种情况却无效
 
 #### 预制体实例依赖资源丢失
 
 如果预制体资源引用了其他资源，预制体资源如果被真正地释放了，那么依赖资源也会被释放，此时所有预制体实例对依赖资源的引用也会丢失
-
-#### Resources.UnloadUnusedAssets
-
-将所有未被引用的已加载资源释放
-
-有的资源已经没有任何引用了但未被卸载，因为其引用或句柄引用丢失了（置为null或者引用它的实例被销毁了等情况），只能通过该函数进行释放。
 
 #### 资源引用或加载资源句柄引用丢失的情况下如何释放资源
 
