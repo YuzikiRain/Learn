@@ -82,7 +82,7 @@ windows下直接调用cmake会默认用当前安装的visual studio版本对应�
 
 - github clone源码，（最好新建一个build目录，然后cd到该目录下）执行以下cmake命令（指定编译器为Mingw）
     ```
-    cmake.exe -G "MinGW Makefiles" .
+    cmake.exe -G "MinGW Makefiles" ..
     ```
 
     官方的build说明，不指定`-DYAML_BUILD_SHARED_LIBS=on`的话默认是静态库
