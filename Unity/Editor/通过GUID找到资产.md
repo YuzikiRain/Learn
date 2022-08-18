@@ -6,10 +6,10 @@ public class FindAssetByGUIDEditorWindow : EditorWindow
 {
     string guid = "";
     string path = "";
-    [MenuItem("Tools/通过GUID找到资产 编辑器")]
+    [MenuItem("SYZZ Tools/Asset/通过GUID找到资产 编辑器")]
     static void CreateWindow()
     {
-        FindAssetByGUIDEditorWindow window = (FindAssetByGUIDEditorWindow)EditorWindow.GetWindowWithRect(typeof(FindAssetByGUIDEditorWindow), new Rect(0, 0, 400, 120));
+        FindAssetByGUIDEditorWindow window = (FindAssetByGUIDEditorWindow)EditorWindow.GetWindow(typeof(FindAssetByGUIDEditorWindow));
         window.title = "通过GUID找到资产 编辑器";
     }
 
@@ -33,6 +33,5 @@ public class FindAssetByGUIDEditorWindow : EditorWindow
         return p;
     }
 }
-
 ```
 
