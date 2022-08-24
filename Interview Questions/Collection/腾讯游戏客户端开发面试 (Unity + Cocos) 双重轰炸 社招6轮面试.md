@@ -44,7 +44,7 @@ ECS BUFF系统
 
 ### 大地形管理，开放世界地图策略
 
-大地图：AOI(十字链表法)，LOD，
+大地图：AOI(十字链表法)，LOD，四叉树、八叉树
 
 大地图渲染：LightMap，静态动态和批
 
@@ -54,11 +54,23 @@ ECS BUFF系统
 
 ###  Unity内存、场景、资源管理，热更新策略
 
+[Learn/AssetBundle.md at master · YuzikiRain/Learn (github.com)](https://github.com/YuzikiRain/Learn/blob/master/Unity/资源和内存管理 asset and memory management/AssetBundle.md)
+
 ### 协程和线程区别
 
 [Learn/协程 Coroutine.md at master · YuzikiRain/Learn (github.com)](https://github.com/YuzikiRain/Learn/blob/master/Unity/Script/协程 Coroutine.md)
 
 ### 图集策略，打包策略，java和Oc
+
+- 图集：为了最少的内存占用，将常用的且较小的图片比如道具Icon等打成一个图集，如果一个放不下就再按用途分不同图集或者直接按序号递增。由于单个界面的背景图片等都很大，这些相关图片都按界面来分图集。
+
+- 打包：
+
+    - 按实际业务功能需求划分，而不是资源类型。好处是易于管理和迭代热更新，内存占用最小（因为无论如何都要加载），内存管理方便。
+        比如一个用spine做的角色，prefab里还需要关联timeline资产，spine资源，攻击时要播放音效。这些资产直接放到一个包里即可。
+        如果按类型划分，经常会出现包里的资源没有全部释放，而无法释放包的内存的问题。除非使用选择加载后就立即卸载资源所在的包（`AssetBundle.Unload(false)`）的策略。为了加载一个资源要加载一个ab包，但是由于之前调用`AssetBundle.Unload(false)`已经断开和ab包的链接，为避免再次加载同一个资源，每次加载资源后还需要维护资源列表
+
+    - UI的prefab和其他相关资源都直接打到和图集同一个包即可
 
 ### AssetBundle自己封装的嘛？为什么不用现成的？
 
@@ -66,11 +78,79 @@ ECS BUFF系统
 
 ### 值类型引用类型，new值类型在栈上还是堆上
 
+分配
+
+``` c#
+class SomeClass
+{
+    public SomeStruct s;
+}
+
+class SomeStruct
+{
+    public int x;
+}
+
+static void Main()
+{
+    int i1 = 0;
+    i1 = 1;
+    int i2 = new int();
+    i2 = 2;
+    int i3 = new int();
+    i3 = i2;
+    i3 = 3;
+    // 此时，i1 = 1，i2 = 2，i3 = 3
+    
+    SomeClass c = new SOmeClass();
+    // c.s分配在堆上
+    c.s = new SomeStruct();
+    
+    
+}
+```
+
+值类型
+
+``` c#
+using System;
+using System.Collections.Generic;
+ 
+struct Vector2
+{
+    public int x;
+    public int y;
+}
+ 
+public class Test
+{
+	public static void Main()
+	{
+		List<Vector2> vectors = new List<Vector2>();
+		vectors.Add(new Vector2());
+		// 不能修改一个中间变量
+		//vectors[0].x = 1;
+		//Console.WriteLine(vectors[0].x);
+		
+		var tempVector2 = vectors[0];
+		tempVector2.y = 2;
+		Console.WriteLine(vectors[0].y);
+		
+		vectors[0] = new Vector2() {x = 11, y = 22};
+		Console.WriteLine(vectors[0].y);
+	}
+}
+```
+
 ### GC
 
 [Learn/垃圾回收 Garbage Collect.md at master · YuzikiRain/Learn (github.com)](https://github.com/YuzikiRain/Learn/blob/master/C%23/垃圾回收 Garbage Collect.md)
 
 ### C# List对应C++什么，C++ list对应C#什么，STL源码拷问
+
+c# list -> c++ vector
+
+c++ list -> c# LinkedList
 
 ## 优化
 
@@ -82,7 +162,11 @@ GPU：合批
 
 ## 渲染
 
-### 光照计算中为什么需要模型空间法线乘以世界矩阵的逆转置得到世界空间法线，什么情况下不需要？
+### 光照计算中为什么需要模型空间法线乘以M矩阵的逆转置得到世界空间法线，什么情况下不需要？
+
+如果使用变换顶点位置的M矩阵来变换法线，当M矩阵包含非统一缩放，比如`scale=(1,2,1)`，那么会变成
+
+
 
 ### 背面剔除和裁剪各自发生在哪个空间下？
 
