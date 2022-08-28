@@ -164,9 +164,7 @@ GPU：合批
 
 ### 光照计算中为什么需要模型空间法线乘以M矩阵的逆转置得到世界空间法线，什么情况下不需要？
 
-如果使用变换顶点位置的M矩阵来变换法线，当M矩阵包含非统一缩放，比如`scale=(1,2,1)`，那么会变成
-
-
+[Unity-Shader-Note/渲染流水线和空间变换.md at master · YuzikiRain/Unity-Shader-Note (github.com)](https://github.com/YuzikiRain/Unity-Shader-Note/blob/master/渲染流水线和空间变换.md#法线变换矩阵)
 
 ### 背面剔除和裁剪各自发生在哪个空间下？
 
@@ -188,11 +186,11 @@ GPU：合批
 
 ### Unity的StandardShader为什么手游中不提倡使用？为什么性能损耗严重？
 
-变体太多，增加内存和载入时间
+变体太多，增加内存占用和加载shader资源的时间
 
 针对桌面端而非移动端，变量精度较高，使用PBR的方式计算消耗较大
 
-推荐使用简化版本的着色器：`Mobile->Lit`等
+推荐使用简化版本的着色器：`Mobile->Lit`等（使用简化的光照模型）
 
 ### 自己实现过阴影嘛？如何实现的？
 
