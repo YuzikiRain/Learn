@@ -100,7 +100,7 @@ CMake 语法指定了许多变量，这些[变量](https://gitlab.kitware.com/cm
 | **CMAKE_CURRENT_SOURCE_DIR** | **当前CMakeLists.txt所在的目录**                             |
 | PROJECT_BINARY_DIR           | 当前project的CMakeLists.txt对应build目录                     |
 | **PROJECT_SOURCE_DIR**       | **当前project的CMakeLists.txt目录**                          |
-| TOP_DIR                      |                                                              |
+| TOP_DIR                      | 没啥用？应该用CMAKE_SOURCE_DIR                               |
 | CMAKE_COMMAND                | 这是当前运行的 cmake 的完整路径（例如 ）。请注意，如果您有调用 的自定义命令，则使用 CMAKE_COMMAND 作为 CMake 可执行文件*非常重要*，因为 CMake 可能不在系统 PATH 上。`/usr/local/bin/cmake``cmake -E` |
 | CMAKE_CURRENT_LIST_FILE      | 这是当前正在处理的列表文件的完整路径                         |
 | **CMAKE_CURRENT_LIST_DIR**   | （自 **2.8.3** 起）这是当前正在处理的列表文件的目录          |
