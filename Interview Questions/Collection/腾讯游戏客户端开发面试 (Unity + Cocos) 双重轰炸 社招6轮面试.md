@@ -164,7 +164,7 @@ GPU：合批
 
 ### 光照计算中为什么需要模型空间法线乘以M矩阵的逆转置得到世界空间法线，什么情况下不需要？
 
-[Unity-Shader-Note/渲染流水线和空间变换.md at master · YuzikiRain/Unity-Shader-Note (github.com)](https://github.com/YuzikiRain/Unity-Shader-Note/blob/master/渲染流水线和空间变换.md#法线变换矩阵)
+[Unity-Shader-Note/空间变换.md at master · YuzikiRain/Unity-Shader-Note (github.com)](https://github.com/YuzikiRain/Unity-Shader-Note/blob/master/空间变换.md#法线变换矩阵)
 
 ### 背面剔除和裁剪各自发生在哪个空间下？
 
@@ -181,6 +181,8 @@ GPU：合批
 顶点不可能足够精细，而最终反映颜色的最小单位是片元，可以利用采样贴图的方式得到片元的额外信息，比如漫反射贴图可以用于表示片元（模型表面上某个点）的基本颜色，而法线贴图同理，可以表示片元的法线方向
 
 作用：高模转低模，将高质量的法线信息保存到法线贴图上，能够减少顶点数量但不丢失细节
+
+
 
 ### PBR了解嘛？最常用PBR如何组成？
 
