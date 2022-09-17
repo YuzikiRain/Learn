@@ -65,9 +65,33 @@ $$
 ## 符号
 
 - \cdot $\cdot$
+
 - \frac $\frac{分子}{分母}$
+
 - \displaystype\frac $\displaystyle\frac{分子}{分母}$  Typora编辑器可用
+
 - 空格：$a\!b$ 紧贴 $a\, b$ 小空格 $a\; b$ 中空格 $a\ b$ 大空格 $a\quad b$ 一个m宽度 $a\qquad b$ 2个m宽度 
+
 - 箭头：$\leftarrow$ 左箭头，$\Leftarrow$ 大左箭头 $\Longleftarrow$ 长左箭头
     语法：`[long][left/right/up/down]arrow`，大箭头则首字母大写
+    
+- 希腊和希伯来字母：
+
+    | 显示     | 语法       |
+    | -------- | ---------- |
+    | $\alpha$ | `$\alpha$` |
+    | $\beta$  | `$\beta$`  |
+    | $\gamma$ | `$\gamma$` |
+    | $\delta$ | `$\delta$` |
+    | $\Delta$ | `$\Delta$` |
+    | $\theta$ | `$\theta$` |
+    | $\omega$ | `$\omega$` |
+    | $\Omega$ | `$\Ometa$` |
+    | $\Phi$   | `$\Phi$`   |
+
+    
+
+
+
+
 
