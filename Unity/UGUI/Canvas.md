@@ -8,16 +8,18 @@ Match为Width，表示**保持Rect Transform的Width为Reference Solution.width�
 由于Match为Width，那么
 - Width = Reference Solution.width
 - Height = Reference Solution.height / Scale
+
 ##### Scale
+
 - Screen Space - Overlay：
-由于Match为Width，缩放**Scale = 屏幕分辨率.width / Reference Resolution.width** 假设Canvas Scaler的Reference Solution设置为1920*1080，对于2560*1080的屏幕分辨率，Scale = 2560 / 1920 = 1.33333333，Scaler脚本将整个Canvas放大了Scale倍，这样“看起来”整个Canvas就像是2560像素的宽度了。
+由于Match为Width，缩放**Scale = 屏幕分辨率.width / Reference Resolution.width** 假设Canvas Scaler的Reference Solution设置为`1920*1080`，对于`2560*1080`的屏幕分辨率，Scale = 2560 / 1920 = 1.33333333，Scaler脚本将整个Canvas放大了Scale倍，这样“看起来”整个Canvas就像是2560像素的宽度了。
 - Screen Space - Camera：
      ``` csharp
      // 因为Match Width，所以Canvas的宽度自然等于Reference Resolution的宽度
     Canvas.width = Reference.width
     // 和Screen Space - Overlay一样，需要缩放ScreenScaleToCanvas倍才能使Canvas.width的像素尺寸和屏幕宽度一致。
     ScreenScaleToCanvas = 屏幕分辨率.width / Canvas.width
-    // Canvas.width也要缩放这么多，求得Canvas.width
+    // Canvas.height也要缩放这么多，求得Canvas.height
     Canvas.height = 屏幕分辨率.height /ScreenScaleToCanvas
     // 用Render Camera的（Veritical）Size * 2得到实际相机渲染尺寸，求得要将Canvas缩放Scale倍才能刚好使Canvas和相机尺寸一致
     Canvas.Scale = Render Camera.Size * 2 / Canvas.height
