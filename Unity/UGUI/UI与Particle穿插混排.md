@@ -19,3 +19,9 @@
 使用ParticleEffectForUGUI插件，只需要为Particle添加UIParticle组件即可让Particle的显示顺序也根据在Canvas中的层次顺序决定
 
 https://github.com/mob-sakai/ParticleEffectForUGUI
+
+### 支持Mask和Mask2D
+
+**注意目前仅适用于built-in管线**
+
+https://github.com/mob-sakai/ParticleEffectForUGUI#how-to-make-a-custom-shader-to-support-maskrectmask2d-component
