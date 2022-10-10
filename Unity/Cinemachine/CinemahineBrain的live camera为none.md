@@ -1,0 +1,1 @@
+其`live camera`属性受该组件所在物体的camera组件的cullingmask影响，比如设置为UI，则只有layer设置为UI的VirtualCamera组件才会被CinemachineBrain所使用，如果场景中没有这样的VirtualCamera，则会显示CinemachineBrain的`live camera`为none
