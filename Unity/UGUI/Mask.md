@@ -48,15 +48,15 @@ y也是同理
 
 函数为`f(x)=x`
 
-![image-20221014162214211](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20221014162214211.png)
+![image-20221014162214211](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20221014162214211.png)
 
 未放大，边缘1像素看不清楚
 
-![image-20221014161501869](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20221014161501869.png)
+![image-20221014161501869](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20221014161501869.png)
 
 放大后才能看清楚
 
-![image-20221014161347038](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20221014161347038.png)
+![image-20221014161347038](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20221014161347038.png)
 
 要做线性映射，则要分别除以`_UIMaskSoftnessX、_UIMaskSoftnessY`的两倍，即函数变为`f(x)=x/100`。两倍的原因是，比如`_UIMaskSoftnessY`为50，则对于一个高度为100的矩形在中心部分（距离边缘50像素）的位置上函数结果刚好为1
 

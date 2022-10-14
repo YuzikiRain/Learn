@@ -6,13 +6,13 @@
 
 - Unity采用左手坐标系，Unity中的（Transform组件的以欧拉角表示的）旋转顺序为：**z-x-y**
 - 物体的默认朝向为世界空间的z轴，即(0,0,1f)
-    ![image-20220422105249074](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220422105249074.png)
+    ![image-20220422105249074](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220422105249074.png)
 - 绕物体自身z轴旋转30度，**物体以世界空间为参考系绕z轴旋转了30度**
-    ![image-20220422105402343](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220422105402343.png)
+    ![image-20220422105402343](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220422105402343.png)
 - 绕物体自身x轴旋转-90度，发生了旋转
-    ![image-20220422111503750](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220422111503750.png)
+    ![image-20220422111503750](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220422111503750.png)
 - 绕物体自身y轴旋转30度，**物体以世界空间为参考系绕z轴旋转了30度**
-    ![image-20220422111851736](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220422111851736.png)
+    ![image-20220422111851736](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220422111851736.png)
 
 ### 解读
 
@@ -26,7 +26,7 @@
 
 unity的inspector面板中的欧拉角只是编辑器扩展的显示，实际是用四元数存储的，最后反推出欧拉角并显示
 
-![image-20220422113309814](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220422113309814.png)
+![image-20220422113309814](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220422113309814.png)
 
 如果像上一节中的方式操作，第三步操作中修改inspector的rotate的x分量为90时，会发现z分量和y分量也被修改了，z变为30，而y变为了-30
 

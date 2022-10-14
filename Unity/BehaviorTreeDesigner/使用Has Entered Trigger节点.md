@@ -1,4 +1,4 @@
-<img src="https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220621105336819.png" alt="image-20220621105336819"  />
+<img src="https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220621105336819.png" alt="image-20220621105336819"  />
 
 第一个Selector进行检测并设置状态变量isInTrigger，第二个Selector使用该变量
 

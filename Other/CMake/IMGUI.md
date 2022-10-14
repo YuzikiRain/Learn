@@ -6,7 +6,7 @@
 
 Visual Studio默认会添加opengl32.lib，而cmake需要手动配置
 
-![image-20220725113539446](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220725113539446.png)
+![image-20220725113539446](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220725113539446.png)
 
 ``` cmake
 set(PROJECT_LIBRARIES)

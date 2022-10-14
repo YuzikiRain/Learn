@@ -2,7 +2,7 @@
 
 - 编制指令：在每个代码文件的最上方添加 ```#define CONDITION1```
 - 编译器选项中设置
-    ![image-20220331135932414](https://fastly.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220331135932414.png)
+    ![image-20220331135932414](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220331135932414.png)
 
 ``` csharp
 #define CONDITION1
