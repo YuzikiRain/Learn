@@ -52,6 +52,7 @@ public class TestGameObject: MonoBehaviour
 
 - 字段成员：ToLuaExport.memberFilter下增加，比如"SkeletonRenderer.Start",
 - 类：ToLuaMenu.dropType下增加，比如typeof(LayerMask),     
+- 通用：添加标签`[NoToLuaAttribute]`
 
 ### 委托
 
