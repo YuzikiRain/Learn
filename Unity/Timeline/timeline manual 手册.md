@@ -17,7 +17,7 @@
 
 -   TrackColor标签指定了Track的颜色
 
-- 每个轨道实例内可创建多个（同一类型的）Clip实例
+- 每个轨道实例内可创建多个（同一类型的）Clip实例，但每个Track只能对应一种Clip
 
 -   ```csharp
     using UnityEngine.Timeline;
@@ -399,7 +399,7 @@ public T Resolve(IExposedPropertyTable resolver)
     }
     ```
     
--   Clip
+-   Clip：适用于同一个Track内的不同Clip之间有不同的预览属性（都相同则可以直接在Track里写）
 
     ``` csharp
     using UnityEngine;
@@ -433,7 +433,6 @@ public T Resolve(IExposedPropertyTable resolver)
     }
     ```
 
-    适用于同一个Track内的不同Clip之间有不同的预览属性（都相同则可以直接在Track里写）
 
 参考：https://forum.unity.com/threads/temporary-preview-changes-from-custom-timeline-track.650902/
 
