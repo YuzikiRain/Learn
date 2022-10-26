@@ -412,11 +412,44 @@ internal static bool DoDrawDefaultInspector(SerializedObject obj)
  }
  ```
 
-### CustomPropertyDrawer
+### PropertyAttribute
+
+用于修饰目标变量的显示，需作用到某个变量
+
+参考：[Unity - Scripting API: PropertyDrawer (unity3d.com)](https://docs.unity3d.com/ScriptReference/PropertyDrawer.html)
+
+#### 内置的
+
+- `Range(float min, float max)`：限制大小，并显示一个slider滑动条
+
+#### PropertyAttribute
+
+不是编辑器代码，要放在非Editor目录下
+
+``` c#
+// This is not an editor script. The property attribute class should be placed in a regular script file.
+using UnityEngine;
+
+public class RangeAttribute : PropertyAttribute
+{
+    public float min;
+    public float max;
+
+    public RangeAttribute(float min, float max)
+    {
+        this.min = min;
+        this.max = max;
+    }
+}
+```
+
+#### PropertyDrawer
 
 CustomPropertyDrawer 直接影响 SerializedProperty 在Inspector上的显示（如果有CustomEditor(目标类)，且CustomPropertyDrawer所作用的类是目标类的字段，会被CustomEditor的OnInspectorGUI覆盖） 
 
 相比于 CustomEditor，如果要自定义某个类的某字段的某字段的显示，CustomEditor 需要使用 ```FindPropertyRelative``` 多层查找才能找到目标，而 CustomPropertyDrawer 则只需要重写```OnGUI```方法直接对 property 进行自定义显示
+
+OnGUI函数有一个隐式参数attribute，可取得目标变量的attribute
 
 ``` csharp
 using UnityEditor;
@@ -429,6 +462,8 @@ public class BarragePropertyDrawer : PropertyDrawer
     
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
+        // 取得目标变量的attribute
+        RangeAttribute range = attribute as RangeAttribute;
         var barrageProperty = property.FindPropertyRelative("_barrages");
         // 注意：设置label宽度，否则之后的triggerTypeRect计算时不会考虑到宽度，可能width或height变为负数
 		EditorGUIUtility.labelWidth = 40;
@@ -438,6 +473,16 @@ public class BarragePropertyDrawer : PropertyDrawer
     }
 }
 ```
+
+### DecoratorAttribute
+
+类似于PropertyAttribute，但不需要变量。比如Header
+
+不同之处在于它不绘制属性，而是纯粹基于从其相应的PropertyAttribute属性中获取的数据来绘制装饰元素
+
+尽管DecoratorDrawer在概念上并不意味着与特定字段相关联，但其属性仍需要放置在脚本中的字段上方。但是，与PropertyDrawer属性不同，同一字段上方可以有多个DecoratorDrawers属性。
+
+参考：[Unity - Scripting API: DecoratorDrawer (unity3d.com)](https://docs.unity3d.com/ScriptReference/DecoratorDrawer.html)
 
 ### EditorWindow
 
