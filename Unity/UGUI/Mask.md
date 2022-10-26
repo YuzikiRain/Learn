@@ -22,10 +22,14 @@ color.a *= m.x * m.y;
 #endif
 ```
 
+注意：
+
+- 以下Rect矩形指的都是RectMask2D所在物体的Rect
+
 ### 裁剪
 
 - `_ClipRect.xy`是矩形左下角坐标，`_ClipRect.zw`是矩形右上角坐标，`_ClipRect.zw - _ClipRect.xy`表示矩形的宽高
-- `OUT.mask.xy`等于**矩形左下角到点的位置组成的向量**加上到**矩形右上角点的位置组成的向量**：
+- `OUT.mask.xy`等于**矩形左下角到点的位置组成的向量**加上到**矩形右上角到点的位置组成的向量**：
     `OUT.mask.xy = v.vertex.xy * 2 - clampedRect.xy - clampedRect.zw`，等同于`(v.vertex.xy - clampedRect.xy) + (v.vertex.xy - clampedRect.zw)`
 - `OUT.mask.zw`与`_UIMaskSoftnessX`和`_UIMaskSoftnessY`（在属性中限制为大于0）成反比
     `OUT.mask.zw = half2(0.25 / (0.25 * half2(_UIMaskSoftnessX, _UIMaskSoftnessY) + abs(pixelSize.xy)));`
@@ -42,13 +46,9 @@ y也是同理
 
 ### Softness
 
-同上，如果在矩形内部，越靠近矩形中心，则`(_ClipRect.zw - _ClipRect.xy - abs(IN.mask.xy))`越接近1
+同上，如果在矩形内部，越靠近矩形中心，则`(_ClipRect.zw - _ClipRect.xy - abs(IN.mask.xy))`越接近1。函数为`f(x)=x`
 
-但图像都大于等于1像素，对于一个高度为100的矩形，即在距离边缘1像素的范围内x从0变化到1，y也已经从0变化到1了。之后大于1部分都会被截取到1，因此只有（在编辑器下的Scene视图）放大许多倍才能看清楚
-
-函数为`f(x)=x`
-
-![image-20221014162214211](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20221014162214211.png)
+但图片sprite都大于等于1像素，对于一个高度为100的矩形，即在距离边缘1像素的范围内x从0变化到1，y也已经从0变化到1了。之后大于1部分都会被截取到1，因此只有（在编辑器下的Scene视图）放大许多倍才能看清楚
 
 未放大，边缘1像素看不清楚
 
@@ -64,7 +64,7 @@ y也是同理
 
 ``` glsl
 #ifdef UNITY_UI_CLIP_RECT
-half2 m = saturate((_ClipRect.zw - _ClipRect.xy - abs(IN.mask.xy)) / (_UIMaskSoftnessY * 2));
+half2 m = saturate((_ClipRect.zw - _ClipRect.xy - abs(IN.mask.xy)) / half2(_UIMaskSoftnessX * 2, _UIMaskSoftnessY * 2));
 color.a *= m.x * m.y;
 #endif
 ```
