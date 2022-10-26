@@ -1,4 +1,4 @@
-### Rect Transform
+## Rect Transform
 
 假设Canvas Scaler的Screen Match Mode为Match With Screen Size，Match为Width
 
@@ -30,7 +30,8 @@ Match为Width，表示**保持Rect Transform的Width为Reference Solution.width�
 - Screen Space - Overlay：Position就是屏幕分辨率/2（这样使得**Canvas的左下角刚好在世界空间原点**），z永远为0
 - Screen Space - Camera：Position就是Canvas组件中**Render Camera对应的Camera的位置**，z = 相机.position.z + Canvas.Plane Distance
 
-### Canvas Scaler
+## Canvas Scaler
+
 ##### UI Scale Mode
 - Constant Pixel Size：
 固定像素大小，因此Canvas的Scale就是Scale Factor，Canvas的尺寸就是屏幕分辨率/Scale
@@ -39,14 +40,14 @@ Match为Width，表示**保持Rect Transform的Width为Reference Solution.width�
     Screen Match Mode
     - Width：
     表示**保持Rect Transform的Width为Reference Solution.width，缩放Scale使得实际width等于屏幕width**。Height同理。
-    - Expand：假设Reference Solution为1920*1080，屏幕分辨率为2560*1280，那么将会先缩放1280/1080倍使得Canvas.height匹配屏幕分辨率.height，然后将Canvas.width扩大使得宽高比仍是2560/1280
-    - Shrink：假设Reference Solution为1920*1080，屏幕分辨率为2560*1280，那么将会先缩放2560/1920倍使得Canvas.width匹配屏幕分辨率.width，然后将Canvas.height缩减使得宽高比仍是2560/1280
+    - Expand：假设Reference Solution为`1920*1080`，屏幕分辨率为`2560*1280`，那么将会先缩放1280/1080倍使得Canvas.height匹配`屏幕分辨率.height`，然后将Canvas.width扩大使得宽高比仍是2560/1280
+    - Shrink：假设Reference Solution为`1920*1080`，屏幕分辨率为`2560*1280`，那么将会先缩放2560/1920倍使得Canvas.width匹配`屏幕分辨率.width`，然后将Canvas.height缩减使得宽高比仍是2560/1280
 
 ##### Reference Pixels Per Unit
 
 默认值100，即每100像素占据1单位
 
-### Canvas
+## Canvas
 
 ##### Render Mode
 
@@ -55,7 +56,8 @@ Match为Width，表示**保持Rect Transform的Width为Reference Solution.width�
 因此只有将部分UI设置成透明的，才能够在屏幕上显示出其他相机所渲染的非UI对象。（从shader的角度来看，不透明UI会和其他非UI对象或者说颜色缓冲区中的颜色进行透明度混合）
 如果有多个Canvas，其Sort Order越大，显示在越前边（从shader的角度来看，Sort Order越大则渲染顺序越靠后，会将之前的颜色缓冲区覆盖或混合）
 - Screen Space - Camera：
-只要设置好Render Camera，就跟多个相机之间的渲染类似了。如果未设置那么效果跟Overlay一样
+  只要设置好`Render Camera`，就跟多个相机之间的渲染类似了。如果未设置那么效果跟Overlay一样
+  **`Render Camera`的`Culling Mask`包含canvas组件所在物体的layer，则该canvas下的所有UI都会被该相机渲染，而不是像普通相机和模型一样根据每个物体的layer进行筛选**
 - World Space：
 完全把Canvas当作世界坐标中的一个物体来渲染，此时将Canvas视作一个矩形的Mesh即可。
 
@@ -69,7 +71,7 @@ Match为Width，表示**保持Rect Transform的Width为Reference Solution.width�
 勾选了Override Sorting的UGUI元素使用SortingLayer来排序，而不再由在Canvas中的层次顺序决定，因此与其他默认UGUI元素之前渲染顺序无法得到保证。
 但其**子物体中的UGUI元素之间**的渲染顺序仍由层次顺序决定
 
-### GraphicsRaycaster
+## GraphicsRaycaster
 
 Canvas组件所在物体或子物体拥有GraphicsRayCaster组件，GraphicsRayCaster组件的子物体才能收到对应UI事件
 
@@ -78,3 +80,4 @@ Canvas组件所在物体或子物体拥有GraphicsRayCaster组件，GraphicsRayC
 子物体到Canvas物体之间没有任何物体添加GraphicsRayCaster组件，所以无法接收UI事件
 
 平时默认Canvas可以接收事件是因为默认就添加了GraphicsRayCaster组件，而自定义Canvas的物体则可能忘记添加该组件
+
