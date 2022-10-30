@@ -41,7 +41,7 @@ const int &ci3 = d2;
 
 ## const和指针
 
-### 指向常量的指针（pointer to const）
+### 指向常量的指针（pointe to const）
 
 不能通过该指针改变其所指向对象的值
 
@@ -70,3 +70,36 @@ int *const cp = &a;
 ```
 
 从右往左阅读，const表示cp是不可变的常量，`*`表示cp是一个指针类型，int表示指针指向int
+
+## constexpr和常量表达式
+
+**常量表达式（const experssion）**是指**值不会改变**并且在**编译过程中就能得到计算结果**的表达式。
+
+- 字面值属于常量表达式
+- 用常量表达式初始化的const对象也是常量表达式
+
+一个对象（或表达式）是不是常量表达式是由它的数据类型和初始值共同决定的，例如：
+
+``` c++
+const int max_files = 20;				// max_files是常量表达式
+const int limit = max_files + 1;		// limit是常量表达式
+int staff_size = 30;					// staff_size不是常量表达式
+const int sz = get_size();				// sz不是常量表达式
+```
+
+staff_size的初始值是个字面值常量，但是由于它的数据类型只是一个`int`而不是`const int`，所以不是常量表达式
+
+sz是一个常量，但是具体值直到运行时才能获得，所以不是常量表达式
+
+### constexpr变量
+
+在一个复杂系统中，很难分辨一个初始值到底是不是常量表达式。即使定义了一个const变量并将它的初始值设为我们认为的某个常量表达式，但是实际使用时，却常常发现初始值并非真正的常量表达式。
+
+C++11新标准规定，允许将变量声明为constexpr类型以便由编译器来验证变量的值是否是一个常量表达式。声明为constexpr的变量一定是一个常量，而且必须用常量表达式初始化：
+
+``` c++
+constexpr int mf = 20;
+constexpr int limit = mf + 1;
+constexpr int sz = size();			// 仅当size是一个constexpr函数时才是一条正确的声明语句
+```
+
