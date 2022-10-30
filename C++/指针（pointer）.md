@@ -54,6 +54,3 @@ shader->use();
 
 delete shader;
 ```
-
-## 智能指针
-

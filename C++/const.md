@@ -41,7 +41,7 @@ const int &ci3 = d2;
 
 ## const和指针
 
-### 指向常量的指针（pointe to const）
+### 指向常量的指针（pointer to const）
 
 不能通过该指针改变其所指向对象的值
 
