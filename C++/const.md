@@ -103,3 +103,6 @@ constexpr int limit = mf + 1;
 constexpr int sz = size();			// 仅当size是一个constexpr函数时才是一条正确的声明语句
 ```
 
+#### 字面值类型（literal type）
+
+算术类型、引用、指针都属于字面值类型
