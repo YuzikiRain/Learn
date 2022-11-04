@@ -153,18 +153,6 @@ var e = b.normalized * offset.magnitude;
 b === d === e
 ```
 
-## ScreenToWorldPoint
-
-`public Vector3 ScreenToWorldPoint(Vector3 screenPosition);`
-
-输入参数screenPosition的xy分量为屏幕坐标（一般就是Input.mousePosition），屏幕坐标的z分量默认为0，z分量还要再加上需要的深度
-
-将位置从屏幕空间变换到世界空间下，而z是无法得到的，返回的Vector3的z分量就是传入的screenPosition的z分量，即z分量是调用者确定的
-
-如果z分量没有加上需要的深度，当然就是默认的0了，这样一来相当于转换到（透视）相机的近平面为0的平面上，screenPosition变化量再大，返回的世界坐标的变化量也为0
-
-参考：[Unity - Scripting API: Camera.ScreenToWorldPoint (unity3d.com)](https://docs.unity3d.com/ScriptReference/Camera.ScreenToWorldPoint.html)
-
 ## 参考
 
 -   
