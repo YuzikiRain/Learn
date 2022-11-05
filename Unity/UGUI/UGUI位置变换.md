@@ -37,7 +37,10 @@ Vector3 position = uiCamera.ScreenToWorldPoint(screenPosition);
 
 比如`Canvas.planeDistance`为100，计算得到的`screenPosition.z`为10（相比canvas更靠近UICamera），则该UI物体会先因为透视除法而放大`100/10=10`倍（然后再进行CanvasScaler，但是这个不影响物体相对于Canvas的大小）
 
-参考：[Unity - Scripting API: Camera.WorldToScreenPoint (unity3d.com)](https://docs.unity3d.com/ScriptReference/Camera.WorldToScreenPoint.html)
+参考：
+
+- [Unity - Scripting API: Camera.WorldToScreenPoint (unity3d.com)](https://docs.unity3d.com/ScriptReference/Camera.WorldToScreenPoint.html)
+- [Unity - Scripting API: Camera.ScreenToWorldPoint (unity3d.com)](https://docs.unity3d.com/ScriptReference/Camera.ScreenToWorldPoint.html)
 
 最终`ScreenToWorldPoint`将屏幕坐标`screenPosition`变换为世界坐标`worldPosition`：
 
