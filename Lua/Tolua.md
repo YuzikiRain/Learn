@@ -372,3 +372,6 @@ CoUpdateBeat:AddListener(self.updater)
 CoUpdateBeat:RemoveListener(self.updater)
 ```
 
+## 可嵌套协程
+
+[LuaUtil/CustomCoroutine at master · YuzikiRain/LuaUtil (github.com)](https://github.com/YuzikiRain/LuaUtil/tree/master/CustomCoroutine)
