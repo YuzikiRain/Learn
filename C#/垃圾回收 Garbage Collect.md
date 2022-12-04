@@ -143,7 +143,7 @@ style a2 fill:000,stroke:#f66,stroke-width:4px,stroke-dasharray: 5, 5
 
 直到队列为空，则遍历了所有可达的对象
 
-这种方法就是广度遍历
+这种方法就是广度优先遍历
 
 ### sweep
 
