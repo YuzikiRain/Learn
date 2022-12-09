@@ -77,7 +77,7 @@ unity使用AssetBundle来打包资源，在构建的程序上使用的资源以A
 -   在加载P之后（称为P1），A包会被加载，且B包也会因为含有P依赖的M而自动加载
 -   用P1来Instantiate一个实例obj，该实例也引用相同的材质M
 -   在调用`AssetBundle.Unload(false)`后，P1和A包之间的链接被断开，ab包被卸载。
-    但是P1没有被卸载，且实例obj不受影响，因为其材质M也没有被卸载，因为是Instantiate出来的副本而不是prefab资源本身，所以也不会被释放。
+    但是P1没有被卸载，且实例obj不受影响，因为其材质M也没有被卸载，obj是Instantiate出来的副本而不是prefab资源本身，所以也不会被释放。
     调用`GameObject.Destroy`来销毁obj，obj被释放，但其引用的材质M仍存在，仍需要手动释放
 -   再次加载A包，并加载资源P
 -   此时资源P已经不再是之前的P1了，而是一个新的资源，称为P2。如果之前没有持有P1的引用，则无法再释放P1了（只能通过`Resources.UnloadUnusedAssets`）
