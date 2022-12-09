@@ -34,7 +34,11 @@ unity使用AssetBundle来打包资源，在构建的程序上使用的资源以A
 
 包头包含有关AssetBundle 的信息，比如标识符、压缩类型和内容清单。清单是一个以Objects name为键的查找表。每个条目都提供一个字节索引，用来指示该Objects在AssetBundle数据段的位置。在大多数平台上，这个查找表是用平衡搜索树实现的。具体来说，Windows和OSX派生平台(包括IOS)都采用了红黑树。因此，构建清单所需的时间会随着AssetBundle中Assets的数量增加而线性增加。
 
-数据段包含通过序列化AssetBundle中的Assets而生成的原始数据。如果指定LZMA为压缩方案的话，则对所有序列化Assets后的完整字节数组进行压缩。如果指定了LZ4，则单独压缩单独Assets的字节。如果不使用压缩，数据段将保持为原始字节流。
+数据段包含通过序列化AssetBundle中的Assets而生成的原始数据。
+
+- 如果指定LZMA为压缩方案的话，则对所有序列化Assets后的完整字节数组进行压缩。
+- 如果指定了LZ4，则单独压缩单独Assets的字节。
+- 如果不使用压缩，数据段将保持为原始字节流。
 
 ### LZ4
 
@@ -44,11 +48,11 @@ unity使用AssetBundle来打包资源，在构建的程序上使用的资源以A
 
 ### LZMA
 
-此压缩格式是表示整个 AssetBundle 的数据流，这意味着如果您需要从这些存档中读取 Asset，则必须解压缩整个流。
+此压缩格式是表示整个 AssetBundle 的数据流，这意味着如果您需要从这些存档中读取Asset，则必须解压缩整个流。
 
 ### Uncompressed
 
-未压缩的资产捆绑包 Unity 在使用BuildAssetBundleOptions 时构建的。UncompressedAssetBundle不需要解压缩，但会占用更多磁盘空间。未压缩的资产捆绑包是 16 字节对齐的。
+未压缩的资产捆绑包。Unity 在使用BuildAssetBundleOptions 时构建的。UncompressedAssetBundle不需要解压缩，但会占用更多磁盘空间。未压缩的资产捆绑包是 16 字节对齐的。
 
 ## 卸载资源
 

@@ -22,8 +22,6 @@ https://github.com/mob-sakai/ParticleEffectForUGUI
 
 ### 支持Mask和Mask2D
 
-**注意目前仅适用于built-in管线**
-
 https://github.com/mob-sakai/ParticleEffectForUGUI#how-to-make-a-custom-shader-to-support-maskrectmask2d-component
 
 如果要支持URP，UnityGet2DClipping需要自己定义，而不是`#include "UnityCG.cginc"`
