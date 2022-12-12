@@ -32,6 +32,22 @@
 ## Canvas Rebuild
 
 UGUI会为每个UI组件生成几何图形，这包括运行动态布局代码，生成多边形以表示 UI Text组件中的字符，以及将尽可能多的几何图形合并到单个网格中，以最大程度地减少绘制调用。
+
+重建过程：
+
+包括RebuildLayout、UpdateGeometry、UpdateMaterial，分别有对应的设脏标识来触发```m_LayoutRebuildQueue.AddUnique``` 和 ```m_GraphicRebuildQueue.AddUnique```，下一帧再处理
+
+Rebuild会触发batch，所以
+
+-   RebuildLayout：由于布局控制器所管理的布局元素发生了变化（如顶点位置变化），会调用```LayoutRebuilder.MarkLayoutForRebuild```标记脏
+-   UpdateGeometry：调用DoMeshGeneration，它再调用OnPopulateMesh
+    -   OnPopulateMesh：virtual的生成VertexHelper的方法（VertexHelper是一个辅助类，仅包含顶点数据如位置、法线切线、顶点色、UV等，此时还未生成mesh），Image、RawImage、Text都分别重写了它，其中Image根据Image Type，Text则根据Text的设置（如overflow模式、字体大小等）来生成VertexHelper
+        -   再次修改VertexHelper：从自身和子物体中取得所有IMeshModifier接口（如果实现了的话），逐个调用ModifyMesh方法来修改VertexHelper
+        -   通过VertexHelper生成网格：```s_VertexHelper.FillMesh(workerMesh); canvasRenderer.SetMesh(workerMesh);```
+-   UpdateMaterial：
+    -   设置材质：```canvasRenderer.SetMaterial(materialForRendering, 0);```
+    -   设置纹理：``` canvasRenderer.SetTexture(mainTexture);```
+
 性能瓶颈：
 
 -   如果画布上可绘制 UI 元素的数量很大，则计算批处理本身将变得非常昂贵。这是因为对元素进行排序和分析的成本与画布上可绘制 UI 元素的数量呈线性增长。
