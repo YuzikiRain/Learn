@@ -54,7 +54,7 @@ public class TestGameObject: MonoBehaviour
 - 类：ToLuaMenu.dropType下增加，比如typeof(LayerMask),     
 - 通用：添加标签`[NoToLuaAttribute]`
 
-### 委托
+## 委托
 
 - CustomSettings.cs中customDelegateList添加委托类型
 
@@ -87,7 +87,7 @@ public class TestGameObject: MonoBehaviour
       end)
   ```
 
-### 模块
+## 模块
 
 - 加载模块
 
