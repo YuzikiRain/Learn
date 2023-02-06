@@ -302,15 +302,127 @@ ToLua并没有直接支持泛型，而是只能使用传入Type类型的方法�
 
 推荐做法是在一个自定义的扩展方法类里定义一个同名的参数为Type的泛型方法，可以被生成到Wrap文件里并被调用
 
-## 与其他语言交互的原理
+## Lua与C#交互的原理
 
 ### 事前准备
 
--   CustomSettings中添加要生成wrap文件的类
+CustomSettings中添加要生成wrap文件的类
 
--   GenerateClassWraps生成对应类的wrap文件
+GenerateClassWraps生成对应类的wrap文件
 
--   启动lua虚拟机（LuaState）时，函数GenLuaBinder生成绑定类（wrap文件）
+启动lua虚拟机（LuaState）时，LuaBinder调用所有已绑定类对应的wrap文件的Register方法，其中进行了注册类型、注册方法、注册变量。
+
+``` c#
+L.BeginClass(typeof(UnityEngine.GameObject), typeof(UnityEngine.Object));
+L.RegFunction("GetComponent", GetComponent);
+L.RegVar("transform", get_transform, null);
+```
+
+注册类型
+
+``` c#
+// LuaState.BeginClass()
+...
+    
+if (metaMap.TryGetValue(t, out reference))
+{
+    LuaDLL.tolua_beginclass(L, name, baseMetaRef, reference);
+    RegFunction("__gc", Collect);
+}
+else
+{
+    reference = LuaDLL.tolua_beginclass(L, name, baseMetaRef);
+    RegFunction("__gc", Collect);                
+    BindTypeRef(reference, t);
+}
+```
+
+注册方法：将一个方法委托
+
+``` c#
+public void RegFunction(string name, LuaCSFunction func)
+{
+    IntPtr fn = Marshal.GetFunctionPointerForDelegate(func);
+    LuaDLL.tolua_function(L, name, fn);            
+}
+```
+
+### C#调用Lua
+
+#### 初始化虚拟机
+
+``` c#
+state = new LuaState();
+state.Start();
+
+//使用文件调用Lua
+//手动添加一个lua文件搜索地址
+string sceneFile = Application.dataPath + "/LuaStudy";
+state.AddSearchPath(sceneFile);
+
+state.Require(luaFile);//载入文件
+```
+
+#### 调用Lua方法
+
+**简要来说，就是将函数名推到栈顶，然后将需要的参数（按参数列表顺序）也推到栈顶，然后调用Call或者Invoke来调用lua方法，最后将结果也返回到栈顶。**
+
+``` c#
+luaFunc = lua.GetFunction("test.luaFunc");
+int num = luaFunc.Invoke<int, int>(123456);
+```
+
+##### GetFunction
+
+如果是调用`public LuaFunction GetFunction(string name, bool beLogMiss = true)`，则会以函数名为key，WeakReference为value存放到字典funcMap中。
+
+（虽然是名称是GetFunction）PushLuaFunction将函数名通过`LuaDLL.lua_pushstring(L, funcName)`放到交互栈顶。
+
+计算出函数引用句柄reference，以reference为key，WeakReference为value存放到字典funcRefMap中。
+
+如果是调用`public LuaFunction GetFunction(int reference)`则同理，只是跳过funcMap这一步。
+
+##### Call或Invoke
+
+调用`LuaTable.GetLuaFunction(funcName)`将函数推到栈上，然后调用LuaFunction的`public R1 Invoke<T1, R1>(T1 arg1)`方法或`Call`方法，其中包括将参数推到栈上，以及调用 `LuaDLL.lua_call`来进行C#对C的方法的调用。
+
+##### C#调用C
+
+C#调用C的代码是通过P/invoke, 即平台调用，.net 提供了一种托管代码调用非托管代码的机制。通过DllImport特性实现，把c的相关函数声明成 static， extern的形式，还可以为方法的参数和返回值指定自定义封送处理信息。具体可以参考[MSDN的描述](https://link.zhihu.com/?target=https%3A//docs.microsoft.com/en-us/dotnet/standard/native-interop/pinvoke)
+
+``` c#
+// LuaDLL.cs
+const string LUADLL = "tolua";
+[DllImport(LUADLL, CallingConvention = CallingConvention.Cdecl)]
+public static extern void lua_call(IntPtr luaState, int nArgs, int nResults);
+```
+
+``` c
+// tolua.c源代码文件，编译生成tolua.cs
+#include "lua.h"
+```
+
+``` c
+// luajit-2.1/src/lua.h
+LUA_API void  (lua_call) (lua_State *L, int nargs, int nresults);
+```
+
+##### C调用Lua
+
+如何在C中执行等同于Lua执行`a = f("how", t.x, 14)`的操作。
+
+``` c
+lua_getfield(L, LUA_GLOBALSINDEX, "f"); // 从全局table取得字段（类型为函数）f，并推到栈顶。等同于lua_getglobal(L, "f");
+lua_pushstring(L, "how");  				// 将参数推到栈顶
+lua_getfield(L, LUA_GLOBALSINDEX, "t"); // 从全局table取得字段t，并推到栈顶。
+lua_getfield(L, -1, "x"); 				// 从栈顶元素t（类型为table）取得字段x，并推到栈顶。
+lua_remove(L, -2); 						// 要取的是x，因此将从栈顶倒数第二个的元素t移除
+lua_pushinteger(L, 14); 				// 将参数推到栈顶
+lua_call(L, 3, 1); 						// 调用方法，带有3个参数，1个返回值
+lua_setfield(L, LUA_GLOBALSINDEX, "a"); // 将栈顶元素弹出，并设置为全局table的字段a。等同于lua_setglobal(L, a)
+```
+
+参考：[ToLua框架下C#与Lua代码的互调_达也酱的博客-CSDN博客_tolua luastate](https://blog.csdn.net/fjjaylz/article/details/86578489)
 
 
 ### 运行时
@@ -334,11 +446,10 @@ public class UnityEngine_GameObjectWrap
 		L.BeginClass(typeof(UnityEngine.GameObject), typeof(UnityEngine.Object));
 ```
 
+参考：
 
-
-​    
-
-参考：[【Unity游戏开发】tolua之wrap文件的原理与使用 - 马三小伙儿 - 博客园 (cnblogs.com)](https://www.cnblogs.com/msxh/p/9813147.html)
+- [【Unity游戏开发】tolua之wrap文件的原理与使用 - 马三小伙儿 - 博客园 (cnblogs.com)](https://www.cnblogs.com/msxh/p/9813147.html)
+- [【ToLua】C#和Lua的交互细节 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/109198841)
 
 ## Update
 
