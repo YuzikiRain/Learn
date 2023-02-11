@@ -123,7 +123,7 @@ style a2 fill:000,stroke:#f66,stroke-width:4px,stroke-dasharray: 5, 5
 
 ## mark sweep
 
-常见的垃圾回收算法有引用计数（reference counting）和mark sweep
+常见的垃圾回收算法有标记清除（mark sweep）和引用计数（reference counting）
 
 ### mark
 
@@ -147,7 +147,7 @@ style a2 fill:000,stroke:#f66,stroke-width:4px,stroke-dasharray: 5, 5
 
 ### sweep
 
-直接移动所有活动对象，使其占用连续的内存空间。
+直接向前移动所有活动对象，占据非活动对象内存空间，使其占用连续的内存空间。
 
 然后移动托管堆的NextObjPtr指针指向最后一个活动对象之后的位置，下一个分配的对象将放在这个位置。
 
