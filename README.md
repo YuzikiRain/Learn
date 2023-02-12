@@ -4,7 +4,7 @@
 C#相关的笔记
 
 ## 数据结构与算法（Data Structure & Algorithm）
-主要是对于编程学习过程中遇到的不方便用代码表示的学习内容
+[YuzikiRain/Data-Structures-Algorithm: 数据结构与算法 (github.com)](https://github.com/YuzikiRain/Data-Structures-Algorithm)
 
 ## Unity
 
