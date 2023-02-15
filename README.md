@@ -17,6 +17,13 @@ C#相关的笔记
 
 与游戏相关的数学知识，如矩阵等高等数学
 
+## 游戏引擎
+
+参考链接
+
+- [Introduction | 游戏引擎 浅入浅出 | 游戏人生 (thisisgame.com.cn)](https://www.thisisgame.com.cn/tutorial?book=cpp-game-engine-book&lang=zh&md=Introduction.md)
+- [ThisisGame/cpp-game-engine-book: 从零编写游戏引擎教程 Writing a game engine tutorial from scratch (github.com)](https://github.com/ThisisGame/cpp-game-engine-book)
+
 ## 面试问题(Interview Questions)
 
 与面试有直接联系的题目和自己的理解
