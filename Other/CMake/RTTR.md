@@ -6,7 +6,9 @@ cmake选择源码目录，build目录，因为我们不需要单元测试、范�
 
 Configure，然后Generate（选择对应的编译器），然后到对应目录下执行make即可。
 
-到build->bin下取得`librttr_core.dll`
+到build->bin下取得`librttr_core.dll`，然后放到用到的工程的build（即可执行文件所在目录）目录下
+
+**到`build\src\rttr\detail\base`目录下将`version.h`和`version.rc`文件拷贝到对应的include目录（Include\rttr\detail\base）下。**
 
 ## API
 
