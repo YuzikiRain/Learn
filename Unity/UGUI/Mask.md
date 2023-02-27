@@ -28,7 +28,7 @@ color.a *= m.x * m.y;
 
 ### 裁剪
 
-- `_ClipRect.xy`是矩形左下角坐标，`_ClipRect.zw`是矩形右上角坐标，`_ClipRect.zw - _ClipRect.xy`表示矩形的宽高
+- `_ClipRect.xy`是矩形左下角坐标，`_ClipRect.zw`是矩形右上角坐标，**`_ClipRect.zw - _ClipRect.xy`表示矩形的宽高**
 - `OUT.mask.xy`等于**矩形左下角到点的位置组成的向量**加上到**矩形右上角到点的位置组成的向量**：
     `OUT.mask.xy = v.vertex.xy * 2 - clampedRect.xy - clampedRect.zw`，等同于`(v.vertex.xy - clampedRect.xy) + (v.vertex.xy - clampedRect.zw)`
 - `OUT.mask.zw`与`_UIMaskSoftnessX`和`_UIMaskSoftnessY`（在属性中限制为大于0）成反比
@@ -38,11 +38,11 @@ color.a *= m.x * m.y;
 
 - 左右边界上，`abs(OUT.mask.x) = 矩形宽度`
 - 内部，`abs(OUT.mask.x) < 矩形宽度`
-- 外部，`abs(OUT.mask.x) > 矩形宽度`
+- **外部，`abs(OUT.mask.x) > 矩形宽度`**
 
 y也是同理
 
-在矩形外部则`_ClipRect.zw - _ClipRect.xy - abs(IN.mask.xy) < 0`，用saturate截取到0~1并应用到alpha上，最后实现了矩形裁剪
+**在矩形外部则`_ClipRect.zw - _ClipRect.xy - abs(IN.mask.xy) < 0`**，用saturate截取到0~1并应用到alpha上，最后实现了矩形裁剪
 
 ### Softness
 
