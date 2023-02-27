@@ -125,6 +125,15 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 cmake_minimum_required(VERSION 3.5)
 ```
 
+## 指定C++标准
+
+```cmake
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+```
+
+如果你的gcc编译器版本够高，也可以不用指定 C++ 版本为 11。从 GCC 6.1 开始，当不指定任何版本 C++ 标准时，默认版本是 C++ 14，如果你想用 C++17 的语言，还是需要指定的。
+
 ## 二进制目录
 
 运行 cmake 命令的根文件夹或顶级文件夹称为`CMAKE_BINARY_DIR`
