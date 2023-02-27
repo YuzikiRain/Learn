@@ -12,6 +12,49 @@ Configure，然后Generate（选择对应的编译器），然后到对应目录
 
 ## API
 
+### Registration
+
+注册类型信息
+
+``` c++
+using namespace rttr;
+struct Foo{};
+RTTR_REGISTRATION
+{
+     registration::class_<Foo>("Foo")
+                  .constructor<>();
+}
+```
+
+调整默认注册行为：在构造函数之后添加policy
+
+``` c++
+ registration::class_<Foo>("Foo")
+              .constructor<>()(policy::ctor::as_std_shared_ptr);
+```
+
+- as_std_shared_ptr：默认。通过`std::make_shared<T>`返回类的实例
+
+- as_raw_ptr：返回指向类实例的普通指针。需要手动调用destroy方法（等同于调用`delete ptr`）
+    ``` c++
+    RTTR_REGISTRATION
+    {
+         registration::class_<Foo>("Foo")
+                      .constructor<>()(policy::ctor::as_raw_ptr);
+    }
+    int main()
+    {
+        variant var = type::get<Foo>().create();
+        std::cout << var.is_type<Foo*>();          // prints "true"
+        var.get_type().destroy(var);               // free's the memory with 'delete'
+        std::cout << var.is_valid();               // prints "false"
+        return 0;
+    }
+    
+    ```
+    
+- as_object：分配在栈上的局部对象。will create an instance of a class with automatic storage。离开作用域时自动销毁。对象必须是可拷贝的（*constructible*）
+
 ### Type
 
 - 取得Type信息
@@ -69,7 +112,7 @@ Configure，然后Generate（选择对应的编译器），然后到对应目录
     		.constructor<>();
     		
     	registration::class_<BorderlessEngine::Transform>("Transform")
-    		.constructor<>()
+    		.constructor<>()(policy::ctor::as_raw_ptr)
     		.property("Position", &BorderlessEngine::Transform::Position);
         
         registration::class_<glm::vec3>("glm::vec3")
@@ -126,3 +169,4 @@ Configure，然后Generate（选择对应的编译器），然后到对应目录
 - [Building & Installation - 0.9.7 | RTTR](https://www.rttr.org/doc/master/building_install_page.html)
 - [5 minute Tutorial - 0.9.7 | RTTR](https://www.rttr.org/doc/master/five_minute_tutorial_page.html)
 - [Properties - 0.9.7 | RTTR](https://www.rttr.org/doc/master/register_properties_page.html)
+- [Policies - 0.9.7 | RTTR](https://www.rttr.org/doc/master/register_policies_page.html)
