@@ -1,3 +1,23 @@
+## 安装
+
+- github clone源码，（最好新建一个build目录，然后cd到该目录下）执行以下cmake命令（指定编译器为Mingw）
+
+    ```
+    cmake.exe -G "MinGW Makefiles" ..
+    ```
+
+    官方的build说明，不指定`-DYAML_BUILD_SHARED_LIBS=on`的话默认是静态库
+
+    ```
+    mkdir build
+    cd build
+    cmake [-G generator] [-DYAML_BUILD_SHARED_LIBS=on|OFF] ..
+    ```
+
+- 运行make以执行makefile，window下需要额外安装[GNU]([GnuWin download | SourceForge.net](https://sourceforge.net/projects/gnuwin32/))，配环境变量的路径后还是不能执行make的话，就直接拖动安装目录下的`make.exe`到cmd里执行
+
+- build目录下出现`libyaml-cpp.dll`文件，直接拖过去用，`target_link_libraries`里包含该文件路径，`target_include_directories`包含yaml-cpp源码的include目录，将该文件添加到build目录下
+
 ## Fails to compile. Undefined reference to YAML::LoadFile
 
 链接错误，链接了错误的库
@@ -77,25 +97,6 @@ windows下直接调用cmake会默认用当前安装的visual studio版本对应�
 不同平台（比如台式机和笔记本，或者不同系统）构建出来的dll不同，有时无法兼容
 
 因此如果要在不同平台执行，要么根据平台提前编译需要的dll，要么将源码也加入到cmake目录中进行构建
-
-## cmake步骤
-
-- github clone源码，（最好新建一个build目录，然后cd到该目录下）执行以下cmake命令（指定编译器为Mingw）
-    ```
-    cmake.exe -G "MinGW Makefiles" ..
-    ```
-
-    官方的build说明，不指定`-DYAML_BUILD_SHARED_LIBS=on`的话默认是静态库
-
-    ```
-    mkdir build
-    cd build
-    cmake [-G generator] [-DYAML_BUILD_SHARED_LIBS=on|OFF] ..
-    ```
-
-- 运行make以执行makefile，window下需要额外安装[GNU]([GnuWin download | SourceForge.net](https://sourceforge.net/projects/gnuwin32/))，配环境变量的路径后还是不能执行make的话，就直接拖动安装目录下的`make.exe`到cmd里执行
-
-- build目录下出现`libyaml-cpp.dll`文件，直接拖过去用，`target_link_libraries`里包含该文件路径，`target_include_directories`包含yaml-cpp源码的include目录，将该文件添加到build目录下
 
 ## 参考
 
