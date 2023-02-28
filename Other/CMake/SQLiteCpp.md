@@ -17,6 +17,8 @@ target_link_libraries(main
   )
 ```
 
+在windows下编译时会报`One or more carriage-return \r (^M) (Windows endline) found; Use only UNIX endline`，需要用文本编辑软件批量修改`\r`和`\r\n`为`\n`
+
 ## 使用
 
 ``` c++
