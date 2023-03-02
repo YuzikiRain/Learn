@@ -10,6 +10,8 @@ Configure，然后Generate（选择对应的编译器），然后到对应目录
 
 **到`build\src\rttr\detail\base`目录下将`version.h`和`version.rc`文件拷贝到对应的include目录（Include\rttr\detail\base）下。**
 
+经过测试，使用GCC8.1并指定C++17会编译报错（因为不支持C++17），GCC12.2并指定C++17可以编译通过，但在实际运行时进行类型反射时会抛出异常。**使用10.3.0并指定C++17可以编译通过，也可以正常运行，但不能注册glm::mat4等matrix类型**
+
 ## API
 
 ### Registration
