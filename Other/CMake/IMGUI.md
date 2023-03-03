@@ -22,6 +22,10 @@ target_link_libraries(${PROJECT_NAME} PUBLIC ${PROJECT_LIBRARIES})
 
 
 
+## Drag & Drop
+
+[Drag & Drop files using Win32 and Dear ImGui · Issue #2602 · ocornut/imgui (github.com)](https://github.com/ocornut/imgui/issues/2602)
+
 ## Docking拖拽到window之外
 
 使用ImGui的docking分支，然后按照这个教程做 [ImGui Docking and Viewports | Fl0w3r (yousazoe.top)](https://www.yousazoe.top/archives/621d636b.html)
