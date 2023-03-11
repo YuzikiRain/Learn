@@ -151,6 +151,17 @@ set(SOURCES src/main.cpp)
 add_executable(${PROJECT_NAME} ${SOURCES})
 ```
 
+# 修改输出目录
+
+``` cmake
+# 指定可执行程序输出目录
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG 	${publish_bin_debug})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE 	${publish_bin_release})
+# 指定 库文件输出目录
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG 	${publish_lib_debug})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RLEASE 	${publish_lib_release})
+```
+
 ## 打印
 
 ``` cmake
