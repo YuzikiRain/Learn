@@ -108,8 +108,40 @@ CMake 语法指定了许多变量，这些[变量](https://gitlab.kitware.com/cm
 | CMAKE_FILES_DIRECTORY        | 当前二进制目录中包含所有 CMake 生成文件的目录。通常计算结果为“/CMakeFiles”。请注意目录的前导斜杠。通常与当前二进制目录一起使用，即 `${CMAKE_CURRENT_BINARY_DIR}``${CMAKE_FILES_DIRECTORY}` |
 | CMAKE_MODULE_PATH            | 当您使用FIND_PACKAGE（）或INCLUD（）时，告诉CMake首先在CMAKE_MODULE_PATH中列出的目录中搜索`SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/MyCMakeScripts)` `FIND_PACKAGE(HelloWorld)` |
 | CMAKE_ROOT                   | 这是CMake安装目录                                            |
-| PROJECT_NAME                 | 由 PROJECT（） 命令设置的项目的名称                          |
-| CMAKE_PROJECT_NAME           | 由 PROJECT（） 命令设置的第一个项目的名称，即顶级项目        |
+| PROJECT_NAME                 | 由 `PROJECT()` 命令设置的项目的名称                          |
+| CMAKE_PROJECT_NAME           | 由 `PROJECT()` 命令设置的第一个项目的名称，即顶级项目        |
+
+## 二进制目录
+
+运行 cmake 命令的根文件夹或顶级文件夹称为`CMAKE_BINARY_DIR`
+
+### 源外构建 Out-of-Source Build
+
+源代码外构建允许您创建单个构建文件夹，该文件夹可以位于文件系统上的任何位置。所有临时构建文件和对象文件都位于此目录中，保持源树的清洁。若要创建源外生成，请在生成文件夹中运行 cmake 命令，并将其指向包含根 CMakeLists.txt 文件的目录。
+
+如果要从头开始重新创建 cmake 环境，请使用源代码外构建，只需删除构建目录，然后重新运行 cmake。
+
+### 就地构建 In-Place Build
+
+就地生成在与源代码相同的目录结构中生成所有临时生成文件。这意味着所有生成文件和对象文件都散布在正常代码中。要创建就地构建目标，请在根目录中运行 cmake 命令。
+
+## 文件操作
+
+### 添加文件
+
+``` cmake
+# 添加当前目录下的所有cpp文件列表到lib_srcs变量中
+file(GLOB lib_srcs *.cpp)
+# 添加指定目录及其子目录下的所有cpp文件列表到lib_srcs变量中
+file(GLOB_RECURSE lib_srcs ${MyDirectory}/SecondDirectory *.cpp)
+```
+
+### 拷贝文件
+
+``` cmake
+file(GLOB_RECURSE allCopyFiles ${MyDirectory}/SecondDirectory *.cpp)
+file(COPY ${allCopyFiles} DESTINATION ${DestinationDirectory})
+```
 
 ## 创建变量
 
@@ -117,6 +149,12 @@ CMake 语法指定了许多变量，这些[变量](https://gitlab.kitware.com/cm
 set(SOURCES src/main.cpp)
 # 使用变量SOURCES
 add_executable(${PROJECT_NAME} ${SOURCES})
+```
+
+## 打印
+
+``` cmake
+message(${allCopyFiles})
 ```
 
 ## 最低CMake版本
@@ -133,20 +171,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 ```
 
 如果你的gcc编译器版本够高，也可以不用指定 C++ 版本为 11。从 GCC 6.1 开始，当不指定任何版本 C++ 标准时，默认版本是 C++ 14，如果你想用 C++17 的语言，还是需要指定的。
-
-## 二进制目录
-
-运行 cmake 命令的根文件夹或顶级文件夹称为`CMAKE_BINARY_DIR`
-
-### 源外构建 Out-of-Source Build
-
-源代码外构建允许您创建单个构建文件夹，该文件夹可以位于文件系统上的任何位置。所有临时构建文件和对象文件都位于此目录中，保持源树的清洁。若要创建源外生成，请在生成文件夹中运行 cmake 命令，并将其指向包含根 CMakeLists.txt 文件的目录。
-
-如果要从头开始重新创建 cmake 环境，请使用源代码外构建，只需删除构建目录，然后重新运行 cmake。
-
-### 就地构建 In-Place Build
-
-就地生成在与源代码相同的目录结构中生成所有临时生成文件。这意味着所有生成文件和对象文件都散布在正常代码中。要创建就地构建目标，请在根目录中运行 cmake 命令。
 
 ## 参考
 
