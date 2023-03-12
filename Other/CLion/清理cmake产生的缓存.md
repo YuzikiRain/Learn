@@ -1,0 +1,3 @@
+有时候cmake中使用了一些cpp文件，但是这些文件已经删除了，即使清除cmake中的使用，build时也仍会报错目录下找不到对应文件。
+
+此时需要清理缓存：右键项目根目录，Reload CMake Project
