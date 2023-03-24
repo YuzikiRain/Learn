@@ -14,6 +14,12 @@
 勾选了Override Sorting的UGUI元素使用SortingLayer来排序，而不再由在Canvas中的层次顺序决定，因此与其他默认UGUI元素之间渲染顺序无法得到保证。
 但其**子物体中的UGUI元素之间的渲染顺序仍由层次顺序决定**
 
+## Renderer-SortingOrder
+
+同多Canvas方案，但是非UI物体不是添加Canvas组件并设置其SortingOrder，而是直接修改Renderer的SortingOrder属性
+
+[Unity中UI, 3D和特效等层级SortingOrder管理方案_unity sortingorder_拂面清风三点水的博客-CSDN博客](https://blog.csdn.net/woodengm/article/details/118822434)
+
 ## BakeMesh（推荐，仅适用于Particle）
 
 使用ParticleEffectForUGUI插件，只需要为Particle添加UIParticle组件即可让Particle的显示顺序也根据在Canvas中的层次顺序决定
