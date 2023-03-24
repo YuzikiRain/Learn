@@ -11,10 +11,10 @@
 -   给指定UGUI元素和非UGUI元素附加Canvas组件，勾选Override Sorting
 -   设置合适的Sorting Layer，使得非UGUI元素显示正确
 
-勾选了Override Sorting的UGUI元素使用SortingLayer来排序，而不再由在Canvas中的层次顺序决定，因此与其他默认UGUI元素之前渲染顺序无法得到保证。
-但其**子物体中的UGUI元素之间**的渲染顺序仍由层次顺序决定
+勾选了Override Sorting的UGUI元素使用SortingLayer来排序，而不再由在Canvas中的层次顺序决定，因此与其他默认UGUI元素之间渲染顺序无法得到保证。
+但其**子物体中的UGUI元素之间的渲染顺序仍由层次顺序决定**
 
-## BakeMesh（推荐）
+## BakeMesh（推荐，仅适用于Particle）
 
 使用ParticleEffectForUGUI插件，只需要为Particle添加UIParticle组件即可让Particle的显示顺序也根据在Canvas中的层次顺序决定
 
@@ -34,3 +34,6 @@ inline float UnityGet2DClipping (in float2 position, in float4 clipRect)
 }
 ```
 
+## RenderTexture+RawImage
+
+使用单独的相机渲染物体到RenderTexture中，作为RawImage的texture即可
