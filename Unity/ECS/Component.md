@@ -42,35 +42,7 @@ public class MyComponentBaker : Baker<MyMono>
 }
 ```
 
-# ISystem
 
-``` c#
-using Unity.Burst;
-using Unity.Entities;
-
-[BurstCompile]
-[UpdateInGroup(typeof(InitializationSystemGroup))]
-public partial struct MySystem : ISystem
-{
-    [BurstCompile]
-    public void OnCreate(ref SystemState state)
-    {
-        
-    }
-    
-    [BurstCompile]
-    public void OnDestroy(ref SystemState state)
-    {
-        
-    }
-    
-    [BurstCompile]
-    public void OnUpdate(ref SystemState state)
-    {
-        state.
-    }
-}
-```
 
 
 
