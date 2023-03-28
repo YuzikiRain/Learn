@@ -50,20 +50,22 @@ Flexible默认是不开启的
 
 比如 Text 的 Horizontal/Vertical Overflow 虽然会影响 Text 的表现，但不影响布局属性，所以不会影响 RectTransform 的宽高
 
-## 父物体Rect的width或height根据子物体Text的内容而确定
+## UI大小适应内容
+
+一般指的是，父物体Rect的width或height根据子物体Text的内容而确定。
 
 父物体Image添加任意一种[布局控制器](#LayoutController)（比如HorizontalLayoutGroup），再添加`Content Size Filter`组件。
 
-以纵向为例，布局控制器勾选Control Child Size的Height，`Content Size Filter`组件的Vertical Fit选择Preferred Size
+以纵向为例，`Content Size Filter`组件的Vertical Fit选择Preferred Size。一般来说，布局控制器不勾选Control Child Size
 
 ### 嵌套的情况
 
-如果存在嵌套，即整个层次结构上存在多个`Content Size Filter`，则会出现布局刷新错误的问题。
+如果存在嵌套，即整个层次结构上存在多个`Content Size Filter`，则可能会出现布局刷新错误的问题。
 
 解决方案：
 
 - 除了最上层的物体使用`Content Size Filter`组件进行自动设置，其他子物体使用`GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height)`或修改`GetComponent<RectTransform>()。sizeDelta`等方式**手动设置Rect大小**。
-- 合理的时机调用布局刷新API：经测试，仍存在问题，不推荐使用。
+- ~~合理的时机调用布局刷新API：经测试，仍存在问题，不推荐使用。~~
 
 ## RectTransform
 
