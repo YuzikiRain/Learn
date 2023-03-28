@@ -1,11 +1,11 @@
-### <span id="LayoutController">布局控制器</span>
+##  <span id="LayoutController">布局控制器</span>
 
 实现了 **ILayoutController** 的类型
 常见的有 Horizontal/Vertical/Grid Layout Group、ContentSizeFitter
 至少有一个布局控制器，布局才会生效
 （本身也实现了ILayoutElement，所以才会有布局的相关属性）
 
-### 布局属性
+## 布局属性
 
 Image、Text等组件都实现了 **ILayoutElement** 接口，因此有这些布局属性
 选中任意RectTransform物体，在Inspector面版下将预览窗口切换成Layout Properties，可以直接查看有关属性
@@ -18,16 +18,16 @@ Image、Text等组件都实现了 **ILayoutElement** 接口，因此有这些布
 
 如果Padding不为0，那么Width要加上Left+Right，Height要加上Top+Bottom
 
-#### 自动设置布局属性
+### 自动设置布局属性
 
 **Image会自动设置Preferred为sprite的宽高像素**（如果在Sprite Editor里编辑了Border，那么会被实际设置成宽高减去border）
 **Text会自动设置Preferred为实际文本宽度**（相当于Horizontal Overflow设置为Overflow时表现的宽度）。像素大小无法预计，与字体大小、字体、实际文本有关。
 
 Flexible默认是不开启的
 
-#### Vertical Layout Group
+### Vertical Layout Group
 
-- Control Child Size：
+- Control Child Size：如果勾选则使用Min或Preferred，因此如果子物体没有Text或Image这类会自动设置布局属性的组件，则不应该勾选，否则Rect大小会变为0
 
     | Control Child Size | 宽度                                      | 高度                                  |
     | ------------------ | ----------------------------------------- | ------------------------------------- |
@@ -38,23 +38,34 @@ Flexible默认是不开启的
 
 - Use Child Scale：
 
-### 自定义Layout - Layout Element
+## 自定义Layout - Layout Element
 
 - Ignore Layout：不受布局影响（对它来说就像是父UI没有布局组件一样，相当于将特定UI排除在布局之外，因为有时候不希望所有子物体都受布局影响，但又不得不做成子UI时就可以这么做）
 - 其他属性：覆盖原本对应的Min/Preferred/Flexible
 - Layout Priority：如果同一层级上有多个子UI都使用了Layout Element组件，那么这个优先级决定了哪个子UI的Layout Element最先被计算
 
-### Content Size Filter
+## Content Size Filter
 
 **光是有布局属性并没有什么用，这个组件会使用某些布局属性来设置RectTransform的宽高**
 
 比如 Text 的 Horizontal/Vertical Overflow 虽然会影响 Text 的表现，但不影响布局属性，所以不会影响 RectTransform 的宽高
 
-### 父物体Image的width或height根据子物体Text的内容而确定
+## 父物体Rect的width或height根据子物体Text的内容而确定
 
-父物体Image添加任意一种[布局控制器](#LayoutController)，再添加`Content Size Filter`组件，以纵向为例，布局控制器勾选Control Child Size的Height，`Content Size Filter`组件的Vertical Fit选择Preferred Size
+父物体Image添加任意一种[布局控制器](#LayoutController)（比如HorizontalLayoutGroup），再添加`Content Size Filter`组件。
 
-### RectTransform
+以纵向为例，布局控制器勾选Control Child Size的Height，`Content Size Filter`组件的Vertical Fit选择Preferred Size
+
+### 嵌套的情况
+
+如果存在嵌套，即整个层次结构上存在多个`Content Size Filter`，则会出现布局刷新错误的问题。
+
+解决方案：
+
+- 除了最上层的物体使用`Content Size Filter`组件进行自动设置，其他子物体使用`GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height)`或修改`GetComponent<RectTransform>()。sizeDelta`等方式**手动设置Rect大小**。
+- 合理的时机调用布局刷新API：经测试，仍存在问题，不推荐使用。
+
+## RectTransform
 
 ![image-20210122145836935](assets/image-20210122145836935.png)
 
@@ -77,7 +88,7 @@ rectTransform.offsetMin = new Vector2(padding.left, padding.bottom);
 rectTransform.offsetMax = new Vector2(-padding.right, -padding.top);
 ```
 
-### Rect
+## Rect
 
 两种表示方法
 
@@ -91,16 +102,24 @@ rectTransform.offsetMax = new Vector2(-padding.right, -padding.top);
 -   size： x、y分别表示 width 和 height，width = max.x - min.x，height = max.y - min.y，size = max - min
     rect.size 直接表示了实际的rect大小，而 preferred 则是根据实现了 ILayoutElement 的类型如 Text、Image等自动设置（或者用LayoutElement自定义）
 
-### API
+## API
 
 ``` csharp
 // 取得RectTransform的preferred width（RectTransform没有 preferredWidth 字段）
 float preferredWidth = LayoutUtility.GetPreferredWidth(rectTransform);
+// 设置Rect大小
+public void SetSizeWithCurrentAnchors(RectTransform.Axis axis, float size);
+public void SetInsetAndSizeFromParentEdge(RectTransform.Edge edge, float inset, float size);
+// 请求刷新布局
+LayoutRebuilder.MarkLayoutForRebuild(GetComponent<RectTransform>());
+// 强制刷新布局（比如在这一帧添加了影响布局的子物体，需要马上刷新布局，以在这一帧取得某些子物体在新布局中的正确位置，否则布局下一帧才刷新，那得到的值就错误）
+LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
+// 强制更新RectTransform
+rectTransform.ForceUpdateRectTransforms();
 ```
-
-
 
 参考：
 
+-   [Auto Layout | Unity UI | 1.0.0 (unity3d.com)](https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/UIAutoLayout.html)
 -   [UI FitContentSize from Unity Offical Manual](https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/HOWTO-UIFitContentSize.html)
 -   https://zhuanlan.zhihu.com/p/119442308
