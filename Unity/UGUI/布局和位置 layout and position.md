@@ -56,7 +56,13 @@ Flexible默认是不开启的
 
 父物体Image添加任意一种[布局控制器](#LayoutController)（比如HorizontalLayoutGroup），再添加`Content Size Filter`组件。
 
-以纵向为例，`Content Size Filter`组件的Vertical Fit选择Preferred Size。一般来说，布局控制器不勾选Control Child Size
+### 需求：Image随着Text大小变化
+
+以纵向为例。
+
+父物体（有Image组件，`Content Size Filter`组件的Vertical Fit选择Preferred Size。布局控制器勾选Control Child Size的Height）：
+
+子物体：带有Text组件，注意**Wrapping设置为Wrap**
 
 ### 嵌套的情况
 
