@@ -64,13 +64,17 @@ Flexible默认是不开启的
 
 子物体：带有Text组件，注意**Wrapping设置为Wrap**
 
+### 需求：Image随着（多个）子UI大小变化
+
+同上，但如果子UI不是Image、Text这种自带一定大小的UI组件，则布局控制器**不勾选**Control Child Size的Height
+
 ### 嵌套的情况
 
 如果存在嵌套，即整个层次结构上存在多个`Content Size Filter`，则可能会出现布局刷新错误的问题。
 
 解决方案：
 
-- 除了最上层的物体使用`Content Size Filter`组件进行自动设置，其他子物体使用`GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height)`或修改`GetComponent<RectTransform>()。sizeDelta`等方式**手动设置Rect大小**。
+- 除了最上层的物体使用`Content Size Filter`组件进行自动设置，其他子物体使用`GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height)`或修改`GetComponent<RectTransform>().sizeDelta`等方式**手动设置Rect大小**。
 - ~~合理的时机调用布局刷新API：经测试，仍存在问题，不推荐使用。~~
 
 ## RectTransform
