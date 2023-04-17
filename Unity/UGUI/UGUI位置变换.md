@@ -88,13 +88,12 @@ public class GlobalTest : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             Vector2 outVec;
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(referenceRectTransform,Input.mousePosition,null,out outVec))
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(referenceRectTransform, Input.mousePosition, null,out outVec))
             {
                 Debug.Log("Setting anchored positiont to: " + outVec);
                 targetRectTransform.anchoredPosition = outVec;
             }
         }
- 
     }
 }
 ```
