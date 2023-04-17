@@ -2,7 +2,7 @@
 
 - 新建github仓库，可见性public
 
-- setting->develop settings->personal access tokens：生成（或重新生成）**token**
+- 用户头像->setting->develop settings->personal access tokens：生成（或重新生成）**token**
 
 - 下载PicGo，按下图设置
     ![image-20220108102759032](https://cdn.jsdelivr.net/gh/YuzikiRain/ImageBed/img/image-20220108102759032.png)
