@@ -98,7 +98,11 @@ color.a *= m.x * m.y;
 
 ![【Unity UI】uGUIできれいなソフトマスクを作る方法_29](https://i.gyazo.com/492f29500110b3d49cfe3f0e3234d449.jpg#750__231)
 
-和默认UI不同的地方：
+### 如何使用自定义shader
+
+[mob-sakai/SoftMaskForUGUI: UI Soft Mask is a smooth masking component for Unity UI (uGUI) elements. (github.com)](https://github.com/mob-sakai/SoftMaskForUGUI#support-soft-masks-with-your-custom-shaders)
+
+### 和默认UI不同的地方
 
 - `Blend One OneMinusSrcAlpha`改成为`Blend SrcAlpha OneMinusSrcAlpha`
 - 片元着色器中`color.rgb *= color.a` 改成了 `color.a *= SoftMask()`
