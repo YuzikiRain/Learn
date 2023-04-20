@@ -19,7 +19,7 @@ public struct MyComponentDataProperties : IComponentData
 传统的Mono脚本保存在GameObject上，以GameObject为单位，因此可以方便地在Inspector下编辑对应的字段。但对于一个GameObject来说，ECS的C即IComponentData是按ComponentData类型分组的，没法在编辑器上编辑，需要一个**转换器**即**Baker**将传统组件转换成实体组件数据。
 
 ``` c#
-public MyMono
+public MyMono : MonoBehavior
 {
     public float2 vector2;
     public int number;
