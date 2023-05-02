@@ -21,6 +21,17 @@
 
 [ISystem overview | Entities | 1.0.0-pre.65 (unity3d.com)](https://docs.unity3d.com/Packages/com.unity.entities@1.0/manual/systems-isystem.html)
 
+## Require
+
+可以在OnCreate等方法中对System进行约束，仅当world中存在对应的IComponentData时，才运行该System
+
+```c#
+public void OnCreate(ref SystemState state)
+{
+    state.RequireForUpdate<YourIComponentData>();
+}
+```
+
 # 系统组 SystemGroup
 
 ### 系统创建顺序
@@ -75,6 +86,16 @@ public partial class PeachSystem : SystemBase { }
 | `DisableAutoCreation`        | 阻止 Unity 在默认世界初始化期间创建系统。详见[Manual system creation](https://docs.unity3d.com/Packages/com.unity.entities@1.0/manual/systems-update-order.html#manual-system-creation) 。 |
 
 [System groups | Entities | 1.0.0-pre.65 (unity3d.com)](https://docs.unity3d.com/Packages/com.unity.entities@1.0/manual/systems-update-order.html)
+
+## 常见错误
+
+``` c#
+// 错误：少了ref关键字
+public void OnCreate(SystemState state) {}
+
+// 错误：应该是SystemState
+public void OnCreate(SystemBase state) {}
+```
 
 # Entity Command Buffer 实体命令缓冲区
 
