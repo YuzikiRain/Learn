@@ -32,6 +32,15 @@ public void OnCreate(ref SystemState state)
 }
 ```
 
+# 系统类型 System Type
+
+您可以使用几种类型的系统：
+
+- [SystemBase](https://docs.unity3d.com/Packages/com.unity.entities@1.0/manual/systems-systembase.html)：为托管系统提供基类。
+- [ISystem](https://docs.unity3d.com/Packages/com.unity.entities@1.0/manual/systems-isystem.html)：为非托管系统提供接口。
+- [EntityCommandBufferSystem](https://docs.unity3d.com/Packages/com.unity.entities@1.0/manual/systems-entity-command-buffers.html)：为其他系统提供实体命令缓冲区实例。这允许您将[结构更改](https://docs.unity3d.com/Packages/com.unity.entities@1.0/manual/concepts-structural-changes.html)组合在一起，以提高应用程序的性能。
+- [ComponentSystemGroup](https://docs.unity3d.com/Packages/com.unity.entities@1.0/api/Unity.Entities.ComponentSystemGroup.html)：为系统提供嵌套的组织和更新顺序。
+
 # 系统组 SystemGroup
 
 ### 系统创建顺序
