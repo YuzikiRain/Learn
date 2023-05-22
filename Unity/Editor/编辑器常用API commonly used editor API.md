@@ -22,6 +22,7 @@ bool isInPrefabStage = prefabInstance != null;
 // 用预制体资源创建预制体实例，并保持与预制体资源连接
 PrefabUtility.InstantiatePrefab(prefab);
 // 获得预制体场景下的根物体，即预制体根物体本身
+PrefabStage prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
 root = prefabStage.prefabContentsRoot;
 // 使用实例创建prefab并连接
 PrefabUtility.SaveAsPrefabAssetAndConnect
