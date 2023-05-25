@@ -6,7 +6,7 @@ public class FindAssetByGUIDEditorWindow : EditorWindow
 {
     string guid = "";
     string path = "";
-    [MenuItem("SYZZ Tools/Asset/通过GUID找到资产 编辑器")]
+    [MenuItem("Tools/Asset/通过GUID找到资产 编辑器")]
     static void CreateWindow()
     {
         FindAssetByGUIDEditorWindow window = (FindAssetByGUIDEditorWindow)EditorWindow.GetWindow(typeof(FindAssetByGUIDEditorWindow));
