@@ -304,48 +304,7 @@ ToLua并没有直接支持泛型，而是只能使用传入Type类型的方法�
 
 ## Lua与C#交互的原理
 
-### 事前准备
-
-CustomSettings中添加要生成wrap文件的类
-
-GenerateClassWraps生成对应类的wrap文件
-
-启动lua虚拟机（LuaState）时，LuaBinder调用所有已绑定类对应的wrap文件的Register方法，其中进行了注册类型、注册方法、注册变量。
-
-``` c#
-L.BeginClass(typeof(UnityEngine.GameObject), typeof(UnityEngine.Object));
-L.RegFunction("GetComponent", GetComponent);
-L.RegVar("transform", get_transform, null);
-```
-
-注册类型
-
-``` c#
-// LuaState.BeginClass()
-...
-    
-if (metaMap.TryGetValue(t, out reference))
-{
-    LuaDLL.tolua_beginclass(L, name, baseMetaRef, reference);
-    RegFunction("__gc", Collect);
-}
-else
-{
-    reference = LuaDLL.tolua_beginclass(L, name, baseMetaRef);
-    RegFunction("__gc", Collect);                
-    BindTypeRef(reference, t);
-}
-```
-
-注册方法：将一个方法委托
-
-``` c#
-public void RegFunction(string name, LuaCSFunction func)
-{
-    IntPtr fn = Marshal.GetFunctionPointerForDelegate(func);
-    LuaDLL.tolua_function(L, name, fn);            
-}
-```
+这位大佬写的比较全面 [lua(tolua)与C#交互以及泄漏的整理与总结_c# lua_脱发怪的博客-CSDN博客](https://blog.csdn.net/qq_29261149/article/details/122876092)
 
 ### C#调用Lua
 
@@ -419,15 +378,79 @@ lua_getfield(L, -1, "x"); 				// 从栈顶元素t（类型为table）取得字�
 lua_remove(L, -2); 						// 要取的是x，因此将从栈顶倒数第二个的元素t移除
 lua_pushinteger(L, 14); 				// 将参数推到栈顶
 lua_call(L, 3, 1); 						// 调用方法，带有3个参数，1个返回值
-lua_setfield(L, LUA_GLOBALSINDEX, "a"); // 将栈顶元素弹出，并设置为全局table的字段a。等同于lua_setglobal(L, a)
+lua_setfield(L, LUA_GLOBALSINDEX, "a"); // 将栈顶元素弹出，并设置为全局table的字段a的值。等同于lua_setglobal(L, a)
 ```
 
 参考：[ToLua框架下C#与Lua代码的互调_达也酱的博客-CSDN博客_tolua luastate](https://blog.csdn.net/fjjaylz/article/details/86578489)
 
+### Lua调用C#
 
-### 运行时
+具体参考这位大佬[Unity中C#与Lua的交互 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/395361399)，讲的很清楚。
 
-先为lua虚拟机生成所有已经绑定的类的同名table：`LuaBinder.Bind(lua);`
+#### 将c函数注册到lua中
+
+[Learn/与其他语言的交互.md at master · YuzikiRain/Learn · GitHub](https://github.com/YuzikiRain/Learn/blob/master/Lua/与其他语言的交互.md)
+
+#### 生成Wrap文件
+
+CustomSettings中添加要生成wrap文件的类
+
+GenerateClassWraps生成对应类的wrap文件
+
+``` c#
+public class UnityEngine_GameObjectWrap
+{
+	public static void Register(LuaState L)
+	{
+		L.BeginClass(typeof(UnityEngine.GameObject), typeof(UnityEngine.Object));
+```
+
+#### 运行时
+
+##### 注册
+
+启动lua虚拟机（LuaState）时，LuaBinder调用所有已绑定类对应的wrap文件的Register方法，其中进行了注册类型、注册方法、注册变量。
+
+``` c#
+L.BeginClass(typeof(UnityEngine.GameObject), typeof(UnityEngine.Object));
+L.RegFunction("GetComponent", GetComponent);
+L.RegVar("transform", get_transform, null);
+```
+
+注册类型
+
+``` c#
+// LuaState.BeginClass()
+...
+    
+if (metaMap.TryGetValue(t, out reference))
+{
+    LuaDLL.tolua_beginclass(L, name, baseMetaRef, reference);
+    RegFunction("__gc", Collect);
+}
+else
+{
+    reference = LuaDLL.tolua_beginclass(L, name, baseMetaRef);
+    RegFunction("__gc", Collect);                
+    BindTypeRef(reference, t);
+}
+```
+
+注册方法：将一个方法委托
+
+``` c#
+public void RegFunction(string name, LuaCSFunction func)
+{
+    IntPtr fn = Marshal.GetFunctionPointerForDelegate(func);
+    LuaDLL.tolua_function(L, name, fn);            
+}
+```
+
+经过注册，为lua虚拟机生成所有已经绑定的类的同名table：`LuaBinder.Bind(lua);`
+
+比如lua中执行`local tempGameObject = UnityEngine.GameObject("temp")`，实际上注册时已经生成了名为UnityEngine全局table，其GameObject键
+
+##### 执行
 
  以如下代码为例
 
