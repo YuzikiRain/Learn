@@ -24,8 +24,8 @@
 
 - External Behaviors：要执行的外部行为树
 - Variables：
-    - 默认会将父行为树的变量拷贝到执行的子行为树上，会覆盖同名变量
-    - 之后拷贝自定义的变量Variables，会覆盖同名变量
+    - **默认会将父行为树的变量拷贝到执行的子行为树上，会覆盖同名变量**
+    - **之后拷贝自定义的变量Variables，会覆盖同名变量**
 
 参考：[External Behavior Trees - Opsive](https://opsive.com/support/documentation/behavior-designer/external-behavior-trees/)
 
